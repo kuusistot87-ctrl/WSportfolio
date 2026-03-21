@@ -443,12 +443,15 @@ window.addEventListener('DOMContentLoaded', function() {
   var d = 'gmail.com';
   var e = u + '@' + d;
   var nav = document.getElementById('nav-contact');
-  nav.textContent = e + ' →';
-  nav.href = 'mailto:' + e;
+  nav.textContent = e;
+  nav.removeAttribute('href');
   nav.removeAttribute('onclick');
+  nav.style.cursor = 'default';
   var cta = document.getElementById('cta-btn');
-  cta.href = 'mailto:' + e;
+  cta.textContent = e;
+  cta.removeAttribute('href');
   cta.removeAttribute('onclick');
+  cta.style.cursor = 'default';
   var footer = document.getElementById('footer-email');
   if(footer) footer.textContent = e;
 });
