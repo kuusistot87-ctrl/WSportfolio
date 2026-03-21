@@ -300,6 +300,7 @@
 
 <footer>
   <span>© 2025 Tuomas Kuusisto</span>
+  <span id="footer-email">Kuusistot87(at)gmail.com</span>
   <span id="footer-right">Kotisivut yrityksille</span>
 </footer>
 
@@ -429,4 +430,28 @@ function setLang(lang) {
   document.getElementById('atag1').textContent = d.atag1;
   document.getElementById('atag2').textContent = d.atag2;
   document.getElementById('atag3').textContent = d.atag3;
-  document.getElementById('cta-label').textContent = d.ctaL
+  document.getElementById('cta-label').textContent = d.ctaLabel;
+  document.getElementById('cta-title').innerHTML = d.ctaTitle;
+  document.getElementById('cta-sub').textContent = d.ctaSub;
+  document.getElementById('cta-btn').textContent = d.ctaBtn;
+  document.getElementById('footer-right').textContent = d.footerRight;
+}
+
+// Inject email after page load to bypass Cloudflare
+window.addEventListener('DOMContentLoaded', function() {
+  var u = 'Kuusistot87';
+  var d = 'gmail.com';
+  var e = u + '@' + d;
+  var nav = document.getElementById('nav-contact');
+  nav.textContent = e + ' →';
+  nav.href = 'mailto:' + e;
+  nav.removeAttribute('onclick');
+  var cta = document.getElementById('cta-btn');
+  cta.href = 'mailto:' + e;
+  cta.removeAttribute('onclick');
+  var footer = document.getElementById('footer-email');
+  if(footer) footer.textContent = e;
+});
+</script>
+</body>
+</html>
