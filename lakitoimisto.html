@@ -20,6 +20,8 @@
   nav ul{list-style:none;display:flex;gap:2.5rem;flex:1}
   nav ul:last-of-type{justify-content:flex-end}
   nav a{color:var(--light-gray);text-decoration:none;font-size:.7rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;transition:color .2s}
+  .back-btn{position:fixed;bottom:2rem;left:2rem;z-index:200;display:inline-flex;align-items:center;gap:.5rem;background:rgba(10,10,12,.9);border:1px solid rgba(184,148,42,.35);color:var(--gold);text-decoration:none;font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;padding:.6rem 1.2rem;backdrop-filter:blur(8px);transition:border-color .2s,transform .15s}
+  .back-btn:hover{border-color:var(--gold);transform:translateX(-3px)}
   nav a:hover{color:var(--gold-light)}
   .lang-sw{position:absolute;right:6%;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:0}
   .lang-sw button{background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.15em;color:rgba(200,196,187,.35);padding:.2rem .5rem;transition:color .2s;text-transform:uppercase}
@@ -88,6 +90,8 @@
 </style>
 </head>
 <body>
+
+<a href="index.html" class="back-btn">← Takaisin portfolioon</a>
 
 <div class="topbar">
   <span id="topbar-left">Asianajotoimisto · Perustettu 1994 · Helsinki</span>
@@ -191,7 +195,7 @@
       <h4 id="fcol2-h">Yhteystiedot</h4>
       <p>Aleksanterinkatu 21, Helsinki</p>
       <p>+358 9 456 7890</p>
-      <p>toimisto@kauppimakinen.fi</p>
+      <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c1b5aea8aca8b2b5ae81aaa0b4b1b1a8aca0aaa8afa4afefa7a8">[email&#160;protected]</a></p>
     </div>
   </div>
   <div class="footer-bottom">
@@ -201,7 +205,7 @@
 </footer>
 <div class="credit">© Tuomas Kuusisto</div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 var translations = {
   fi: {
     topbar: 'Asianajotoimisto · Perustettu 1994 · Helsinki',
@@ -274,10 +278,4 @@ function setLang(lang) {
   document.getElementById('cap3').textContent = d.caps[2];
   document.getElementById('footer-tagline').innerHTML = d.footerTagline;
   document.getElementById('fcol1-h').textContent = d.fcol1h;
-  for (var i = 1; i <= 4; i++) { document.getElementById('fcol1-' + i).textContent = d.fcol1[i-1]; }
-  document.getElementById('fcol2-h').textContent = d.fcol2h;
-  document.getElementById('footer-legal').textContent = d.footerLegal;
-}
-</script>
-</body>
-</html>
+  for (var i = 1; i <= 4;

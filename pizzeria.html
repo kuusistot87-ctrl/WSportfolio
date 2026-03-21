@@ -16,6 +16,8 @@
   nav ul{list-style:none;display:flex;gap:3rem}
   nav a{color:var(--cream);text-decoration:none;font-style:italic;font-size:1.1rem;opacity:.75;transition:opacity .2s}
   nav a:hover{opacity:1;color:var(--gold)}
+  .back-btn{position:fixed;bottom:2rem;left:2rem;z-index:200;display:inline-flex;align-items:center;gap:.5rem;background:rgba(26,18,9,.85);border:1px solid rgba(201,168,76,.4);color:var(--gold);text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.15em;padding:.6rem 1.2rem;backdrop-filter:blur(8px);transition:background .2s,border-color .2s,transform .15s}
+  .back-btn:hover{background:rgba(201,168,76,.15);border-color:var(--gold);transform:translateX(-3px)}
   .lang-sw{display:flex;align-items:center;gap:0}
   .lang-sw button{background:none;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;color:rgba(253,246,236,.4);padding:.2rem .5rem;transition:color .2s}
   .lang-sw button.active{color:var(--gold)}
@@ -81,6 +83,7 @@
 </style>
 </head>
 <body>
+<a href="index.html" class="back-btn">← Takaisin portfolioon</a>
 <nav>
   <div class="logo">Napoli Fuoco</div>
   <ul>
@@ -163,11 +166,11 @@
 
 <footer>
   <div class="footer-logo">NAPOLI FUOCO</div>
-  <div class="footer-info">Mannerheimintie 42, Helsinki<br>+358 9 123 4567 · info@napolifuoco.fi<br>Ma–Su 11:00–23:00</div>
+  <div class="footer-info">Mannerheimintie 42, Helsinki<br>+358 9 123 4567 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="147d7a727b547a75647b787d72617b777b3a727d">[email&#160;protected]</a><br>Ma–Su 11:00–23:00</div>
 </footer>
 <div class="credit">© Tuomas Kuusisto</div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 var translations = {
   fi: {
     eyebrow: 'Napoli — Helsinki — 1987',
@@ -224,11 +227,4 @@ function setLang(lang) {
   document.getElementById('m1-desc').textContent = d.m1;
   document.getElementById('m2-desc').textContent = d.m2;
   document.getElementById('m3-desc').textContent = d.m3;
-  document.getElementById('m4-desc').textContent = d.m4;
-  document.getElementById('gal1').textContent = d.gal1;
-  document.getElementById('gal2').textContent = d.gal2;
-  document.getElementById('gal3').textContent = d.gal3;
-}
-</script>
-</body>
-</html>
+  document.getElementBy
