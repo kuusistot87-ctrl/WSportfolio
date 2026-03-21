@@ -9,11 +9,7 @@
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
   :root{--bg:#1C1A14;--ink:#EDE9E0;--mid:#9A9282;--accent:#D4522A;--white:#252218;--border:rgba(237,233,224,0.1)}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--ink);font-family:'Syne',sans-serif;overflow-x:hidden;cursor:none}
-  .cursor{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width .25s,height .25s;mix-blend-mode:multiply}
-  .cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--ink);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .18s ease-out;opacity:.5}
-  body:has(.project-card:hover) .cursor{width:60px;height:60px;opacity:.15}
-  body:has(.project-card:hover) .cursor-ring{opacity:0}
+  body{background:var(--bg);color:var(--ink);font-family:'Syne',sans-serif;overflow-x:hidden}
   header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:1.25rem 5%;display:flex;justify-content:space-between;align-items:center}
   .nav-name{font-size:.9rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
   .nav-right{display:flex;align-items:center;gap:1.25rem}
@@ -110,13 +106,9 @@
   footer{border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:var(--mid)}
   @keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
   @media(max-width:900px){.projects{grid-template-columns:1fr}.cta-section{grid-template-columns:1fr}.cta-right{align-items:flex-start}.cta-sub{text-align:left}h1{font-size:clamp(3rem,10vw,5rem)}}
-  @media(max-width:600px){body{cursor:auto}.cursor,.cursor-ring{display:none}}
 </style>
 </head>
 <body>
-
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
 
 <header>
   <div class="nav-name">Tuomas Kuusisto</div>
@@ -444,21 +436,7 @@ function setLang(lang) {
   document.getElementById('footer-right').textContent = d.footerRight;
 }
 
-var cursor = document.getElementById('cursor');
-var ring = document.getElementById('cursorRing');
-var mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', function(e) {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top = my + 'px';
-});
-(function animateRing() {
-  rx += (mx - rx) * 0.18;
-  ry += (my - ry) * 0.18;
-  ring.style.left = rx + 'px';
-  ring.style.top = ry + 'px';
-  requestAnimationFrame(animateRing);
-})();
+
 </script>
 </body>
 </html>
