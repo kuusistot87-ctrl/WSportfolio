@@ -446,7 +446,12 @@ window.addEventListener('DOMContentLoaded', function() {
   nav.textContent = e;
   nav.removeAttribute('href');
   nav.removeAttribute('onclick');
-  nav.style.cursor = 'default';
+  nav.style.cursor = 'pointer';
+  nav.addEventListener('click', function() {
+    navigator.clipboard.writeText(e);
+    nav.textContent = '✓ Kopioitu!';
+    setTimeout(function() { nav.textContent = e; }, 2000);
+  });
   var cta = document.getElementById('cta-btn');
   cta.textContent = e + ' — kopioi';
   cta.removeAttribute('href');
