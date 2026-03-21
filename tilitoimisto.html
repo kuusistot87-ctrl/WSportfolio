@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nordvik Tilitoimisto — Taloushallinto</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#F7F6F3;--dark:#141410;--card:#FFFFFF;--ink:#141410;--mid:#6B6860;--accent:#1A4D3A;--light-accent:#2E7D5A;--border:rgba(20,20,16,0.1)}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;overflow-x:hidden}
+
+  /* BACK BUTTON */
+  .back-btn{position:fixed;bottom:2rem;left:2rem;z-index:200;display:inline-flex;align-items:center;gap:.5rem;background:var(--dark);color:#fff;text-decoration:none;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.6rem 1.2rem;border-radius:2px;box-shadow:0 4px 16px rgba(0,0,0,.15);transition:background .2s,transform .15s}
+  .back-btn:hover{background:var(--accent);transform:translateX(-3px)}
+
+  /* TOPBAR */
+  .topbar{background:var(--dark);padding:.6rem 5%;display:flex;justify-content:space-between;align-items:center}
+  .topbar-left{font-size:.7rem;color:rgba(255,255,255,.45);letter-spacing:.1em}
+  .topbar-right{font-size:.7rem;color:rgba(255,255,255,.6);font-weight:500}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:100;background:var(--card);border-bottom:1px solid var(--border);padding:1.25rem 5%;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 0 var(--border)}
+  .nav-logo{display:flex;align-items:center;gap:.75rem}
+  .nav-logo-mark{width:32px;height:32px;background:var(--accent);display:flex;align-items:center;justify-content:center}
+  .nav-logo-mark span{color:white;font-weight:700;font-size:.9rem;font-family:'Libre Baskerville',serif;font-style:italic}
+  .nav-logo-name{font-size:1rem;font-weight:600;letter-spacing:.02em;color:var(--ink)}
+  nav ul{list-style:none;display:flex;gap:2rem}
+  nav a{color:var(--mid);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .2s}
+  nav a:hover{color:var(--accent)}
+  .nav-cta{background:var(--accent);color:white;padding:.6rem 1.4rem;font-size:.78rem;font-weight:600;letter-spacing:.04em;text-decoration:none;border-radius:2px;transition:background .2s,transform .15s}
+  .nav-cta:hover{background:var(--light-accent);transform:scale(1.02)}
+  .lang-sw{display:flex;align-items:center;gap:0}
+  .lang-sw button{background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.1em;color:rgba(107,104,96,.4);padding:.2rem .45rem;transition:color .2s}
+  .lang-sw button.active{color:var(--accent)}
+  .lang-sw button:hover{color:var(--ink)}
+  .lang-sw .sep{color:rgba(107,104,96,.25);font-size:.7rem}
+
+  /* HERO */
+  .hero{display:grid;grid-template-columns:1fr 1fr;min-height:88vh}
+  .hero-left{background:var(--dark);padding:7rem 6% 5rem;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+  .hero-left::before{content:'N';position:absolute;font-family:'Libre Baskerville',serif;font-size:30rem;font-weight:700;font-style:italic;color:rgba(255,255,255,.03);right:-4rem;bottom:-4rem;line-height:1}
+  .hero-tag{font-size:.68rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:2rem;opacity:0;animation:up .6s .1s forwards}
+  h1{font-family:'Libre Baskerville',serif;font-size:clamp(2.5rem,4.5vw,4.2rem);font-weight:400;line-height:1.1;color:#F7F6F3;opacity:0;animation:up .8s .25s forwards}
+  h1 em{font-style:italic;color:rgba(46,125,90,.85)}
+  .hero-desc{font-size:1rem;line-height:1.8;color:rgba(247,246,243,.5);font-weight:300;max-width:420px;margin-top:2rem;opacity:0;animation:up .7s .4s forwards}
+  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;opacity:0;animation:up .7s .55s forwards}
+  .btn-primary{background:var(--light-accent);color:white;padding:.9rem 1.8rem;font-size:.82rem;font-weight:600;letter-spacing:.05em;text-decoration:none;border-radius:2px;transition:background .2s,transform .15s}
+  .btn-primary:hover{background:#3A9B6E;transform:scale(1.02)}
+  .btn-ghost{border:1px solid rgba(247,246,243,.2);color:rgba(247,246,243,.7);padding:.9rem 1.8rem;font-size:.82rem;font-weight:500;text-decoration:none;border-radius:2px;transition:border-color .2s,color .2s}
+  .btn-ghost:hover{border-color:var(--light-accent);color:#F7F6F3}
+  .hero-right{background:var(--bg);display:flex;flex-direction:column;justify-content:center;padding:5rem 6%}
+  .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+  .trust-card{background:var(--card);border:1px solid var(--border);padding:2rem;border-radius:2px}
+  .trust-num{font-family:'Libre Baskerville',serif;font-size:2.5rem;font-weight:700;color:var(--accent);line-height:1}
+  .trust-lbl{font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-top:.4rem}
+  .trust-bottom{margin-top:1.5rem;display:flex;flex-direction:column;gap:.6rem}
+  .trust-item{display:flex;align-items:center;gap:.75rem;font-size:.82rem;color:var(--mid);font-weight:400}
+  .trust-item::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;flex-shrink:0}
+
+  /* SERVICES */
+  .services{padding:7rem 5%;background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .section-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem}
+  .section-label{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem}
+  .section-title{font-family:'Libre Baskerville',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;line-height:1.15;color:var(--ink)}
+  .section-title em{font-style:italic}
+  .section-note{font-size:.85rem;color:var(--mid);max-width:320px;line-height:1.6;font-weight:300}
+  .services-list{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+  .service-item{background:var(--card);padding:2.5rem 2rem;transition:background .2s}
+  .service-item:hover{background:var(--bg)}
+  .service-icon-wrap{width:44px;height:44px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;font-size:1.1rem;color:var(--accent);transition:background .2s,border-color .2s}
+  .service-item:hover .service-icon-wrap{background:var(--accent);border-color:var(--accent);color:white}
+  .service-name{font-weight:600;font-size:.95rem;color:var(--ink);margin-bottom:.6rem}
+  .service-desc{font-size:.82rem;line-height:1.7;color:var(--mid);font-weight:300}
+
+  /* ABOUT */
+  .about{display:grid;grid-template-columns:1fr 1fr}
+  .about-img-wrap{position:relative;overflow:hidden;min-height:500px}
+  .about-img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.85);transition:transform .7s}
+  .about-img-wrap:hover .about-img{transform:scale(1.03)}
+  .about-text{background:var(--dark);padding:6rem 5%;display:flex;flex-direction:column;justify-content:center}
+  .about-text .section-label{color:rgba(46,125,90,.8)}
+  .about-text .section-title{color:#F7F6F3;margin-bottom:1.5rem}
+  .about-body{font-size:.95rem;line-height:1.85;color:rgba(247,246,243,.5);font-weight:300;max-width:440px;margin-bottom:2.5rem}
+  .team-row{display:flex;gap:1.5rem;flex-wrap:wrap}
+  .team-member{display:flex;align-items:center;gap:.75rem}
+  .team-avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;filter:brightness(.85)}
+  .team-info{}
+  .team-name{font-size:.82rem;font-weight:600;color:#F7F6F3}
+  .team-role{font-size:.72rem;color:rgba(247,246,243,.4);margin-top:.1rem}
+
+  /* PROCESS */
+  .process{padding:7rem 5%;background:var(--bg)}
+  .process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:4rem}
+  .process-step{position:relative}
+  .process-step:not(:last-child)::after{content:'';position:absolute;top:1.25rem;left:calc(100% - 1rem);width:2rem;height:1px;background:var(--border)}
+  .step-num{font-family:'Libre Baskerville',serif;font-size:1.5rem;font-weight:700;font-style:italic;color:var(--accent);margin-bottom:1rem}
+  .step-name{font-weight:600;font-size:.95rem;color:var(--ink);margin-bottom:.5rem}
+  .step-desc{font-size:.82rem;line-height:1.7;color:var(--mid);font-weight:300}
+
+  /* CTA */
+  .cta-section{margin:0 5% 7rem;background:var(--accent);padding:5rem 6%;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;border-radius:2px}
+  .cta-title{font-family:'Libre Baskerville',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;line-height:1.1;color:#F7F6F3}
+  .cta-title em{font-style:italic}
+  .cta-sub{font-size:.88rem;color:rgba(247,246,243,.6);margin-top:.75rem;max-width:380px;line-height:1.6;font-weight:300}
+  .cta-btn{background:#F7F6F3;color:var(--accent);padding:1.1rem 2.2rem;font-size:.82rem;font-weight:700;letter-spacing:.06em;text-decoration:none;white-space:nowrap;border-radius:2px;transition:opacity .2s,transform .15s}
+  .cta-btn:hover{opacity:.9;transform:scale(1.02)}
+
+  /* FOOTER */
+  footer{background:var(--dark);padding:3rem 5%;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3rem;flex-wrap:wrap}
+  .footer-col{}
+  .footer-logo{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem}
+  .footer-tagline{font-size:.8rem;color:rgba(247,246,243,.35);font-weight:300;line-height:1.6}
+  .footer-heading{font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(247,246,243,.3);margin-bottom:1rem}
+  .footer-links{display:flex;flex-direction:column;gap:.5rem}
+  .footer-links a{font-size:.82rem;color:rgba(247,246,243,.5);text-decoration:none;transition:color .2s}
+  .footer-links a:hover{color:rgba(247,246,243,.85)}
+  .footer-contact p{font-size:.82rem;color:rgba(247,246,243,.5);line-height:1.8;font-weight:300}
+  .footer-bottom{background:#0C0C09;padding:1.25rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+  .footer-bottom span{font-size:.72rem;color:rgba(247,246,243,.25)}
+  .credit-link{color:rgba(46,125,90,.5);font-size:.72rem;letter-spacing:.08em}
+
+  @keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  @media(max-width:1000px){.hero{grid-template-columns:1fr}.hero-right{padding:3rem 5%}.trust-grid{grid-template-columns:repeat(4,1fr)}.about{grid-template-columns:1fr}.about-img-wrap{height:60vw}.services-list{grid-template-columns:repeat(2,1fr)}.process-steps{grid-template-columns:repeat(2,1fr)}.cta-section{grid-template-columns:1fr}.cta-btn{align-self:flex-start}footer{grid-template-columns:1fr}nav ul{display:none}}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">← Takaisin portfolioon</a>
+
+<div class="topbar">
+  <span class="topbar-left" id="topbar-left">Tilitoimisto · Perustettu 2004 · Helsinki</span>
+  <span class="topbar-right">+358 9 876 5432</span>
+</div>
+
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-mark"><span>N</span></div>
+    <div class="nav-logo-name">Nordvik</div>
+  </div>
+  <ul>
+    <li><a href="#" id="nav1">Palvelut</a></li>
+    <li><a href="#" id="nav2">Meistä</a></li>
+    <li><a href="#" id="nav3">Prosessi</a></li>
+    <li><a href="#" id="nav4">Yhteystiedot</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <div class="lang-sw">
+      <button id="btn-fi" class="active" onclick="setLang('fi')">FI</button>
+      <span class="sep">|</span>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="#" class="nav-cta" id="nav-cta">Pyydä tarjous</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag" id="hero-tag">KHT-tilintarkastaja · ISO 9001 · Helsinki</div>
+    <h1 id="hero-h1">Taloushallinto, <em>joka ei</em> vie yöuniasi</h1>
+    <p class="hero-desc" id="hero-desc">Hoidamme kirjanpitosi, palkanlaskentasi ja tilinpäätöksesi — ammattimaisesti, täsmällisesti ja aina ajallaan. Sinä keskityt ydinliiketoimintaasi.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary" id="hero-btn1">Pyydä maksuton tarjous</a>
+      <a href="#" class="btn-ghost" id="hero-btn2">Tutustu palveluihin</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="trust-grid">
+      <div class="trust-card"><div class="trust-num">20v</div><div class="trust-lbl" id="tc1">Kokemus</div></div>
+      <div class="trust-card"><div class="trust-num">850+</div><div class="trust-lbl" id="tc2">Yritysasiakasta</div></div>
+      <div class="trust-card"><div class="trust-num">99%</div><div class="trust-lbl" id="tc3">Asiakastyytyväisyys</div></div>
+      <div class="trust-card"><div class="trust-num">24h</div><div class="trust-lbl" id="tc4">Vastausaika</div></div>
+    </div>
+    <div class="trust-bottom">
+      <div class="trust-item" id="ti1">KHT-tilintarkastaja koko tiimissä</div>
+      <div class="trust-item" id="ti2">ISO 9001 -sertifioitu prosessi</div>
+      <div class="trust-item" id="ti3">Taloushallintoliitto ry:n jäsen</div>
+      <div class="trust-item" id="ti4">Kiinteä kuukausihinta — ei yllätyksiä</div>
+    </div>
+  </div>
+</section>
+
+<section class="services">
+  <div class="section-header">
+    <div>
+      <div class="section-label" id="services-label">Palvelut</div>
+      <div class="section-title" id="services-title">Kaikki taloushallintosi <em>yhdeltä luukulta</em></div>
+    </div>
+    <p class="section-note" id="services-note">Räätälöimme palvelupaketin yrityksesi koon ja tarpeiden mukaan.</p>
+  </div>
+  <div class="services-list">
+    <div class="service-item">
+      <div class="service-icon-wrap">▦</div>
+      <div class="service-name" id="s1-name">Kirjanpito</div>
+      <p class="service-desc" id="s1-desc">Juokseva kirjanpito, arvonlisäverolaskelmat ja kuukausiraportointi. Kaikki ajallaan ja oikein.</p>
+    </div>
+    <div class="service-item">
+      <div class="service-icon-wrap">◫</div>
+      <div class="service-name" id="s2-name">Palkanlaskenta</div>
+      <p class="service-desc" id="s2-desc">Palkkojen laskenta, ilmoitukset Verohallinnolle ja eläkevakuuttajille. Virheettömästi.</p>
+    </div>
+    <div class="service-item">
+      <div class="service-icon-wrap">◈</div>
+      <div class="service-name" id="s3-name">Tilinpäätös</div>
+      <p class="service-desc" id="s3-desc">Tilinpäätöksen ja toimintakertomuksen laadinta sekä veroilmoitukset. Täydellisesti hoidettu.</p>
+    </div>
+    <div class="service-item">
+      <div class="service-icon-wrap">◉</div>
+      <div class="service-name" id="s4-name">Talousneuvonta</div>
+      <p class="service-desc" id="s4-desc">Budjetointi, ennustaminen ja taloudellinen raportointi päätöksenteon tueksi.</p>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-img-wrap">
+    <img class="about-img" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80" alt="Nordvik toimisto">
+  </div>
+  <div class="about-text">
+    <div class="section-label" id="about-label">Meistä</div>
+    <div class="section-title" id="about-title">Luotettava kumppani <em>jo 20 vuotta</em></div>
+    <p class="about-body" id="about-body">Nordvik on perustettu 2004. Olemme kasvaneet 2 henkilöstä 18 asiantuntijan tiimiksi. Asiakkainamme on mikroyrityksistä pk-yrityksiin — toimialasta riippumatta. Meille tärkeintä on, että asiakkaamme voivat luottaa lukuihinsa.</p>
+    <div class="team-row">
+      <div class="team-member">
+        <img class="team-avatar" src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=100&q=80" alt="Marko">
+        <div class="team-info"><div class="team-name">Marko Nordvik</div><div class="team-role" id="role1">Toimitusjohtaja, KHT</div></div>
+      </div>
+      <div class="team-member">
+        <img class="team-avatar" src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&q=80" alt="Riikka">
+        <div class="team-info"><div class="team-name">Riikka Laine</div><div class="team-role" id="role2">Kirjanpitopäällikkö</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="section-label" id="process-label">Miten toimimme</div>
+  <div class="section-title" id="process-title">Selkeä prosessi, <em>ei yllätyksiä</em></div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-name" id="step1-name">Kartoitus</div>
+      <p class="step-desc" id="step1-desc">Tutustumme yrityksesi tilanteeseen ja tarpeisiin maksuttomassa tapaamisessa.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-name" id="step2-name">Tarjous</div>
+      <p class="step-desc" id="step2-desc">Lähetämme selkeän kiinteähintaisen tarjouksen 24 tunnin kuluessa.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-name" id="step3-name">Siirto</div>
+      <p class="step-desc" id="step3-desc">Hoidamme koko siirtymän edelliseltä tilitoimistolta saumattomasti.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <div class="step-name" id="step4-name">Yhteistyö</div>
+      <p class="step-desc" id="step4-desc">Sinulla on nimetty vastuuhenkilö, johon saat yhteyden aina tarvittaessa.</p>
+    </div>
+  </div>
+</section>
+
+<div class="cta-section">
+  <div>
+    <div class="cta-title" id="cta-title">Vaihda tilitoimistoa — <em>helpommin kuin luulet</em></div>
+    <p class="cta-sub" id="cta-sub">Hoidamme koko siirron puolestasi. Pyydä maksuton kartoitus ja tarjous tänään.</p>
+  </div>
+  <a href="#" class="cta-btn" id="cta-btn">Pyydä tarjous →</a>
+</div>
+
+<footer>
+  <div class="footer-col">
+    <div class="footer-logo">
+      <div class="nav-logo-mark"><span>N</span></div>
+      <div class="nav-logo-name" style="color:#F7F6F3">Nordvik</div>
+    </div>
+    <p class="footer-tagline" id="footer-tagline">Taloushallinnon asiantuntija pk-yrityksille. Luotettavasti vuodesta 2004.</p>
+  </div>
+  <div class="footer-col">
+    <div class="footer-heading" id="f-heading1">Palvelut</div>
+    <div class="footer-links">
+      <a href="#" id="fl1">Kirjanpito</a>
+      <a href="#" id="fl2">Palkanlaskenta</a>
+      <a href="#" id="fl3">Tilinpäätös</a>
+      <a href="#" id="fl4">Talousneuvonta</a>
+    </div>
+  </div>
+  <div class="footer-col">
+    <div class="footer-heading" id="f-heading2">Yhteystiedot</div>
+    <div class="footer-contact">
+      <p>Aleksanterinkatu 21, 00100 Helsinki<br>+358 9 876 5432<br>info@nordvik.fi<br>Ma–Pe 8:00–17:00</p>
+    </div>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2025 Nordvik Tilitoimisto Oy</span>
+  <span class="credit-link">Kotisivut: Tuomas Kuusisto</span>
+</div>
+
+<script>
+var translations = {
+  fi:{
+    topbarLeft:'Tilitoimisto · Perustettu 2004 · Helsinki',
+    heroTag:'KHT-tilintarkastaja · ISO 9001 · Helsinki',
+    h1:'Taloushallinto, <em>joka ei</em> vie yöuniasi',
+    heroDesc:'Hoidamme kirjanpitosi, palkanlaskentasi ja tilinpäätöksesi — ammattimaisesti, täsmällisesti ja aina ajallaan. Sinä keskityt ydinliiketoimintaasi.',
+    heroBtn1:'Pyydä maksuton tarjous',heroBtn2:'Tutustu palveluihin',
+    navCta:'Pyydä tarjous',nav:['Palvelut','Meistä','Prosessi','Yhteystiedot'],
+    tc1:'Kokemus',tc2:'Yritysasiakasta',tc3:'Asiakastyytyväisyys',tc4:'Vastausaika',
+    ti1:'KHT-tilintarkastaja koko tiimissä',ti2:'ISO 9001 -sertifioitu prosessi',ti3:'Taloushallintoliitto ry:n jäsen',ti4:'Kiinteä kuukausihinta — ei yllätyksiä',
+    servicesLabel:'Palvelut',servicesTitle:'Kaikki taloushallintosi <em>yhdeltä luukulta</em>',
+    servicesNote:'Räätälöimme palvelupaketin yrityksesi koon ja tarpeiden mukaan.',
+    s1Name:'Kirjanpito',s1Desc:'Juokseva kirjanpito, arvonlisäverolaskelmat ja kuukausiraportointi. Kaikki ajallaan ja oikein.',
+    s2Name:'Palkanlaskenta',s2Desc:'Palkkojen laskenta, ilmoitukset Verohallinnolle ja eläkevakuuttajille. Virheettömästi.',
+    s3Name:'Tilinpäätös',s3Desc:'Tilinpäätöksen ja toimintakertomuksen laadinta sekä veroilmoitukset. Täydellisesti hoidettu.',
+    s4Name:'Talousneuvonta',s4Desc:'Budjetointi, ennustaminen ja taloudellinen raportointi päätöksenteon tueksi.',
+    aboutLabel:'Meistä',aboutTitle:'Luotettava kumppani <em>jo 20 vuotta</em>',
+    aboutBody:'Nordvik on perustettu 2004. Olemme kasvaneet 2 henkilöstä 18 asiantuntijan tiimiksi. Asiakkainamme on mikroyrityksistä pk-yrityksiin.',
+    role1:'Toimitusjohtaja, KHT',role2:'Kirjanpitopäällikkö',
+    processLabel:'Miten toimimme',processTitle:'Selkeä prosessi, <em>ei yllätyksiä</em>',
+    step1Name:'Kartoitus',step1Desc:'Tutustumme yrityksesi tilanteeseen ja tarpeisiin maksuttomassa tapaamisessa.',
+    step2Name:'Tarjous',step2Desc:'Lähetämme selkeän kiinteähintaisen tarjouksen 24 tunnin kuluessa.',
+    step3Name:'Siirto',step3Desc:'Hoidamme koko siirtymän edelliseltä tilitoimistolta saumattomasti.',
+    step4Name:'Yhteistyö',step4Desc:'Sinulla on nimetty vastuuhenkilö, johon saat yhteyden aina tarvittaessa.',
+    ctaTitle:'Vaihda tilitoimistoa — <em>helpommin kuin luulet</em>',ctaSub:'Hoidamme koko siirron puolestasi. Pyydä maksuton kartoitus ja tarjous tänään.',ctaBtn:'Pyydä tarjous →',
+    footerTagline:'Taloushallinnon asiantuntija pk-yrityksille. Luotettavasti vuodesta 2004.',
+    fHeading1:'Palvelut',fHeading2:'Yhteystiedot',
+    fl1:'Kirjanpito',fl2:'Palkanlaskenta',fl3:'Tilinpäätös',fl4:'Talousneuvonta'
+  },
+  en:{
+    topbarLeft:'Accounting firm · Est. 2004 · Helsinki',
+    heroTag:'Authorised Accountant · ISO 9001 · Helsinki',
+    h1:'Accounting that <em>won\'t keep</em> you up at night',
+    heroDesc:'We handle your bookkeeping, payroll and financial statements — professionally, accurately and always on time. You focus on your core business.',
+    heroBtn1:'Request a free quote',heroBtn2:'Explore services',
+    navCta:'Request quote',nav:['Services','About','Process','Contact'],
+    tc1:'Experience',tc2:'Business clients',tc3:'Client satisfaction',tc4:'Response time',
+    ti1:'Authorised accountants across the team',ti2:'ISO 9001 certified process',ti3:'Member of Taloushallintoliitto',ti4:'Fixed monthly fee — no surprises',
+    servicesLabel:'Services',servicesTitle:'All your accounting <em>in one place</em>',
+    servicesNote:'We tailor the service package to the size and needs of your business.',
+    s1Name:'Bookkeeping',s1Desc:'Ongoing bookkeeping, VAT calculations and monthly reporting. Everything on time and correct.',
+    s2Name:'Payroll',s2Desc:'Payroll processing, Tax Administration and pension insurer filings. Flawlessly.',
+    s3Name:'Financial Statements',s3Desc:'Preparation of financial statements, annual reports and tax returns. Perfectly handled.',
+    s4Name:'Financial Advisory',s4Desc:'Budgeting, forecasting and financial reporting to support decision-making.',
+    aboutLabel:'About us',aboutTitle:'A trusted partner <em>for 20 years</em>',
+    aboutBody:'Nordvik was founded in 2004. We have grown from 2 people to a team of 18 specialists. Our clients range from micro companies to mid-size businesses.',
+    role1:'CEO, Authorised Accountant',role2:'Head of Bookkeeping',
+    processLabel:'How we work',processTitle:'A clear process, <em>no surprises</em>',
+    step1Name:'Assessment',step1Desc:'We get to know your company\'s situation and needs in a free introductory meeting.',
+    step2Name:'Quote',step2Desc:'We send a clear fixed-price quote within 24 hours.',
+    step3Name:'Transition',step3Desc:'We handle the entire transfer from your previous accounting firm seamlessly.',
+    step4Name:'Partnership',step4Desc:'You have a named contact person you can always reach when needed.',
+    ctaTitle:'Switch accountants — <em>easier than you think</em>',ctaSub:'We handle the entire transfer for you. Request a free assessment and quote today.',ctaBtn:'Request quote →',
+    footerTagline:'Accounting specialists for SMEs. Reliably since 2004.',
+    fHeading1:'Services',fHeading2:'Contact',
+    fl1:'Bookkeeping',fl2:'Payroll',fl3:'Financial statements',fl4:'Financial advisory'
+  }
+};
+function setLang(lang){
+  var d=translations[lang];
+  document.getElementById('btn-fi').classList.toggle('active',lang==='fi');
+  document.getElementById('btn-en').classList.toggle('active',lang==='en');
+  document.getElementById('topbar-left').textContent=d.topbarLeft;
+  document.getElementById('hero-tag').textContent=d.heroTag;
+  document.getElementById('hero-h1').innerHTML=d.h1;
+  document.getElementById('hero-desc').textContent=d.heroDesc;
+  document.getElementById('hero-btn1').textContent=d.heroBtn1;
+  document.getElementById('hero-btn2').textContent=d.heroBtn2;
+  document.getElementById('nav-cta').textContent=d.navCta;
+  var nl=document.querySelectorAll('nav ul a');for(var i=0;i<nl.length;i++){nl[i].textContent=d.nav[i];}
+  ['tc1','tc2','tc3','tc4','ti1','ti2','ti3','ti4'].forEach(function(id){document.getElementById(id).textContent=d[id];});
+  document.getElementById('services-label').textContent=d.servicesLabel;
+  document.getElementById('services-title').innerHTML=d.servicesTitle;
+  document.getElementById('services-note').textContent=d.servicesNote;
+  document.getElementById('s1-name').textContent=d.s1Name;document.getElementById('s1-desc').textContent=d.s1Desc;
+  document.getElementById('s2-name').textContent=d.s2Name;document.getElementById('s2-desc').textContent=d.s2Desc;
+  document.getElementById('s3-name').textContent=d.s3Name;document.getElementById('s3-desc').textContent=d.s3Desc;
+  document.getElementById('s4-name').textContent=d.s4Name;document.getElementById('s4-desc').textContent=d.s4Desc;
+  document.getElementById('about-label').textContent=d.aboutLabel;
+  document.getElementById('about-title').innerHTML=d.aboutTitle;
+  document.getElementById('about-body').textContent=d.aboutBody;
+  document.getElementById('role1').textContent=d.role1;document.getElementById('role2').textContent=d.role2;
+  document.getElementById('process-label').textContent=d.processLabel;
+  document.getElementById('process-title').innerHTML=d.processTitle;
+  ['step1-name','step1-desc','step2-name','step2-desc','step3-name','step3-desc','step4-name','step4-desc'].forEach(function(id){document.getElementById(id).textContent=d[id.replace('-','').replace('step','step').replace('Name','Name').replace('Desc','Desc')];});
+  document.getElementById('step1-name').textContent=d.step1Name;document.getElementById('step1-desc').textContent=d.step1Desc;
+  document.getElementById('step2-name').textContent=d.step2Name;document.getElementById('step2-desc').textContent=d.step2Desc;
+  document.getElementById('step3-name').textContent=d.step3Name;document.getElementById('step3-desc').textContent=d.step3Desc;
+  document.getElementById('step4-name').textContent=d.step4Name;document.getElementById('step4-desc').textContent=d.step4Desc;
+  document.getElementById('cta-title').innerHTML=d.ctaTitle;
+  document.getElementById('cta-sub').textContent=d.ctaSub;
+  document.getElementById('cta-btn').textContent=d.ctaBtn;
+  document.getElementById('footer-tagline').textContent=d.footerTagline;
+  document.getElementById('f-heading1').textContent=d.fHeading1;
+  document.getElementById('f-heading2').textContent=d.fHeading2;
+  document.getElementById('fl1').textContent=d.fl1;document.getElementById('fl2').textContent=d.fl2;
+  document.getElementById('fl3').textContent=d.fl3;document.getElementById('fl4').textContent=d.fl4;
+}
+</script>
+</body>
+</html>

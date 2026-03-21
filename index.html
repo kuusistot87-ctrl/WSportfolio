@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-  :root{--bg:#F0EDE8;--ink:#18160F;--mid:#6B6558;--accent:#D4522A;--white:#FDFCFA;--border:rgba(24,22,15,0.12)}
+  :root{--bg:#1C1A14;--ink:#EDE9E0;--mid:#9A9282;--accent:#D4522A;--white:#252218;--border:rgba(237,233,224,0.1)}
   html{scroll-behavior:smooth}
   body{background:var(--bg);color:var(--ink);font-family:'Syne',sans-serif;overflow-x:hidden;cursor:none}
   .cursor{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width .25s,height .25s;mix-blend-mode:multiply}
@@ -25,8 +25,10 @@
   .nav-contact{display:flex;align-items:center;gap:.6rem;background:var(--ink);color:var(--bg);padding:.6rem 1.4rem;border-radius:100px;font-size:.78rem;font-weight:600;letter-spacing:.05em;text-decoration:none;transition:background .2s,transform .15s}
   .nav-contact:hover{background:var(--accent);transform:scale(1.03)}
   .hero{padding:7rem 5% 5rem;position:relative;overflow:hidden}
-  .hero-label{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-bottom:2rem;opacity:0;animation:up .6s .1s forwards}
-  .hero-label::before{content:'';display:block;width:24px;height:1.5px;background:var(--accent)}
+  .hero-label{display:inline-flex;align-items:center;gap:.6rem;margin-bottom:2rem;opacity:0;animation:up .6s .1s forwards}
+  .hero-badge{display:inline-flex;align-items:center;gap:.6rem;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:100px;padding:.45rem 1rem .45rem .6rem;box-shadow:0 2px 12px rgba(0,0,0,.2)}
+  .hero-badge-stars{color:#E8A020;font-size:.85rem;letter-spacing:.05em}
+  .hero-badge-text{font-size:.75rem;font-weight:700;letter-spacing:.08em;color:var(--ink)}
   h1{font-family:'Instrument Serif',serif;font-size:clamp(3.5rem,9vw,8.5rem);font-weight:400;line-height:.95;color:var(--ink);max-width:900px;opacity:0;animation:up .8s .25s forwards}
   h1 em{font-style:italic;color:var(--accent)}
   .hero-sub-row{margin-top:3rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;opacity:0;animation:up .7s .45s forwards}
@@ -42,6 +44,9 @@
   .project-card:nth-child(1){animation:up .7s .55s forwards}
   .project-card:nth-child(2){animation:up .7s .7s forwards}
   .project-card:nth-child(3){animation:up .7s .85s forwards}
+  .project-card:nth-child(4){animation:up .7s 1s forwards}
+  .project-card:nth-child(5){animation:up .7s 1.15s forwards}
+  .project-card:nth-child(6){animation:up .7s 1.3s forwards}
   .project-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 24px 60px rgba(0,0,0,.12)}
   .preview{height:220px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
   .preview-pizza{background:#1A1209}
@@ -50,11 +55,11 @@
   .preview-pizza-title span{color:#D32F2F}
   .preview-pizza-emoji{position:absolute;right:-10px;bottom:-20px;font-size:7rem;opacity:.15;transform:rotate(-15deg);z-index:1}
   .preview-pizza-tag{position:absolute;top:14px;left:14px;background:#C9A84C;color:#1A1209;font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .75rem;border-radius:100px;z-index:3}
-  .preview-clean{background:#EBF2F8;flex-direction:column;gap:.75rem}
+  .preview-clean{background:#1E2D3D;flex-direction:column;gap:.75rem}
   .preview-clean-logo{display:flex;align-items:center;gap:.5rem;font-family:'Instrument Serif',serif;font-size:2.2rem;color:#2A6BCC}
   .preview-clean-dot{width:10px;height:10px;background:#5B9BD5;border-radius:50%}
   .preview-clean-chips{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
-  .chip{background:white;border:1px solid rgba(42,107,204,.2);color:#4A6073;font-size:.68rem;font-weight:600;padding:.3rem .75rem;border-radius:100px;letter-spacing:.05em}
+  .chip{background:rgba(255,255,255,0.08);border:1px solid rgba(42,107,204,.3);color:#9BB8D4;font-size:.68rem;font-weight:600;padding:.3rem .75rem;border-radius:100px;letter-spacing:.05em}
   .preview-clean-bg-circle{position:absolute;width:200px;height:200px;background:rgba(42,107,204,.08);border-radius:50%;right:-60px;bottom:-60px}
   .preview-law{background:#111215;flex-direction:column;gap:.5rem}
   .preview-law::before{content:'§';position:absolute;font-family:'Instrument Serif',serif;font-size:14rem;color:rgba(184,148,42,.06);line-height:1;right:-10px;bottom:-20px}
@@ -62,6 +67,28 @@
   .preview-law-rule{width:50px;height:1px;background:#B8942A}
   .preview-law-sub{font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:#B8942A;position:relative;z-index:2;font-weight:600}
   .preview-law-tag{position:absolute;top:14px;right:14px;border:1px solid rgba(184,148,42,.4);color:#B8942A;font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .6rem;z-index:3}
+  /* Personal brand preview */
+  .preview-brand{background:#0F0F0E;flex-direction:column;gap:.5rem}
+  .preview-brand::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 30% 50%,rgba(200,149,90,.18) 0%,transparent 70%)}
+  .preview-brand-name{font-family:'Instrument Serif',serif;font-size:1.8rem;font-weight:400;font-style:italic;color:#F2EDE6;position:relative;z-index:2;text-align:center}
+  .preview-brand-tag{position:absolute;top:14px;left:14px;background:rgba(200,149,90,.2);border:1px solid rgba(200,149,90,.4);color:#C8955A;font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .75rem;z-index:3}
+  .preview-brand-chips{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;position:relative;z-index:2}
+  .preview-brand-chip{background:rgba(200,149,90,.1);border:1px solid rgba(200,149,90,.2);color:rgba(200,149,90,.7);font-size:.6rem;font-weight:600;padding:.25rem .6rem;border-radius:100px;letter-spacing:.05em}
+  /* Personal trainer preview */
+  .preview-trainer{background:#0A0A0A;flex-direction:column;gap:.4rem}
+  .preview-trainer::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 80%,rgba(232,255,0,.08) 0%,transparent 70%)}
+  .preview-trainer-logo{font-size:3rem;font-weight:900;letter-spacing:.05em;color:#F5F5F4;position:relative;z-index:2;font-family:'Syne',sans-serif;text-transform:uppercase}
+  .preview-trainer-logo span{color:#E8FF00}
+  .preview-trainer-sub{font-size:.65rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(232,255,0,.6);position:relative;z-index:2}
+  .preview-trainer-tag{position:absolute;top:14px;right:14px;border:1px solid rgba(232,255,0,.3);color:#E8FF00;font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .6rem;z-index:3}
+  /* Accounting preview */
+  .preview-accounting{background:#141410;flex-direction:column;gap:.6rem}
+  .preview-accounting::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,77,58,.3) 0%,transparent 60%)}
+  .preview-accounting-logo{display:flex;align-items:center;gap:.6rem;position:relative;z-index:2}
+  .preview-accounting-mark{width:28px;height:28px;background:#1A4D3A;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-style:italic;font-weight:700;color:white;font-size:.9rem}
+  .preview-accounting-name{font-size:1.4rem;font-weight:600;color:#F7F6F3;letter-spacing:.02em}
+  .preview-accounting-sub{font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(26,125,90,.7);position:relative;z-index:2}
+  .preview-accounting-tag{position:absolute;top:14px;right:14px;background:rgba(26,77,58,.4);border:1px solid rgba(26,125,90,.3);color:rgba(46,125,90,.9);font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .6rem;z-index:3}
   .card-body{padding:1.5rem 1.75rem 1.75rem}
   .card-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
   .card-industry{font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--mid)}
@@ -71,7 +98,7 @@
   .card-desc{font-size:.83rem;color:var(--mid);line-height:1.65;font-weight:400}
   .card-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:1.25rem}
   .tag{background:var(--bg);border:1px solid var(--border);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .7rem;border-radius:100px;color:var(--mid)}
-  .cta-section{margin:0 5% 8rem;background:var(--ink);border-radius:24px;padding:5rem 6%;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;overflow:hidden;position:relative}
+  .cta-section{margin:0 5% 8rem;background:#2A2720;border-radius:24px;padding:5rem 6%;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;overflow:hidden;position:relative}
   .cta-section::before{content:'?';position:absolute;font-family:'Instrument Serif',serif;font-size:28rem;color:rgba(255,255,255,.03);right:-2rem;top:-4rem;line-height:1;pointer-events:none}
   .cta-label{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:1rem}
   .cta-title{font-family:'Instrument Serif',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:400;line-height:1.1;color:var(--white);position:relative;z-index:2}
@@ -99,17 +126,22 @@
       <span class="sep">|</span>
       <button id="btn-en" onclick="setLang('en')">EN</button>
     </div>
-    <a href="mailto:Kuusistot87@gmail.com" class="nav-contact" id="nav-contact">Kuusistot87@gmail.com →</a>
+    <a href="/cdn-cgi/l/email-protection#074c7272746e747368733f3047606a666e6b2964686a" class="nav-contact" id="nav-contact"><span class="__cf_email__" data-cfemail="3a714f4f4953494e554e020d7a5d575b535614595557">[email&#160;protected]</span> →</a>
   </div>
 </header>
 
 <section class="hero">
-  <div class="hero-label" id="hero-label">Kotisivujen tekijä</div>
+  <div class="hero-label">
+    <div class="hero-badge">
+      <span class="hero-badge-stars">★★★★★</span>
+      <span class="hero-badge-text" id="hero-label">Tyytyväisiä asiakkaita</span>
+    </div>
+  </div>
   <h1 id="hero-h1">Sivut, jotka<br><em>erottuvat</em><br>joukosta</h1>
   <div class="hero-sub-row">
     <p class="hero-desc" id="hero-desc">Teen yrityksellesi kotisivut, jotka näyttävät hyvältä, toimivat erinomaisesti ja kertovat juuri sen, mitä asiakkaasi tarvitsee kuulla.</p>
     <div class="hero-stat">
-      <div class="stat-big">3</div>
+      <div class="stat-big">6</div>
       <div class="stat-small" id="stat-small">esimerkkityötä alla</div>
     </div>
   </div>
@@ -191,6 +223,76 @@
     </div>
   </a>
 
+  <a class="project-card" href="konsultti.html" target="_blank">
+    <div class="preview preview-brand">
+      <div class="preview-brand-tag" id="tag-brand">Personal Brand</div>
+      <div class="preview-brand-name">Sara Mäkinen</div>
+      <div class="preview-brand-chips">
+        <span class="preview-brand-chip" id="bchip1">Valmennus</span>
+        <span class="preview-brand-chip" id="bchip2">Konsultointi</span>
+        <span class="preview-brand-chip" id="bchip3">Puheet</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <div class="card-industry" id="ind-brand">Personal Brand</div>
+        <div class="card-arrow">↗</div>
+      </div>
+      <div class="card-title" id="title-brand">Sara Mäkinen — Konsultti</div>
+      <div class="card-desc" id="desc-brand">Tyylikäs tumma sivusto valmentajalle. Serif-typografia, marquee-animaatio ja asiakasreferenssit.</div>
+      <div class="card-tags">
+        <span class="tag" id="btag1">Tumma teema</span>
+        <span class="tag" id="btag2">Serif-typografia</span>
+        <span class="tag" id="btag3">Palvelut</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="project-card" href="personaltrainer.html" target="_blank">
+    <div class="preview preview-trainer">
+      <div class="preview-trainer-tag" id="tag-trainer">Personal Trainer</div>
+      <div class="preview-trainer-logo">APEX<span>.</span></div>
+      <div class="preview-trainer-sub" id="trainer-sub">Personal Training</div>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <div class="card-industry" id="ind-trainer">Fitness & Hyvinvointi</div>
+        <div class="card-arrow">↗</div>
+      </div>
+      <div class="card-title">APEX Training</div>
+      <div class="card-desc" id="desc-trainer">Raskas ja energinen ilme. Neoni keltainen aksentti, ennen/jälkeen -referenssit ja hinnasto.</div>
+      <div class="card-tags">
+        <span class="tag" id="ttag1">Tumma teema</span>
+        <span class="tag" id="ttag2">Neoni</span>
+        <span class="tag" id="ttag3">Kondensed-fontti</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="project-card" href="tilitoimisto.html" target="_blank">
+    <div class="preview preview-accounting">
+      <div class="preview-accounting-tag" id="tag-accounting">Tilitoimisto</div>
+      <div class="preview-accounting-logo">
+        <div class="preview-accounting-mark">N</div>
+        <div class="preview-accounting-name">Nordvik</div>
+      </div>
+      <div class="preview-accounting-sub" id="accounting-sub">Taloushallinto</div>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <div class="card-industry" id="ind-accounting">Taloushallinto</div>
+        <div class="card-arrow">↗</div>
+      </div>
+      <div class="card-title">Nordvik Tilitoimisto</div>
+      <div class="card-desc" id="desc-accounting">Luotettava ja ammattimainen ilme. Vaalea taustaväri, vihreä aksentti ja selkeä palveluprosessi.</div>
+      <div class="card-tags">
+        <span class="tag" id="atag1">Vaalea teema</span>
+        <span class="tag" id="atag2">B2B</span>
+        <span class="tag" id="atag3">Prosessikaavio</span>
+      </div>
+    </div>
+  </a>
+
 </div>
 
 <div class="cta-section">
@@ -200,7 +302,7 @@
   </div>
   <div class="cta-right">
     <p class="cta-sub" id="cta-sub">Jokaiselle yritykselle oma tyyli. Kerro tarpeistasi, niin tehdään juuri sinulle sopiva sivu.</p>
-    <a href="mailto:Kuusistot87@gmail.com" class="cta-btn" id="cta-btn">Lähetä sähköpostia →</a>
+    <a href="/cdn-cgi/l/email-protection#ce85bbbbbda7bdbaa1baf6f98ea9a3afa7a2e0ada1a3" class="cta-btn" id="cta-btn">Lähetä sähköpostia →</a>
   </div>
 </div>
 
@@ -209,10 +311,10 @@
   <span id="footer-right">Kotisivut yrityksille</span>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 var translations = {
   fi: {
-    heroLabel: 'Kotisivujen tekijä',
+    heroLabel: 'Tyytyväisiä asiakkaita',
     h1: 'Sivut, jotka<br><em style="font-style:italic;color:var(--accent)">erottuvat</em><br>joukosta',
     heroDesc: 'Teen yrityksellesi kotisivut, jotka näyttävät hyvältä, toimivat erinomaisesti ja kertovat juuri sen, mitä asiakkaasi tarvitsee kuulla.',
     statSmall: 'esimerkkityötä alla',
@@ -227,6 +329,18 @@ var translations = {
     lawSub: 'Asianajotoimisto', indLaw: 'Lakiala',
     descLaw: 'Arvokas ja editorial — kultadetaljit mustalla pohjalla. Sivusto huokuu asiantuntijuutta ja luottamusta.',
     ltag1: 'Luxury', ltag2: 'Serif-typografia', ltag3: 'Prestiisi',
+    tagBrand: 'Personal Brand', bchip1: 'Valmennus', bchip2: 'Konsultointi', bchip3: 'Puheet',
+    indBrand: 'Personal Brand', titleBrand: 'Sara Mäkinen — Konsultti',
+    descBrand: 'Tyylikäs tumma sivusto valmentajalle. Serif-typografia, marquee-animaatio ja asiakasreferenssit.',
+    btag1: 'Tumma teema', btag2: 'Serif-typografia', btag3: 'Palvelut',
+    tagTrainer: 'Personal Trainer', trainerSub: 'Personal Training',
+    indTrainer: 'Fitness & Hyvinvointi',
+    descTrainer: 'Raskas ja energinen ilme. Neoni keltainen aksentti, ennen/jälkeen -referenssit ja hinnasto.',
+    ttag1: 'Tumma teema', ttag2: 'Neoni', ttag3: 'Kondensed-fontti',
+    tagAccounting: 'Tilitoimisto', accountingSub: 'Taloushallinto',
+    indAccounting: 'Taloushallinto',
+    descAccounting: 'Luotettava ja ammattimainen ilme. Vaalea taustaväri, vihreä aksentti ja selkeä palveluprosessi.',
+    atag1: 'Vaalea teema', atag2: 'B2B', atag3: 'Prosessikaavio',
     ctaLabel: 'Seuraava projekti',
     ctaTitle: 'Haluatko <em style="font-style:italic;color:var(--accent)">sinulle</em><br>sopivan sivuston?',
     ctaSub: 'Jokaiselle yritykselle oma tyyli. Kerro tarpeistasi, niin tehdään juuri sinulle sopiva sivu.',
@@ -234,7 +348,7 @@ var translations = {
     footerRight: 'Kotisivut yrityksille'
   },
   en: {
-    heroLabel: 'Website designer',
+    heroLabel: 'Happy clients',
     h1: 'Websites that<br><em style="font-style:italic;color:var(--accent)">stand out</em><br>from the crowd',
     heroDesc: 'I build websites for your business that look great, work flawlessly and tell exactly what your customers need to hear.',
     statSmall: 'example projects below',
@@ -249,6 +363,18 @@ var translations = {
     lawSub: 'Law Firm', indLaw: 'Legal',
     descLaw: 'Prestigious and editorial — gold details on black. The site radiates expertise and trust.',
     ltag1: 'Luxury', ltag2: 'Serif typography', ltag3: 'Prestige',
+    tagBrand: 'Personal Brand', bchip1: 'Coaching', bchip2: 'Consulting', bchip3: 'Speaking',
+    indBrand: 'Personal Brand', titleBrand: 'Sara Mäkinen — Consultant',
+    descBrand: 'Elegant dark site for a coach. Serif typography, marquee animation and client testimonials.',
+    btag1: 'Dark theme', btag2: 'Serif typography', btag3: 'Services',
+    tagTrainer: 'Personal Trainer', trainerSub: 'Personal Training',
+    indTrainer: 'Fitness & Wellbeing',
+    descTrainer: 'Bold, energetic look. Neon yellow accent, before/after results and pricing.',
+    ttag1: 'Dark theme', ttag2: 'Neon', ttag3: 'Condensed font',
+    tagAccounting: 'Accounting', accountingSub: 'Financial management',
+    indAccounting: 'Financial management',
+    descAccounting: 'Reliable and professional look. Light background, green accent and clear service process.',
+    atag1: 'Light theme', atag2: 'B2B', atag3: 'Process diagram',
     ctaLabel: 'Next project',
     ctaTitle: 'Want a website made<br>just for <em style="font-style:italic;color:var(--accent)">you</em>?',
     ctaSub: 'Every business gets its own style. Tell me what you need and I will build the perfect site for you.',
@@ -287,6 +413,30 @@ function setLang(lang) {
   document.getElementById('ltag1').textContent = d.ltag1;
   document.getElementById('ltag2').textContent = d.ltag2;
   document.getElementById('ltag3').textContent = d.ltag3;
+  document.getElementById('tag-brand').textContent = d.tagBrand;
+  document.getElementById('bchip1').textContent = d.bchip1;
+  document.getElementById('bchip2').textContent = d.bchip2;
+  document.getElementById('bchip3').textContent = d.bchip3;
+  document.getElementById('ind-brand').textContent = d.indBrand;
+  document.getElementById('title-brand').textContent = d.titleBrand;
+  document.getElementById('desc-brand').textContent = d.descBrand;
+  document.getElementById('btag1').textContent = d.btag1;
+  document.getElementById('btag2').textContent = d.btag2;
+  document.getElementById('btag3').textContent = d.btag3;
+  document.getElementById('tag-trainer').textContent = d.tagTrainer;
+  document.getElementById('trainer-sub').textContent = d.trainerSub;
+  document.getElementById('ind-trainer').textContent = d.indTrainer;
+  document.getElementById('desc-trainer').textContent = d.descTrainer;
+  document.getElementById('ttag1').textContent = d.ttag1;
+  document.getElementById('ttag2').textContent = d.ttag2;
+  document.getElementById('ttag3').textContent = d.ttag3;
+  document.getElementById('tag-accounting').textContent = d.tagAccounting;
+  document.getElementById('accounting-sub').textContent = d.accountingSub;
+  document.getElementById('ind-accounting').textContent = d.indAccounting;
+  document.getElementById('desc-accounting').textContent = d.descAccounting;
+  document.getElementById('atag1').textContent = d.atag1;
+  document.getElementById('atag2').textContent = d.atag2;
+  document.getElementById('atag3').textContent = d.atag3;
   document.getElementById('cta-label').textContent = d.ctaLabel;
   document.getElementById('cta-title').innerHTML = d.ctaTitle;
   document.getElementById('cta-sub').textContent = d.ctaSub;
@@ -298,18 +448,4 @@ var cursor = document.getElementById('cursor');
 var ring = document.getElementById('cursorRing');
 var mx = 0, my = 0, rx = 0, ry = 0;
 document.addEventListener('mousemove', function(e) {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top = my + 'px';
-});
-function animRing() {
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  ring.style.left = rx + 'px';
-  ring.style.top = ry + 'px';
-  requestAnimationFrame(animRing);
-}
-animRing();
-</script>
-</body>
-</html>
+  mx = e.clientX; my =

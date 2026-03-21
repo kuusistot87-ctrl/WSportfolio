@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX Training — Personal Trainer Helsinki</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#0A0A0A;--card:#111111;--ink:#F5F5F4;--mid:#7A7A78;--accent:#E8FF00;--border:rgba(245,245,244,0.08)}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Barlow',sans-serif;overflow-x:hidden}
+
+  /* BACK BUTTON */
+  .back-btn{position:fixed;bottom:2rem;left:2rem;z-index:200;display:inline-flex;align-items:center;gap:.5rem;background:rgba(10,10,10,.9);border:1px solid rgba(232,255,0,.3);color:var(--accent);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.6rem 1.2rem;backdrop-filter:blur(8px);transition:border-color .2s,transform .15s}
+  .back-btn:hover{border-color:var(--accent);transform:translateX(-3px)}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 5%;background:rgba(10,10,10,.9);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+  .nav-logo{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;letter-spacing:.08em}
+  .nav-logo span{color:var(--accent)}
+  nav ul{list-style:none;display:flex;gap:2.5rem}
+  nav a{color:rgba(245,245,244,.55);text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;transition:color .2s}
+  nav a:hover{color:var(--accent)}
+  .nav-cta{background:var(--accent);color:#0A0A0A;padding:.55rem 1.4rem;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:opacity .2s,transform .15s}
+  .nav-cta:hover{opacity:.85;transform:scale(1.03)}
+  .lang-sw{display:flex;align-items:center;gap:0}
+  .lang-sw button{background:none;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.12em;color:rgba(245,245,244,.3);padding:.2rem .45rem;transition:color .2s}
+  .lang-sw button.active{color:var(--accent)}
+  .lang-sw button:hover{color:var(--ink)}
+  .lang-sw .sep{color:rgba(245,245,244,.15);font-size:.7rem}
+
+  /* HERO */
+  .hero{position:relative;height:100vh;display:flex;align-items:flex-end;overflow:hidden}
+  .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.4)}
+  .hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,1) 0%,rgba(10,10,10,.4) 50%,rgba(10,10,10,.1) 100%)}
+  .hero-content{position:relative;z-index:10;padding:4rem 5%;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:flex-end}
+  .hero-left{}
+  .hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;opacity:0;animation:up .6s .1s forwards}
+  h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(5rem,11vw,10rem);font-weight:900;line-height:.88;text-transform:uppercase;opacity:0;animation:up .8s .25s forwards}
+  h1 em{font-style:normal;color:var(--accent);-webkit-text-stroke:0px;display:block}
+  h1 .outline{-webkit-text-stroke:1px var(--ink);color:transparent}
+  .hero-right{opacity:0;animation:up .7s .4s forwards}
+  .hero-desc{font-size:1.1rem;line-height:1.75;color:rgba(245,245,244,.65);font-weight:300;max-width:400px;margin-bottom:2rem}
+  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn-primary{background:var(--accent);color:#0A0A0A;padding:1rem 2rem;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:opacity .2s,transform .15s}
+  .btn-primary:hover{opacity:.85;transform:scale(1.03)}
+  .btn-ghost{border:1px solid rgba(245,245,244,.25);color:var(--ink);padding:1rem 2rem;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:border-color .2s}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* STATS BAR */
+  .stats-bar{background:var(--accent);padding:2rem 5%;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+  .stats-bar-item{text-align:center}
+  .stats-bar-num{font-family:'Barlow Condensed',sans-serif;font-size:2.8rem;font-weight:900;color:#0A0A0A;line-height:1}
+  .stats-bar-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(10,10,10,.6);margin-top:.2rem}
+
+  /* SERVICES */
+  .services{padding:7rem 5%;background:var(--card)}
+  .section-label{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+  .section-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;text-transform:uppercase;line-height:.95;color:var(--ink)}
+  .section-title .outline{-webkit-text-stroke:1px var(--ink);color:transparent}
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:4rem}
+  .service-card{background:var(--card);padding:2.5rem;transition:background .25s}
+  .service-card:hover{background:#181818}
+  .service-num{font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:900;color:rgba(232,255,0,.12);line-height:1;margin-bottom:1rem}
+  .service-name{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--ink);margin-bottom:.75rem}
+  .service-desc{font-size:.88rem;line-height:1.75;color:var(--mid);font-weight:300}
+  .service-price{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:var(--accent);margin-top:1.25rem;letter-spacing:.05em}
+
+  /* ABOUT */
+  .about{display:grid;grid-template-columns:1fr 1fr;min-height:75vh}
+  .about-img-wrap{position:relative;overflow:hidden}
+  .about-img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;filter:brightness(.75);transition:transform .7s}
+  .about-img-wrap:hover .about-img{transform:scale(1.04)}
+  .about-text{padding:6rem 5%;display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--border)}
+  .about-text .section-title{margin-bottom:1.5rem}
+  .about-body{font-size:1rem;line-height:1.85;color:var(--mid);font-weight:300;max-width:440px;margin-bottom:2rem}
+  .certs{display:flex;flex-direction:column;gap:.6rem;margin-top:.5rem}
+  .cert{display:flex;align-items:center;gap:.75rem;font-size:.82rem;font-weight:500;color:rgba(245,245,244,.55)}
+  .cert::before{content:'✓';color:var(--accent);font-weight:900;font-size:.9rem}
+
+  /* TESTIMONIALS */
+  .testimonials{padding:7rem 5%}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:4rem}
+  .testi-card{background:var(--bg);padding:2.5rem;transition:background .25s}
+  .testi-card:hover{background:var(--card)}
+  .testi-before-after{display:flex;gap:1rem;margin-bottom:1.5rem}
+  .ba{flex:1;background:var(--card);padding:.75rem 1rem;text-align:center}
+  .ba-label{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--mid)}
+  .ba-val{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:800;color:var(--ink);margin-top:.2rem}
+  .ba-val.after{color:var(--accent)}
+  .testi-quote{font-size:.9rem;line-height:1.7;color:rgba(245,245,244,.6);font-weight:300;font-style:italic;margin-bottom:1rem}
+  .testi-author{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid)}
+
+  /* CTA */
+  .cta-section{margin:0 5% 7rem;position:relative;overflow:hidden;background:var(--card);border:1px solid var(--border);padding:5rem 6%;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center}
+  .cta-section::before{content:'APEX';position:absolute;font-family:'Barlow Condensed',sans-serif;font-size:18rem;font-weight:900;color:rgba(232,255,0,.03);right:-2rem;top:50%;transform:translateY(-50%);line-height:1;pointer-events:none;letter-spacing:.05em}
+  .cta-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;text-transform:uppercase;line-height:.95;color:var(--ink);position:relative;z-index:2}
+  .cta-title span{color:var(--accent)}
+  .cta-sub{font-size:.9rem;color:var(--mid);margin-top:.75rem;max-width:380px;line-height:1.6;font-weight:300;position:relative;z-index:2}
+  .cta-right{position:relative;z-index:2}
+  .cta-btn{background:var(--accent);color:#0A0A0A;padding:1.1rem 2.2rem;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;display:block;transition:opacity .2s,transform .15s}
+  .cta-btn:hover{opacity:.85;transform:scale(1.03)}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--border);padding:2.5rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+  .footer-logo{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;letter-spacing:.08em}
+  .footer-logo span{color:var(--accent)}
+  .footer-right{font-size:.78rem;color:var(--mid)}
+  .credit{background:#050505;text-align:center;padding:.75rem;font-size:.78rem;color:rgba(232,255,0,.3);letter-spacing:.1em}
+
+  @keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @media(max-width:900px){.hero-content{grid-template-columns:1fr}.stats-bar{grid-template-columns:repeat(2,1fr)}.services-grid{grid-template-columns:1fr}.about{grid-template-columns:1fr}.about-img-wrap{height:70vw}.about-text{border-left:none;border-top:1px solid var(--border)}.testi-grid{grid-template-columns:1fr}.cta-section{grid-template-columns:1fr}.cta-right{align-self:flex-start}nav ul{display:none}}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">← Takaisin portfolioon</a>
+
+<nav>
+  <div class="nav-logo">APEX<span>.</span></div>
+  <ul>
+    <li><a href="#" id="nav1">Palvelut</a></li>
+    <li><a href="#" id="nav2">Minusta</a></li>
+    <li><a href="#" id="nav3">Tulokset</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <div class="lang-sw">
+      <button id="btn-fi" class="active" onclick="setLang('fi')">FI</button>
+      <span class="sep">|</span>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="#" class="nav-cta" id="nav-cta">Aloita nyt</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1800&q=80" alt="APEX Training">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-tag" id="hero-tag">Personal Training · Helsinki</div>
+      <h1 id="hero-h1">TULOS<br><em>TAI</em><br><span class="outline">TAKUU</span></h1>
+    </div>
+    <div class="hero-right">
+      <p class="hero-desc" id="hero-desc">Räätälöity harjoittelu ja ravitsemussuunnittelu, joka tuottaa mitattavia tuloksia. Ei turhaa. Ei tekosyitä.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary" id="hero-btn1">Aloita ilmaisella kartoituksella</a>
+        <a href="#" class="btn-ghost" id="hero-btn2">Katso tulokset</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-bar-item"><div class="stats-bar-num">340+</div><div class="stats-bar-lbl" id="sb1">Tyytyväistä asiakasta</div></div>
+  <div class="stats-bar-item"><div class="stats-bar-num">8v</div><div class="stats-bar-lbl" id="sb2">Kokemus</div></div>
+  <div class="stats-bar-item"><div class="stats-bar-num">94%</div><div class="stats-bar-lbl" id="sb3">Tavoittaa tulokset</div></div>
+  <div class="stats-bar-item"><div class="stats-bar-num">12</div><div class="stats-bar-lbl" id="sb4">Sertifikaattia</div></div>
+</div>
+
+<section class="services">
+  <div class="section-label" id="services-label">Palvelut</div>
+  <div class="section-title" id="services-title">VALITSE <span class="outline">POLKUSI</span></div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name" id="s1-name">Personal Training</div>
+      <p class="service-desc" id="s1-desc">Henkilökohtainen valmennus 1-on-1. Jokainen treeni suunniteltu juuri sinulle — tavoitteesi, lähtötasosi ja aikataulusi mukaan.</p>
+      <div class="service-price" id="s1-price">alk. 90 € / sessio</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-name" id="s2-name">Online-valmennus</div>
+      <p class="service-desc" id="s2-desc">Täysi valmennus etänä — harjoitusohjelma, ravinto-ohjelma ja viikoittainen seuranta. Tulokset riippumatta sijainnista.</p>
+      <div class="service-price" id="s2-price">199 € / kk</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-name" id="s3-name">Ravitsemuskonsultaatio</div>
+      <p class="service-desc" id="s3-desc">Yksilöllinen ravitsemussuunnitelma kehitystyön tueksi. Ei dieettiä — kestäviä muutoksia, jotka toimivat oikeassa elämässä.</p>
+      <div class="service-price" id="s3-price">120 € / kerta</div>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-img-wrap">
+    <img class="about-img" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=900&q=80" alt="Personal trainer">
+  </div>
+  <div class="about-text">
+    <div class="section-label" id="about-label">Valmentajasi</div>
+    <div class="section-title" id="about-title">JONNE <span class="outline">VIRTANEN</span></div>
+    <p class="about-body" id="about-body">8 vuotta, 340+ asiakasta, lukemattomat muutostarinat. Olen erikoistunut kehonmuokkaukseen, voimaharjoitteluun ja kestävyyteen. Minulle ei ole olemassa "ei onnistu" — on vain suunnitelmia, jotka tarvitsevat hiomista.</p>
+    <div class="certs">
+      <div class="cert" id="c1">NSCA Certified Personal Trainer</div>
+      <div class="cert" id="c2">Precision Nutrition Level 2</div>
+      <div class="cert" id="c3">Functional Movement Systems</div>
+      <div class="cert" id="c4">Kettlebell Sport Coach</div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="section-label" id="testi-label">Tulokset</div>
+  <div class="section-title" id="testi-title">ENNEN & <span class="outline">JÄLKEEN</span></div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-before-after">
+        <div class="ba"><div class="ba-label" id="before1">Ennen</div><div class="ba-val">92 kg</div></div>
+        <div class="ba"><div class="ba-label" id="after1">Jälkeen</div><div class="ba-val after">74 kg</div></div>
+      </div>
+      <p class="testi-quote" id="t1">"Jonne muutti täysin käsitykseni harjoittelusta. 6 kuukaudessa tuloksia, joita en uskonut mahdollisiksi."</p>
+      <div class="testi-author">Pekka L. · 6 kk ohjelma</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-before-after">
+        <div class="ba"><div class="ba-label" id="before2">Ennen</div><div class="ba-val">Kyykky 60 kg</div></div>
+        <div class="ba"><div class="ba-label" id="after2">Jälkeen</div><div class="ba-val after">Kyykky 120 kg</div></div>
+      </div>
+      <p class="testi-quote" id="t2">"Online-valmennus toimi paremmin kuin odotin. Selkeä ohjelma, nopea vastausaika ja aidot tulokset."</p>
+      <div class="testi-author">Minna S. · Online-valmennus</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-before-after">
+        <div class="ba"><div class="ba-label" id="before3">Ennen</div><div class="ba-val">Väsynyt</div></div>
+        <div class="ba"><div class="ba-label" id="after3">Jälkeen</div><div class="ba-val after">Energinen</div></div>
+      </div>
+      <p class="testi-quote" id="t3">"Ravitsemuskonsultaatio muutti arkeani enemmän kuin vuodet eri dieettikirjoja lukemalla."</p>
+      <div class="testi-author">Tuula M. · Ravitsemuskonsultaatio</div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-section">
+  <div>
+    <div class="cta-title" id="cta-title">VALMIS <span>MUUTOKSEEN</span>?</div>
+    <p class="cta-sub" id="cta-sub">Aloita ilmaisella 30 min kartoituksella. Ei sitoumuksia — vain rehellinen arvio siitä, mitä tarvitaan tulokseen.</p>
+  </div>
+  <div class="cta-right">
+    <a href="#" class="cta-btn" id="cta-btn">VARAA KARTOITUS →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">APEX<span>.</span></div>
+  <div class="footer-right" id="footer-right">Personal Training · Helsinki · +358 50 123 4567</div>
+</footer>
+<div class="credit">© Tuomas Kuusisto</div>
+
+<script>
+var translations = {
+  fi:{
+    heroTag:'Personal Training · Helsinki',
+    h1:'TULOS<br><em>TAI</em><br><span class="outline">TAKUU</span>',
+    heroDesc:'Räätälöity harjoittelu ja ravitsemussuunnittelu, joka tuottaa mitattavia tuloksia. Ei turhaa. Ei tekosyitä.',
+    heroBtn1:'Aloita ilmaisella kartoituksella',heroBtn2:'Katso tulokset',
+    navCta:'Aloita nyt',nav:['Palvelut','Minusta','Tulokset'],
+    sb1:'Tyytyväistä asiakasta',sb2:'Kokemus',sb3:'Tavoittaa tulokset',sb4:'Sertifikaattia',
+    servicesLabel:'Palvelut',servicesTitle:'VALITSE <span class="outline">POLKUSI</span>',
+    s1Name:'Personal Training',s1Desc:'Henkilökohtainen valmennus 1-on-1. Jokainen treeni suunniteltu juuri sinulle.',s1Price:'alk. 90 € / sessio',
+    s2Name:'Online-valmennus',s2Desc:'Täysi valmennus etänä — harjoitusohjelma, ravinto-ohjelma ja viikoittainen seuranta.',s2Price:'199 € / kk',
+    s3Name:'Ravitsemuskonsultaatio',s3Desc:'Yksilöllinen ravitsemussuunnitelma kehitystyön tueksi. Kestäviä muutoksia.',s3Price:'120 € / kerta',
+    aboutLabel:'Valmentajasi',aboutTitle:'JONNE <span class="outline">VIRTANEN</span>',
+    aboutBody:'8 vuotta, 340+ asiakasta, lukemattomat muutostarinat. Erikoistunut kehonmuokkaukseen, voimaharjoitteluun ja kestävyyteen.',
+    c1:'NSCA Certified Personal Trainer',c2:'Precision Nutrition Level 2',c3:'Functional Movement Systems',c4:'Kettlebell Sport Coach',
+    testiLabel:'Tulokset',testiTitle:'ENNEN & <span class="outline">JÄLKEEN</span>',
+    before1:'Ennen',after1:'Jälkeen',before2:'Ennen',after2:'Jälkeen',before3:'Ennen',after3:'Jälkeen',
+    t1:'"Jonne muutti täysin käsitykseni harjoittelusta. 6 kuukaudessa tuloksia, joita en uskonut mahdollisiksi."',
+    t2:'"Online-valmennus toimi paremmin kuin odotin. Selkeä ohjelma, nopea vastausaika ja aidot tulokset."',
+    t3:'"Ravitsemuskonsultaatio muutti arkeani enemmän kuin vuodet eri dieettikirjoja lukemalla."',
+    ctaTitle:'VALMIS <span>MUUTOKSEEN</span>?',ctaSub:'Aloita ilmaisella 30 min kartoituksella. Ei sitoumuksia.',ctaBtn:'VARAA KARTOITUS →',
+    footerRight:'Personal Training · Helsinki · +358 50 123 4567'
+  },
+  en:{
+    heroTag:'Personal Training · Helsinki',
+    h1:'RESULTS<br><em>OR</em><br><span class="outline">REFUND</span>',
+    heroDesc:'Tailored training and nutrition planning that delivers measurable results. No fluff. No excuses.',
+    heroBtn1:'Start with a free assessment',heroBtn2:'See results',
+    navCta:'Start now',nav:['Services','About','Results'],
+    sb1:'Satisfied clients',sb2:'Experience',sb3:'Reach their goals',sb4:'Certifications',
+    servicesLabel:'Services',servicesTitle:'CHOOSE <span class="outline">YOUR PATH</span>',
+    s1Name:'Personal Training',s1Desc:'1-on-1 personal coaching. Every session planned specifically for you — your goals, your level, your schedule.',s1Price:'from 90 € / session',
+    s2Name:'Online Coaching',s2Desc:'Full coaching remotely — training plan, nutrition plan and weekly check-ins. Results regardless of location.',s2Price:'199 € / month',
+    s3Name:'Nutrition Consultation',s3Desc:'Individual nutrition plan to support your development. No diets — sustainable changes that work in real life.',s3Price:'120 € / session',
+    aboutLabel:'Your trainer',aboutTitle:'JONNE <span class="outline">VIRTANEN</span>',
+    aboutBody:'8 years, 340+ clients, countless transformation stories. Specialised in body recomposition, strength training and endurance.',
+    c1:'NSCA Certified Personal Trainer',c2:'Precision Nutrition Level 2',c3:'Functional Movement Systems',c4:'Kettlebell Sport Coach',
+    testiLabel:'Results',testiTitle:'BEFORE & <span class="outline">AFTER</span>',
+    before1:'Before',after1:'After',before2:'Before',after2:'After',before3:'Before',after3:'After',
+    t1:'"Jonne completely changed my understanding of training. Results in 6 months I didn\'t think were possible."',
+    t2:'"Online coaching worked better than expected. Clear programme, fast responses and real results."',
+    t3:'"The nutrition consultation changed my daily life more than years of reading diet books."',
+    ctaTitle:'READY FOR <span>CHANGE</span>?',ctaSub:'Start with a free 30 min assessment. No commitment — just an honest evaluation.',ctaBtn:'BOOK ASSESSMENT →',
+    footerRight:'Personal Training · Helsinki · +358 50 123 4567'
+  }
+};
+function setLang(lang){
+  var d=translations[lang];
+  document.getElementById('btn-fi').classList.toggle('active',lang==='fi');
+  document.getElementById('btn-en').classList.toggle('active',lang==='en');
+  document.getElementById('hero-tag').textContent=d.heroTag;
+  document.getElementById('hero-h1').innerHTML=d.h1;
+  document.getElementById('hero-desc').textContent=d.heroDesc;
+  document.getElementById('hero-btn1').textContent=d.heroBtn1;
+  document.getElementById('hero-btn2').textContent=d.heroBtn2;
+  document.getElementById('nav-cta').textContent=d.navCta;
+  var nl=document.querySelectorAll('nav ul a');for(var i=0;i<nl.length;i++){nl[i].textContent=d.nav[i];}
+  ['sb1','sb2','sb3','sb4'].forEach(function(id){document.getElementById(id).textContent=d[id];});
+  document.getElementById('services-label').textContent=d.servicesLabel;
+  document.getElementById('services-title').innerHTML=d.servicesTitle;
+  document.getElementById('s1-name').textContent=d.s1Name;document.getElementById('s1-desc').textContent=d.s1Desc;document.getElementById('s1-price').textContent=d.s1Price;
+  document.getElementById('s2-name').textContent=d.s2Name;document.getElementById('s2-desc').textContent=d.s2Desc;document.getElementById('s2-price').textContent=d.s2Price;
+  document.getElementById('s3-name').textContent=d.s3Name;document.getElementById('s3-desc').textContent=d.s3Desc;document.getElementById('s3-price').textContent=d.s3Price;
+  document.getElementById('about-label').textContent=d.aboutLabel;
+  document.getElementById('about-title').innerHTML=d.aboutTitle;
+  document.getElementById('about-body').textContent=d.aboutBody;
+  ['c1','c2','c3','c4'].forEach(function(id){document.getElementById(id).textContent=d[id];});
+  document.getElementById('testi-label').textContent=d.testiLabel;
+  document.getElementById('testi-title').innerHTML=d.testiTitle;
+  ['before1','after1','before2','after2','before3','after3','t1','t2','t3'].forEach(function(id){document.getElementById(id).textContent=d[id];});
+  document.getElementById('cta-title').innerHTML=d.ctaTitle;
+  document.getElementById('cta-sub').textContent=d.ctaSub;
+  document.getElementById('cta-btn').textContent=d.ctaBtn;
+  document.getElementById('footer-right').textContent=d.footerRight;
+}
+</script>
+</body>
+</html>

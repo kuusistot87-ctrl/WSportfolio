@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sara Mäkinen — Valmentaja & Konsultti</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#0F0F0E;--card:#161614;--ink:#F2EDE6;--mid:#8A8478;--accent:#C8955A;--border:rgba(242,237,230,0.09)}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+  /* BACK BUTTON */
+  .back-btn{position:fixed;bottom:2rem;left:2rem;z-index:200;display:inline-flex;align-items:center;gap:.5rem;background:rgba(15,15,14,.9);border:1px solid rgba(200,149,90,.35);color:var(--accent);text-decoration:none;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.6rem 1.2rem;backdrop-filter:blur(8px);transition:border-color .2s,transform .15s}
+  .back-btn:hover{border-color:var(--accent);transform:translateX(-3px)}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 5%;border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
+  nav.scrolled{background:rgba(15,15,14,.95);border-color:var(--border);backdrop-filter:blur(12px)}
+  .nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:400;letter-spacing:.05em}
+  .nav-logo span{font-style:italic;color:var(--accent)}
+  nav ul{list-style:none;display:flex;gap:2.5rem}
+  nav a{color:rgba(242,237,230,.6);text-decoration:none;font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+  nav a:hover{color:var(--ink)}
+  .nav-cta{background:var(--accent);color:#0F0F0E;padding:.55rem 1.4rem;font-size:.78rem;font-weight:600;letter-spacing:.06em;text-decoration:none;transition:opacity .2s,transform .15s}
+  .nav-cta:hover{opacity:.85;transform:scale(1.03)}
+  .lang-sw{display:flex;align-items:center;gap:0}
+  .lang-sw button{background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.1em;color:rgba(242,237,230,.35);padding:.2rem .45rem;transition:color .2s}
+  .lang-sw button.active{color:var(--accent)}
+  .lang-sw button:hover{color:var(--ink)}
+  .lang-sw .sep{color:rgba(242,237,230,.15);font-size:.7rem}
+
+  /* HERO */
+  .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+  .hero-left{display:flex;flex-direction:column;justify-content:center;padding:10rem 5% 6rem 5%;position:relative;z-index:2}
+  .hero-tag{display:inline-flex;align-items:center;gap:.6rem;font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem;opacity:0;animation:up .6s .1s forwards}
+  .hero-tag::before{content:'';display:block;width:20px;height:1px;background:var(--accent)}
+  h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,5vw,5rem);font-weight:400;line-height:1.05;color:var(--ink);opacity:0;animation:up .8s .25s forwards}
+  h1 em{font-style:italic;color:var(--accent)}
+  .hero-desc{font-size:1.05rem;line-height:1.8;color:var(--mid);max-width:440px;margin-top:2rem;font-weight:300;opacity:0;animation:up .7s .4s forwards}
+  .hero-actions{display:flex;gap:1rem;align-items:center;margin-top:2.5rem;flex-wrap:wrap;opacity:0;animation:up .7s .55s forwards}
+  .btn-primary{background:var(--accent);color:#0F0F0E;padding:1rem 2rem;font-size:.85rem;font-weight:600;letter-spacing:.06em;text-decoration:none;transition:opacity .2s,transform .15s}
+  .btn-primary:hover{opacity:.85;transform:scale(1.03)}
+  .btn-ghost{border:1px solid var(--border);color:var(--ink);padding:1rem 2rem;font-size:.85rem;font-weight:500;letter-spacing:.06em;text-decoration:none;transition:border-color .2s,color .2s}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .hero-right{position:relative;overflow:hidden}
+  .hero-img{width:100%;height:100%;object-fit:cover;filter:brightness(.75);display:block}
+  .hero-img-overlay{position:absolute;inset:0;background:linear-gradient(to right,var(--bg) 0%,transparent 40%)}
+
+  /* MARQUEE */
+  .marquee-bar{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.9rem 0;display:flex;overflow:hidden;background:var(--card)}
+  .marquee-track{display:flex;gap:4rem;animation:marquee 22s linear infinite;white-space:nowrap}
+  .marquee-track span{font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mid)}
+  .marquee-track span::before{content:'✦  ';color:var(--accent);opacity:.6}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ABOUT */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:70vh}
+  .about-img-wrap{position:relative;overflow:hidden}
+  .about-img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.8);transition:transform .7s}
+  .about-img-wrap:hover .about-img{transform:scale(1.04)}
+  .about-text{padding:6rem 5%;display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--border)}
+  .section-label{font-size:.68rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem}
+  .section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:400;line-height:1.15;color:var(--ink);margin-bottom:1.5rem}
+  .section-title em{font-style:italic}
+  .section-body{font-size:1rem;line-height:1.85;color:var(--mid);font-weight:300;max-width:440px}
+  .stats-row{display:flex;gap:2.5rem;margin-top:3rem;flex-wrap:wrap}
+  .stat{border-left:2px solid var(--accent);padding-left:1.25rem}
+  .stat-num{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:400;color:var(--ink);line-height:1}
+  .stat-lbl{font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-top:.3rem}
+
+  /* SERVICES */
+  .services{padding:7rem 5%;background:var(--card)}
+  .services-header{max-width:600px;margin-bottom:4rem}
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+  .service-card{background:var(--card);padding:2.5rem 2rem;transition:background .25s}
+  .service-card:hover{background:#1E1C19}
+  .service-icon{font-size:1.5rem;margin-bottom:1.25rem}
+  .service-name{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:400;color:var(--ink);margin-bottom:.75rem}
+  .service-desc{font-size:.88rem;line-height:1.75;color:var(--mid);font-weight:300}
+  .service-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);text-decoration:none;margin-top:1.25rem;transition:gap .2s}
+  .service-link:hover{gap:.7rem}
+
+  /* TESTIMONIALS */
+  .testimonials{padding:7rem 5%}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4rem}
+  .testi-card{background:var(--card);border:1px solid var(--border);padding:2.5rem}
+  .testi-stars{color:var(--accent);font-size:.9rem;letter-spacing:.1em;margin-bottom:1.25rem}
+  .testi-quote{font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;line-height:1.7;color:var(--ink);margin-bottom:1.5rem}
+  .testi-author{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+
+  /* CTA */
+  .cta-section{margin:0 5% 7rem;background:var(--accent);padding:5rem 6%;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center}
+  .cta-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:400;line-height:1.1;color:#0F0F0E}
+  .cta-title em{font-style:italic}
+  .cta-sub{font-size:.9rem;color:rgba(15,15,14,.6);margin-top:.75rem;max-width:380px;line-height:1.6}
+  .cta-btn{background:#0F0F0E;color:var(--accent);padding:1.1rem 2.2rem;font-size:.85rem;font-weight:700;letter-spacing:.08em;text-decoration:none;white-space:nowrap;transition:opacity .2s,transform .15s}
+  .cta-btn:hover{opacity:.85;transform:scale(1.03)}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--border);padding:2.5rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+  .footer-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;font-style:italic;color:var(--mid)}
+  .footer-right{font-size:.78rem;color:var(--mid)}
+  .credit{background:#090909;text-align:center;padding:.75rem;font-size:.78rem;color:rgba(200,149,90,.4);letter-spacing:.1em}
+
+  @keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  @media(max-width:900px){.hero{grid-template-columns:1fr;min-height:auto}.hero-right{height:60vw}.hero-img-overlay{background:linear-gradient(to top,var(--bg) 0%,transparent 50%)}.hero-left{padding:8rem 5% 3rem}.about{grid-template-columns:1fr}.about-img-wrap{height:60vw}.about-text{border-left:none;border-top:1px solid var(--border)}.services-grid{grid-template-columns:1fr}.testi-grid{grid-template-columns:1fr}.cta-section{grid-template-columns:1fr}.cta-btn{align-self:flex-start}nav ul{display:none}}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-btn">← Takaisin portfolioon</a>
+
+<nav id="navbar">
+  <div class="nav-logo">Sara <span>Mäkinen</span></div>
+  <ul>
+    <li><a href="#" id="nav1">Palvelut</a></li>
+    <li><a href="#" id="nav2">Minusta</a></li>
+    <li><a href="#" id="nav3">Asiakkaat</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <div class="lang-sw">
+      <button id="btn-fi" class="active" onclick="setLang('fi')">FI</button>
+      <span class="sep">|</span>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="#" class="nav-cta" id="nav-cta">Ota yhteyttä</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag" id="hero-tag">Valmentaja · Konsultti · Puhuja</div>
+    <h1 id="hero-h1">Kasva<br><em>rohkeasti</em><br>eteenpäin</h1>
+    <p class="hero-desc" id="hero-desc">Autan johtajia ja yrittäjiä löytämään suuntansa, kehittämään johtajuuttaan ja rakentamaan uraa, joka vastaa heidän arvojaan.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary" id="hero-btn1">Varaa ilmainen konsultaatio</a>
+      <a href="#" class="btn-ghost" id="hero-btn2">Lue lisää</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img class="hero-img" src="https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?w=1200&q=80" alt="Sara Mäkinen">
+    <div class="hero-img-overlay"></div>
+  </div>
+</section>
+
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span id="m1">Johtajuusvalmennus</span><span id="m2">Strateginen konsultointi</span><span id="m3">Muutosjohtaminen</span><span id="m4">Keynote-puheet</span><span id="m5">Tiimivalmennus</span><span id="m6">Urasuunnittelu</span>
+    <span>Johtajuusvalmennus</span><span>Strateginen konsultointi</span><span>Muutosjohtaminen</span><span>Keynote-puheet</span><span>Tiimivalmennus</span><span>Urasuunnittelu</span>
+  </div>
+</div>
+
+<section class="about">
+  <div class="about-img-wrap">
+    <img class="about-img" src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=900&q=80" alt="Sara Mäkinen konsultoinnissa">
+  </div>
+  <div class="about-text">
+    <div class="section-label" id="about-label">Minusta</div>
+    <div class="section-title" id="about-title">Yli 15 vuotta <em>ihmisten</em> ja organisaatioiden kehittämistä</div>
+    <p class="section-body" id="about-body">Olen työskennellyt yli 200 johtajan ja yrittäjän kanssa Suomessa ja Pohjoismaissa. Minulle tärkeintä on aito muutos — ei pelkkä teoria, vaan konkreettiset tulokset arjessa. Taustani on organisaatiopsykologiassa ja strategisessa johtamisessa.</p>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">200+</div><div class="stat-lbl" id="stat1">Valmennettua johtajaa</div></div>
+      <div class="stat"><div class="stat-num">15v</div><div class="stat-lbl" id="stat2">Kokemus</div></div>
+      <div class="stat"><div class="stat-num">40+</div><div class="stat-lbl" id="stat3">Keynote-puhetta</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="services">
+  <div class="services-header">
+    <div class="section-label" id="services-label">Palvelut</div>
+    <div class="section-title" id="services-title">Miten voin <em>auttaa</em> sinua?</div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">◈</div>
+      <div class="service-name" id="s1-name">Johtajuusvalmennus</div>
+      <p class="service-desc" id="s1-desc">Yksilöllinen valmennus johtajille, jotka haluavat kehittyä, kasvaa ja johtaa selkeällä suunnalla.</p>
+      <a href="#" class="service-link" id="s1-link">Lue lisää →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">◇</div>
+      <div class="service-name" id="s2-name">Strateginen konsultointi</div>
+      <p class="service-desc" id="s2-desc">Auttan organisaatioita selkiyttämään strategiansa, priorisoimaan oikein ja viemään muutokset käytäntöön.</p>
+      <a href="#" class="service-link" id="s2-link">Lue lisää →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">◉</div>
+      <div class="service-name" id="s3-name">Keynote-puheet</div>
+      <p class="service-desc" id="s3-desc">Inspiroivia ja käytännönläheisiä puheita johtajuudesta, muutoksesta ja rohkeudesta.</p>
+      <a href="#" class="service-link" id="s3-link">Lue lisää →</a>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="section-label" id="testi-label">Asiakkaiden kokemuksia</div>
+  <div class="section-title" id="testi-title">Mitä asiakkaat <em>sanovat</em></div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote" id="t1-quote">"Sara auttoi minua löytämään selkeyttä johtajuuteeni tilanteessa, jossa kaikki tuntui epäselvältä. Muutos oli konkreettinen."</p>
+      <div class="testi-author">Mikko H. · Toimitusjohtaja</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote" id="t2-quote">"Yhteistyömme vaikutti koko tiimimme dynamiikkaan positiivisesti. Suosittelen lämpimästi jokaiselle kasvavalle yritykselle."</p>
+      <div class="testi-author">Liisa K. · Yrittäjä</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote" id="t3-quote">"Keynote-puhe vuosikokouksessamme jäi mieleen kuukausiksi. Käytännönläheinen, inspiroiva ja ammattimainen."</p>
+      <div class="testi-author">Antti R. · HR-johtaja</div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-section">
+  <div>
+    <div class="cta-title" id="cta-title">Valmis ottamaan <em>seuraavan askeleen</em>?</div>
+    <p class="cta-sub" id="cta-sub">Varaa maksuton 30 minuutin tutustumispuhelu ja katsotaan yhdessä, miten voin auttaa.</p>
+  </div>
+  <a href="#" class="cta-btn" id="cta-btn">Varaa aika →</a>
+</div>
+
+<footer>
+  <div class="footer-name">Sara Mäkinen</div>
+  <div class="footer-right" id="footer-right">Valmentaja & Konsultti · Helsinki</div>
+</footer>
+<div class="credit">© Tuomas Kuusisto</div>
+
+<script>
+window.addEventListener('scroll', function() {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+var translations = {
+  fi: {
+    heroTag: 'Valmentaja · Konsultti · Puhuja',
+    h1: 'Kasva<br><em>rohkeasti</em><br>eteenpäin',
+    heroDesc: 'Autan johtajia ja yrittäjiä löytämään suuntansa, kehittämään johtajuuttaan ja rakentamaan uraa, joka vastaa heidän arvojaan.',
+    heroBtn1: 'Varaa ilmainen konsultaatio', heroBtn2: 'Lue lisää',
+    navCta: 'Ota yhteyttä', nav: ['Palvelut','Minusta','Asiakkaat'],
+    m1:'Johtajuusvalmennus',m2:'Strateginen konsultointi',m3:'Muutosjohtaminen',m4:'Keynote-puheet',m5:'Tiimivalmennus',m6:'Urasuunnittelu',
+    aboutLabel: 'Minusta', aboutTitle: 'Yli 15 vuotta <em>ihmisten</em> ja organisaatioiden kehittämistä',
+    aboutBody: 'Olen työskennellyt yli 200 johtajan ja yrittäjän kanssa Suomessa ja Pohjoismaissa. Minulle tärkeintä on aito muutos — ei pelkkä teoria, vaan konkreettiset tulokset arjessa.',
+    stat1:'Valmennettua johtajaa', stat2:'Kokemus', stat3:'Keynote-puhetta',
+    servicesLabel:'Palvelut', servicesTitle:'Miten voin <em>auttaa</em> sinua?',
+    s1Name:'Johtajuusvalmennus', s1Desc:'Yksilöllinen valmennus johtajille, jotka haluavat kehittyä, kasvaa ja johtaa selkeällä suunnalla.',s1Link:'Lue lisää →',
+    s2Name:'Strateginen konsultointi', s2Desc:'Auttan organisaatioita selkiyttämään strategiansa, priorisoimaan oikein ja viemään muutokset käytäntöön.',s2Link:'Lue lisää →',
+    s3Name:'Keynote-puheet', s3Desc:'Inspiroivia ja käytännönläheisiä puheita johtajuudesta, muutoksesta ja rohkeudesta.',s3Link:'Lue lisää →',
+    testiLabel:'Asiakkaiden kokemuksia', testiTitle:'Mitä asiakkaat <em>sanovat</em>',
+    t1:'Saraa auttoi minua löytämään selkeyttä johtajuuteeni tilanteessa, jossa kaikki tuntui epäselvältä. Muutos oli konkreettinen.',
+    t2:'Yhteistyömme vaikutti koko tiimimme dynamiikkaan positiivisesti. Suosittelen lämpimästi jokaiselle kasvavalle yritykselle.',
+    t3:'Keynote-puhe vuosikokouksessamme jäi mieleen kuukausiksi. Käytännönläheinen, inspiroiva ja ammattimainen.',
+    ctaTitle:'Valmis ottamaan <em>seuraavan askeleen</em>?', ctaSub:'Varaa maksuton 30 minuutin tutustumispuhelu ja katsotaan yhdessä, miten voin auttaa.', ctaBtn:'Varaa aika →',
+    footerRight:'Valmentaja & Konsultti · Helsinki'
+  },
+  en: {
+    heroTag: 'Coach · Consultant · Speaker',
+    h1: 'Grow<br><em>boldly</em><br>forward',
+    heroDesc: 'I help leaders and entrepreneurs find their direction, develop their leadership and build a career that reflects their values.',
+    heroBtn1: 'Book a free consultation', heroBtn2: 'Learn more',
+    navCta: 'Contact', nav: ['Services','About','Clients'],
+    m1:'Leadership coaching',m2:'Strategic consulting',m3:'Change management',m4:'Keynote speeches',m5:'Team coaching',m6:'Career planning',
+    aboutLabel: 'About', aboutTitle: 'Over 15 years developing <em>people</em> and organisations',
+    aboutBody: 'I have worked with over 200 leaders and entrepreneurs in Finland and the Nordics. Real change matters to me — not just theory, but concrete results in everyday life.',
+    stat1:'Leaders coached', stat2:'Experience', stat3:'Keynote speeches',
+    servicesLabel:'Services', servicesTitle:'How can I <em>help</em> you?',
+    s1Name:'Leadership coaching', s1Desc:'Individual coaching for leaders who want to grow and lead with clarity and purpose.',s1Link:'Learn more →',
+    s2Name:'Strategic consulting', s2Desc:'I help organisations clarify their strategy, prioritise effectively and turn change into action.',s2Link:'Learn more →',
+    s3Name:'Keynote speeches', s3Desc:'Inspiring and practical talks on leadership, change and courage.',s3Link:'Learn more →',
+    testiLabel:'Client experiences', testiTitle:'What clients <em>say</em>',
+    t1:'"Sara helped me find clarity in my leadership at a time when everything felt uncertain. The change was tangible."',
+    t2:'"Our collaboration positively impacted our entire team\'s dynamics. I warmly recommend her to every growing company."',
+    t3:'"The keynote at our annual conference stayed with us for months. Practical, inspiring and professional."',
+    ctaTitle:'Ready to take the <em>next step</em>?', ctaSub:'Book a free 30-minute introductory call and let\'s see how I can help.', ctaBtn:'Book a time →',
+    footerRight:'Coach & Consultant · Helsinki'
+  }
+};
+
+function setLang(lang) {
+  var d = translations[lang];
+  document.getElementById('btn-fi').classList.toggle('active', lang==='fi');
+  document.getElementById('btn-en').classList.toggle('active', lang==='en');
+  document.getElementById('hero-tag').textContent = d.heroTag;
+  document.getElementById('hero-h1').innerHTML = d.h1;
+  document.getElementById('hero-desc').textContent = d.heroDesc;
+  document.getElementById('hero-btn1').textContent = d.heroBtn1;
+  document.getElementById('hero-btn2').textContent = d.heroBtn2;
+  document.getElementById('nav-cta').textContent = d.navCta;
+  var nl = document.querySelectorAll('nav ul a');
+  for(var i=0;i<nl.length;i++){nl[i].textContent=d.nav[i];}
+  ['m1','m2','m3','m4','m5','m6'].forEach(function(id){document.getElementById(id).textContent=d[id];});
+  document.getElementById('about-label').textContent = d.aboutLabel;
+  document.getElementById('about-title').innerHTML = d.aboutTitle;
+  document.getElementById('about-body').textContent = d.aboutBody;
+  document.getElementById('stat1').textContent = d.stat1;
+  document.getElementById('stat2').textContent = d.stat2;
+  document.getElementById('stat3').textContent = d.stat3;
+  document.getElementById('services-label').textContent = d.servicesLabel;
+  document.getElementById('services-title').innerHTML = d.servicesTitle;
+  document.getElementById('s1-name').textContent = d.s1Name;
+  document.getElementById('s1-desc').textContent = d.s1Desc;
+  document.getElementById('s1-link').textContent = d.s1Link;
+  document.getElementById('s2-name').textContent = d.s2Name;
+  document.getElementById('s2-desc').textContent = d.s2Desc;
+  document.getElementById('s2-link').textContent = d.s2Link;
+  document.getElementById('s3-name').textContent = d.s3Name;
+  document.getElementById('s3-desc').textContent = d.s3Desc;
+  document.getElementById('s3-link').textContent = d.s3Link;
+  document.getElementById('testi-label').textContent = d.testiLabel;
+  document.getElementById('testi-title').innerHTML = d.testiTitle;
+  document.getElementById('t1-quote').textContent = d.t1;
+  document.getElementById('t2-quote').textContent = d.t2;
+  document.getElementById('t3-quote').textContent = d.t3;
+  document.getElementById('cta-title').innerHTML = d.ctaTitle;
+  document.getElementById('cta-sub').textContent = d.ctaSub;
+  document.getElementById('cta-btn').textContent = d.ctaBtn;
+  document.getElementById('footer-right').textContent = d.footerRight;
+}
+</script>
+</body>
+</html>
