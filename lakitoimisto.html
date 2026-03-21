@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kauppi & Mäkinen — Asianajotoimisto</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--ink:#111215;--paper:#F4EFE6;--warm-white:#FDFAF5;--gold:#B8942A;--gold-light:#D4AF57;--mid-gray:#5A5A5A;--light-gray:#C8C4BB}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--paper);font-family:'Montserrat',sans-serif;overflow-x:hidden}
+  .topbar{background:var(--gold);padding:.55rem 6%;display:flex;justify-content:space-between;align-items:center}
+  .topbar span{font-size:.72rem;font-weight:400;letter-spacing:.1em;color:#111215;text-transform:uppercase}
+  .topbar strong{font-weight:600}
+  nav{position:relative;display:flex;justify-content:space-between;align-items:center;padding:1.75rem 6%;border-bottom:1px solid rgba(184,148,42,.2)}
+  .logo-block{text-align:center;flex:1}
+  .firm-name{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:600;letter-spacing:.35em;text-transform:uppercase;color:var(--paper)}
+  .firm-sub{font-size:.65rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-top:.2rem;font-weight:300}
+  nav ul{list-style:none;display:flex;gap:2.5rem;flex:1}
+  nav ul:last-of-type{justify-content:flex-end}
+  nav a{color:var(--light-gray);text-decoration:none;font-size:.7rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;transition:color .2s}
+  nav a:hover{color:var(--gold-light)}
+  .lang-sw{position:absolute;right:6%;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:0}
+  .lang-sw button{background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.15em;color:rgba(200,196,187,.35);padding:.2rem .5rem;transition:color .2s;text-transform:uppercase}
+  .lang-sw button.active{color:var(--gold)}
+  .lang-sw button:hover{color:var(--light-gray)}
+  .lang-sw .sep{color:rgba(184,148,42,.25);font-size:.65rem}
+  .hero{position:relative;height:92vh;display:flex;align-items:flex-end;overflow:hidden}
+  .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(.3) saturate(.6)}
+  .hero-gradient{position:absolute;inset:0;background:linear-gradient(to top,rgba(17,18,21,1) 0%,rgba(17,18,21,.6) 45%,rgba(17,18,21,.15) 100%)}
+  .hero-side-line{position:absolute;left:6%;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(184,148,42,.4),transparent);z-index:5}
+  .hero-content{position:relative;z-index:10;padding:5rem 6% 5rem calc(6% + 2rem);max-width:780px}
+  .hero-ornament{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;opacity:0;animation:reveal .8s .3s forwards}
+  .orn-line{width:50px;height:1px;background:var(--gold)}
+  .orn-text{font-size:.65rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:400}
+  h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,7vw,7rem);font-weight:300;line-height:1;color:var(--warm-white);margin-bottom:2rem;opacity:0;animation:reveal .9s .5s forwards}
+  h1 em{font-style:italic;color:var(--gold-light)}
+  .hero-desc{font-size:.95rem;font-weight:300;line-height:1.9;color:var(--light-gray);max-width:500px;margin-bottom:3rem;opacity:0;animation:reveal .8s .7s forwards}
+  .hero-btns{display:flex;gap:1.5rem;align-items:center;opacity:0;animation:reveal .8s .9s forwards}
+  .btn-gold{background:var(--gold);color:#111215;border:none;padding:1rem 2.5rem;font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .25s}
+  .btn-gold:hover{background:var(--gold-light);transform:translateY(-2px)}
+  .btn-outline{background:transparent;color:var(--paper);border:1px solid rgba(244,239,230,.3);padding:1rem 2.5rem;font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .25s}
+  .btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+  .expertise{display:grid;grid-template-columns:1fr 1fr}
+  .exp-img-side{position:relative;overflow:hidden;min-height:60vh}
+  .exp-img{width:100%;height:100%;object-fit:cover;display:block}
+  .exp-img-overlay{position:absolute;inset:0;background:linear-gradient(to right,transparent 60%,rgba(17,18,21,.8) 100%)}
+  .exp-text-side{background:var(--ink);padding:5rem 5%;display:flex;flex-direction:column;justify-content:center;border-left:1px solid rgba(184,148,42,.15)}
+  .exp-label{font-size:.65rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;font-weight:500}
+  .exp-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;color:var(--warm-white);line-height:1.15;margin-bottom:2.5rem}
+  .exp-items{display:flex;flex-direction:column}
+  .exp-item{border-top:1px solid rgba(184,148,42,.15);padding:1.5rem 0;display:flex;justify-content:space-between;align-items:center;transition:padding-left .25s;cursor:default}
+  .exp-item:last-child{border-bottom:1px solid rgba(184,148,42,.15)}
+  .exp-item:hover{padding-left:.75rem}
+  .exp-item-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;color:var(--paper)}
+  .exp-item-arr{color:var(--gold);font-size:1rem;opacity:0;transition:opacity .2s}
+  .exp-item:hover .exp-item-arr{opacity:1}
+  .philosophy{background:var(--paper);color:#111215;padding:6rem 6%;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+  .phil-label{font-size:.65rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem}
+  .phil-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,2.8vw,2.4rem);font-weight:300;font-style:italic;line-height:1.4;color:#111215}
+  .phil-divider{width:60px;height:1px;background:var(--gold);margin:2rem 0}
+  .phil-body{font-size:.9rem;font-weight:300;line-height:1.85;color:var(--mid-gray)}
+  .metrics{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+  .metric{border-left:2px solid var(--gold);padding-left:1.5rem}
+  .metric-num{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:300;color:#111215;line-height:1}
+  .metric-lbl{font-size:.73rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--mid-gray);margin-top:.3rem}
+  .office-section{padding:6rem 6%;background:var(--ink)}
+  .office-label{font-size:.65rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-weight:500}
+  .office-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;color:var(--warm-white);margin-bottom:3rem}
+  .office-grid{display:grid;grid-template-columns:2fr 1fr;gap:3px;height:500px}
+  .office-grid-right{display:grid;gap:3px}
+  .og-item{overflow:hidden;position:relative}
+  .og-item img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.65) saturate(.7);transition:filter .4s,transform .5s}
+  .og-item:hover img{filter:brightness(.9) saturate(.9);transform:scale(1.03)}
+  .og-caption{position:absolute;bottom:1.25rem;left:1.5rem;font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:var(--gold-light);opacity:0;transition:opacity .3s}
+  .og-item:hover .og-caption{opacity:1}
+  footer{background:#080808;padding:4rem 6%;border-top:1px solid rgba(184,148,42,.2)}
+  .footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:4rem;margin-bottom:3rem}
+  .footer-firm{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--paper);margin-bottom:1rem}
+  .footer-tagline{font-style:italic;font-size:.85rem;font-weight:300;color:var(--light-gray);line-height:1.7;font-family:'Cormorant Garamond',serif}
+  .footer-col h4{font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;font-weight:500}
+  .footer-col p{display:block;color:var(--light-gray);font-size:.82rem;font-weight:300;line-height:2}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:2rem;display:flex;justify-content:space-between;font-size:.72rem;color:rgba(200,196,187,.4);font-weight:300;flex-wrap:wrap;gap:.5rem}
+  .credit{background:#050505;text-align:center;padding:.75rem;font-family:'Montserrat',sans-serif;font-size:.85rem;color:rgba(184,148,42,.4);letter-spacing:.1em}
+  @keyframes reveal{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+  @media(max-width:768px){nav ul{display:none}.hero-content{padding:3rem 5%}.expertise{grid-template-columns:1fr}.exp-img-side{height:55vw}.exp-text-side{padding:3rem 5%}.philosophy{grid-template-columns:1fr;gap:3rem}.office-grid{grid-template-columns:1fr;height:auto}.og-item{height:240px}.office-grid-right{grid-template-columns:1fr 1fr}.footer-inner{grid-template-columns:1fr;gap:2rem}.metrics{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span id="topbar-left">Asianajotoimisto · Perustettu 1994 · Helsinki</span>
+  <span><strong>+358 9 456 7890</strong></span>
+</div>
+
+<nav>
+  <ul>
+    <li><a href="#" id="nav1">Osaamisalueet</a></li>
+    <li><a href="#" id="nav2">Asiantuntijat</a></li>
+  </ul>
+  <div class="logo-block">
+    <div class="firm-name">Kauppi &amp; Mäkinen</div>
+    <div class="firm-sub" id="firm-sub">Asianajotoimisto</div>
+  </div>
+  <ul>
+    <li><a href="#" id="nav3">Viitehankkeet</a></li>
+    <li><a href="#" id="nav4">Yhteydenotto</a></li>
+  </ul>
+  <div class="lang-sw">
+    <button id="btn-fi" class="active" onclick="setLang('fi')">FI</button>
+    <span class="sep">|</span>
+    <button id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1800&q=80" alt="Lakitoimiston kirjasto">
+  <div class="hero-gradient"></div>
+  <div class="hero-side-line"></div>
+  <div class="hero-content">
+    <div class="hero-ornament"><div class="orn-line"></div><div class="orn-text" id="orn-text">30 vuotta oikeudellista asiantuntemusta</div></div>
+    <h1 id="hero-h1">Oikeudellinen<br><em>varmuus</em><br>vaativissa<br>tilanteissa</h1>
+    <p class="hero-desc" id="hero-desc">Autamme yrityksiä ja yksityishenkilöitä monimutkaisissa oikeudellisissa kysymyksissä — kirkkaasti, päättäväisesti ja luottamuksellisesti.</p>
+    <div class="hero-btns">
+      <button class="btn-gold" id="btn1">Varaa konsultaatio</button>
+      <button class="btn-outline" id="btn2">Tutustu osaamiseen</button>
+    </div>
+  </div>
+</section>
+
+<section class="expertise">
+  <div class="exp-img-side">
+    <img class="exp-img" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=80" alt="Neuvottelu">
+    <div class="exp-img-overlay"></div>
+  </div>
+  <div class="exp-text-side">
+    <div class="exp-label" id="exp-label">Osaamisalueet</div>
+    <div class="exp-title" id="exp-title">Syvä osaaminen,<br>laaja kokemus</div>
+    <div class="exp-items">
+      <div class="exp-item"><span class="exp-item-name" id="exp1">Liikejuridiikka</span><span class="exp-item-arr">→</span></div>
+      <div class="exp-item"><span class="exp-item-name" id="exp2">Riita-asiat</span><span class="exp-item-arr">→</span></div>
+      <div class="exp-item"><span class="exp-item-name" id="exp3">Työoikeus</span><span class="exp-item-arr">→</span></div>
+      <div class="exp-item"><span class="exp-item-name" id="exp4">Kiinteistöoikeus</span><span class="exp-item-arr">→</span></div>
+      <div class="exp-item"><span class="exp-item-name" id="exp5">Sopimusoikeus</span><span class="exp-item-arr">→</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="philosophy">
+  <div>
+    <div class="phil-label" id="phil-label">Toimintaperiaatteemme</div>
+    <div class="phil-quote" id="phil-quote">"Paras neuvoja on se, jota asiakas ei olisi itse osannut pyytää."</div>
+    <div class="phil-divider"></div>
+    <p class="phil-body" id="phil-body">Kolme vuosikymmentä työ on opettanut, että asiakkaan todellinen tarve ja esitetty kysymys ovat usein eri asia. Kuuntelemme ensin, neuvomme sitten.</p>
+  </div>
+  <div class="metrics">
+    <div class="metric"><div class="metric-num">94%</div><div class="metric-lbl" id="m1">Asiakkaiden uusintakäynnit</div></div>
+    <div class="metric"><div class="metric-num">30+</div><div class="metric-lbl" id="m2">Vuotta alalla</div></div>
+    <div class="metric"><div class="metric-num">12</div><div class="metric-lbl" id="m3">Asiantuntijaa</div></div>
+    <div class="metric"><div class="metric-num">850+</div><div class="metric-lbl" id="m4">Hoidettua tapausta</div></div>
+  </div>
+</section>
+
+<section class="office-section">
+  <div class="office-label" id="office-label">Toimistomme</div>
+  <div class="office-title" id="office-title">Helsingin sydämessä,<br>kolmessa kerroksessa</div>
+  <div class="office-grid">
+    <div class="og-item"><img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1000&q=80" alt="Toimisto"><span class="og-caption" id="cap1">Neuvotteluhuone</span></div>
+    <div class="office-grid-right">
+      <div class="og-item"><img src="https://images.unsplash.com/photo-1568992688065-536aad8a12f6?w=600&q=80" alt="Kirjasto"><span class="og-caption" id="cap2">Kirjasto</span></div>
+      <div class="og-item"><img src="https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=600&q=80" alt="Vastaanotto"><span class="og-caption" id="cap3">Vastaanotto</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-firm">Kauppi &amp; Mäkinen</div>
+      <div class="footer-tagline" id="footer-tagline">Oikeudellista asiantuntemusta<br>luottamuksella ja selkeydellä<br>vuodesta 1994.</div>
+    </div>
+    <div class="footer-col">
+      <h4 id="fcol1-h">Osaamisalueet</h4>
+      <p id="fcol1-1">Liikejuridiikka</p>
+      <p id="fcol1-2">Riita-asiat</p>
+      <p id="fcol1-3">Työoikeus</p>
+      <p id="fcol1-4">Kiinteistöoikeus</p>
+    </div>
+    <div class="footer-col">
+      <h4 id="fcol2-h">Yhteystiedot</h4>
+      <p>Aleksanterinkatu 21, Helsinki</p>
+      <p>+358 9 456 7890</p>
+      <p>toimisto@kauppimakinen.fi</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Kauppi &amp; Mäkinen Asianajotoimisto Oy</span>
+    <span id="footer-legal">Asianajajaliiton jäsen · Tietosuojaseloste</span>
+  </div>
+</footer>
+<div class="credit">© Tuomas Kuusisto</div>
+
+<script>
+var translations = {
+  fi: {
+    topbar: 'Asianajotoimisto · Perustettu 1994 · Helsinki',
+    nav: ['Osaamisalueet','Asiantuntijat','Viitehankkeet','Yhteydenotto'],
+    firmSub: 'Asianajotoimisto',
+    ornText: '30 vuotta oikeudellista asiantuntemusta',
+    h1: 'Oikeudellinen<br><em style="font-style:italic;color:#D4AF57">varmuus</em><br>vaativissa<br>tilanteissa',
+    desc: 'Autamme yrityksiä ja yksityishenkilöitä monimutkaisissa oikeudellisissa kysymyksissä — kirkkaasti, päättäväisesti ja luottamuksellisesti.',
+    btn1: 'Varaa konsultaatio', btn2: 'Tutustu osaamiseen',
+    expLabel: 'Osaamisalueet', expTitle: 'Syvä osaaminen,<br>laaja kokemus',
+    exp: ['Liikejuridiikka','Riita-asiat','Työoikeus','Kiinteistöoikeus','Sopimusoikeus'],
+    philLabel: 'Toimintaperiaatteemme',
+    philQuote: '"Paras neuvoja on se, jota asiakas ei olisi itse osannut pyytää."',
+    philBody: 'Kolme vuosikymmentä työ on opettanut, että asiakkaan todellinen tarve ja esitetty kysymys ovat usein eri asia. Kuuntelemme ensin, neuvomme sitten.',
+    m: ['Asiakkaiden uusintakäynnit','Vuotta alalla','Asiantuntijaa','Hoidettua tapausta'],
+    officeLabel: 'Toimistomme', officeTitle: 'Helsingin sydämessä,<br>kolmessa kerroksessa',
+    caps: ['Neuvotteluhuone','Kirjasto','Vastaanotto'],
+    footerTagline: 'Oikeudellista asiantuntemusta<br>luottamuksella ja selkeydellä<br>vuodesta 1994.',
+    fcol1h: 'Osaamisalueet', fcol1: ['Liikejuridiikka','Riita-asiat','Työoikeus','Kiinteistöoikeus'],
+    fcol2h: 'Yhteystiedot', footerLegal: 'Asianajajaliiton jäsen · Tietosuojaseloste'
+  },
+  en: {
+    topbar: 'Law Firm · Established 1994 · Helsinki',
+    nav: ['Practice areas','Our lawyers','Cases','Contact'],
+    firmSub: 'Law Firm',
+    ornText: '30 years of legal expertise',
+    h1: 'Legal<br><em style="font-style:italic;color:#D4AF57">certainty</em><br>in demanding<br>situations',
+    desc: 'We help companies and individuals navigate complex legal matters — with clarity, resolve and in strict confidence.',
+    btn1: 'Book a consultation', btn2: 'Our expertise',
+    expLabel: 'Practice areas', expTitle: 'Deep expertise,<br>broad experience',
+    exp: ['Corporate law','Litigation','Employment law','Real estate law','Contract law'],
+    philLabel: 'Our philosophy',
+    philQuote: '"The best advice is the one the client would not have known to ask for."',
+    philBody: 'Three decades of practice have taught us that what a client truly needs and what they ask for are often different things. We listen first, then advise.',
+    m: ['Returning clients','Years of practice','Legal experts','Cases handled'],
+    officeLabel: 'Our offices', officeTitle: 'In the heart of Helsinki,<br>across three floors',
+    caps: ['Conference room','Library','Reception'],
+    footerTagline: 'Legal expertise delivered<br>with trust and clarity<br>since 1994.',
+    fcol1h: 'Practice areas', fcol1: ['Corporate law','Litigation','Employment law','Real estate law'],
+    fcol2h: 'Contact', footerLegal: 'Member of the Finnish Bar · Privacy policy'
+  }
+};
+
+function setLang(lang) {
+  var d = translations[lang];
+  document.getElementById('btn-fi').classList.toggle('active', lang === 'fi');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('topbar-left').textContent = d.topbar;
+  document.getElementById('nav1').textContent = d.nav[0];
+  document.getElementById('nav2').textContent = d.nav[1];
+  document.getElementById('nav3').textContent = d.nav[2];
+  document.getElementById('nav4').textContent = d.nav[3];
+  document.getElementById('firm-sub').textContent = d.firmSub;
+  document.getElementById('orn-text').textContent = d.ornText;
+  document.getElementById('hero-h1').innerHTML = d.h1;
+  document.getElementById('hero-desc').textContent = d.desc;
+  document.getElementById('btn1').textContent = d.btn1;
+  document.getElementById('btn2').textContent = d.btn2;
+  document.getElementById('exp-label').textContent = d.expLabel;
+  document.getElementById('exp-title').innerHTML = d.expTitle;
+  for (var i = 1; i <= 5; i++) { document.getElementById('exp' + i).textContent = d.exp[i-1]; }
+  document.getElementById('phil-label').textContent = d.philLabel;
+  document.getElementById('phil-quote').textContent = d.philQuote;
+  document.getElementById('phil-body').textContent = d.philBody;
+  for (var i = 1; i <= 4; i++) { document.getElementById('m' + i).textContent = d.m[i-1]; }
+  document.getElementById('office-label').textContent = d.officeLabel;
+  document.getElementById('office-title').innerHTML = d.officeTitle;
+  document.getElementById('cap1').textContent = d.caps[0];
+  document.getElementById('cap2').textContent = d.caps[1];
+  document.getElementById('cap3').textContent = d.caps[2];
+  document.getElementById('footer-tagline').innerHTML = d.footerTagline;
+  document.getElementById('fcol1-h').textContent = d.fcol1h;
+  for (var i = 1; i <= 4; i++) { document.getElementById('fcol1-' + i).textContent = d.fcol1[i-1]; }
+  document.getElementById('fcol2-h').textContent = d.fcol2h;
+  document.getElementById('footer-legal').textContent = d.footerLegal;
+}
+</script>
+</body>
+</html>

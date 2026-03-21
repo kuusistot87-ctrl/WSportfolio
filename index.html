@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tuomas Kuusisto — Kotisivut yrityksille</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#F0EDE8;--ink:#18160F;--mid:#6B6558;--accent:#D4522A;--white:#FDFCFA;--border:rgba(24,22,15,0.12)}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Syne',sans-serif;overflow-x:hidden;cursor:none}
+  .cursor{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width .25s,height .25s;mix-blend-mode:multiply}
+  .cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--ink);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .18s ease-out;opacity:.5}
+  body:has(.project-card:hover) .cursor{width:60px;height:60px;opacity:.15}
+  body:has(.project-card:hover) .cursor-ring{opacity:0}
+  header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:1.25rem 5%;display:flex;justify-content:space-between;align-items:center}
+  .nav-name{font-size:.9rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+  .nav-right{display:flex;align-items:center;gap:1.25rem}
+  .lang-sw{display:flex;align-items:center;gap:0}
+  .lang-sw button{background:none;border:none;cursor:pointer;font-family:'Syne',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;color:rgba(107,101,88,.45);padding:.2rem .45rem;transition:color .2s}
+  .lang-sw button.active{color:var(--accent)}
+  .lang-sw button:hover{color:var(--ink)}
+  .lang-sw .sep{color:rgba(107,101,88,.25);font-size:.7rem}
+  .nav-contact{display:flex;align-items:center;gap:.6rem;background:var(--ink);color:var(--bg);padding:.6rem 1.4rem;border-radius:100px;font-size:.78rem;font-weight:600;letter-spacing:.05em;text-decoration:none;transition:background .2s,transform .15s}
+  .nav-contact:hover{background:var(--accent);transform:scale(1.03)}
+  .hero{padding:7rem 5% 5rem;position:relative;overflow:hidden}
+  .hero-label{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-bottom:2rem;opacity:0;animation:up .6s .1s forwards}
+  .hero-label::before{content:'';display:block;width:24px;height:1.5px;background:var(--accent)}
+  h1{font-family:'Instrument Serif',serif;font-size:clamp(3.5rem,9vw,8.5rem);font-weight:400;line-height:.95;color:var(--ink);max-width:900px;opacity:0;animation:up .8s .25s forwards}
+  h1 em{font-style:italic;color:var(--accent)}
+  .hero-sub-row{margin-top:3rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;opacity:0;animation:up .7s .45s forwards}
+  .hero-desc{font-size:1.05rem;line-height:1.75;color:var(--mid);max-width:480px;font-weight:400}
+  .hero-stat{text-align:right}
+  .stat-big{font-family:'Instrument Serif',serif;font-size:4rem;font-weight:400;line-height:1;color:var(--ink)}
+  .stat-small{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-top:.2rem}
+  .section-divider{padding:0 5%;margin:3rem 0 4rem;display:flex;align-items:center;gap:1.5rem}
+  .divider-line{flex:1;height:1px;background:var(--border)}
+  .divider-label{font-size:.68rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--mid);white-space:nowrap}
+  .projects{padding:0 5% 8rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .project-card{background:var(--white);border:1px solid var(--border);border-radius:20px;overflow:hidden;text-decoration:none;color:var(--ink);display:block;transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s;opacity:0}
+  .project-card:nth-child(1){animation:up .7s .55s forwards}
+  .project-card:nth-child(2){animation:up .7s .7s forwards}
+  .project-card:nth-child(3){animation:up .7s .85s forwards}
+  .project-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 24px 60px rgba(0,0,0,.12)}
+  .preview{height:220px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .preview-pizza{background:#1A1209}
+  .preview-pizza::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 60% 50%,rgba(180,30,10,.5) 0%,transparent 70%)}
+  .preview-pizza-title{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;letter-spacing:.05em;color:#FDF6EC;position:relative;z-index:2;text-transform:uppercase;line-height:1;text-align:center}
+  .preview-pizza-title span{color:#D32F2F}
+  .preview-pizza-emoji{position:absolute;right:-10px;bottom:-20px;font-size:7rem;opacity:.15;transform:rotate(-15deg);z-index:1}
+  .preview-pizza-tag{position:absolute;top:14px;left:14px;background:#C9A84C;color:#1A1209;font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .75rem;border-radius:100px;z-index:3}
+  .preview-clean{background:#EBF2F8;flex-direction:column;gap:.75rem}
+  .preview-clean-logo{display:flex;align-items:center;gap:.5rem;font-family:'Instrument Serif',serif;font-size:2.2rem;color:#2A6BCC}
+  .preview-clean-dot{width:10px;height:10px;background:#5B9BD5;border-radius:50%}
+  .preview-clean-chips{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+  .chip{background:white;border:1px solid rgba(42,107,204,.2);color:#4A6073;font-size:.68rem;font-weight:600;padding:.3rem .75rem;border-radius:100px;letter-spacing:.05em}
+  .preview-clean-bg-circle{position:absolute;width:200px;height:200px;background:rgba(42,107,204,.08);border-radius:50%;right:-60px;bottom:-60px}
+  .preview-law{background:#111215;flex-direction:column;gap:.5rem}
+  .preview-law::before{content:'§';position:absolute;font-family:'Instrument Serif',serif;font-size:14rem;color:rgba(184,148,42,.06);line-height:1;right:-10px;bottom:-20px}
+  .preview-law-name{font-family:'Instrument Serif',serif;font-size:1.5rem;font-weight:400;letter-spacing:.1em;color:#F4EFE6;text-transform:uppercase;position:relative;z-index:2;text-align:center}
+  .preview-law-rule{width:50px;height:1px;background:#B8942A}
+  .preview-law-sub{font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:#B8942A;position:relative;z-index:2;font-weight:600}
+  .preview-law-tag{position:absolute;top:14px;right:14px;border:1px solid rgba(184,148,42,.4);color:#B8942A;font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .6rem;z-index:3}
+  .card-body{padding:1.5rem 1.75rem 1.75rem}
+  .card-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
+  .card-industry{font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--mid)}
+  .card-arrow{width:32px;height:32px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:background .2s,border-color .2s,transform .2s;flex-shrink:0}
+  .project-card:hover .card-arrow{background:var(--ink);border-color:var(--ink);color:var(--bg);transform:rotate(45deg)}
+  .card-title{font-family:'Instrument Serif',serif;font-size:1.5rem;font-weight:400;line-height:1.2;margin-bottom:.5rem}
+  .card-desc{font-size:.83rem;color:var(--mid);line-height:1.65;font-weight:400}
+  .card-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:1.25rem}
+  .tag{background:var(--bg);border:1px solid var(--border);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .7rem;border-radius:100px;color:var(--mid)}
+  .cta-section{margin:0 5% 8rem;background:var(--ink);border-radius:24px;padding:5rem 6%;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;overflow:hidden;position:relative}
+  .cta-section::before{content:'?';position:absolute;font-family:'Instrument Serif',serif;font-size:28rem;color:rgba(255,255,255,.03);right:-2rem;top:-4rem;line-height:1;pointer-events:none}
+  .cta-label{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:1rem}
+  .cta-title{font-family:'Instrument Serif',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:400;line-height:1.1;color:var(--white);position:relative;z-index:2}
+  .cta-title em{font-style:italic;color:var(--accent)}
+  .cta-right{display:flex;flex-direction:column;align-items:flex-end;gap:1rem;position:relative;z-index:2}
+  .cta-sub{font-size:.88rem;color:rgba(255,255,255,.45);text-align:right;line-height:1.6;max-width:250px}
+  .cta-btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--accent);color:white;padding:1rem 2rem;border-radius:100px;font-size:.85rem;font-weight:700;letter-spacing:.05em;text-decoration:none;transition:background .2s,transform .15s;white-space:nowrap}
+  .cta-btn:hover{background:#B83D1A;transform:scale(1.04)}
+  footer{border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:var(--mid)}
+  @keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @media(max-width:900px){.projects{grid-template-columns:1fr}.cta-section{grid-template-columns:1fr}.cta-right{align-items:flex-start}.cta-sub{text-align:left}h1{font-size:clamp(3rem,10vw,5rem)}}
+  @media(max-width:600px){body{cursor:auto}.cursor,.cursor-ring{display:none}}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<header>
+  <div class="nav-name">Tuomas Kuusisto</div>
+  <div class="nav-right">
+    <div class="lang-sw">
+      <button id="btn-fi" class="active" onclick="setLang('fi')">FI</button>
+      <span class="sep">|</span>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="mailto:Kuusistot87@gmail.com" class="nav-contact" id="nav-contact">Kuusistot87@gmail.com →</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-label" id="hero-label">Kotisivujen tekijä</div>
+  <h1 id="hero-h1">Sivut, jotka<br><em>erottuvat</em><br>joukosta</h1>
+  <div class="hero-sub-row">
+    <p class="hero-desc" id="hero-desc">Teen yrityksellesi kotisivut, jotka näyttävät hyvältä, toimivat erinomaisesti ja kertovat juuri sen, mitä asiakkaasi tarvitsee kuulla.</p>
+    <div class="hero-stat">
+      <div class="stat-big">3</div>
+      <div class="stat-small" id="stat-small">esimerkkityötä alla</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">
+  <div class="divider-line"></div>
+  <div class="divider-label" id="divider-label">Esimerkkityöt</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="projects">
+
+  <a class="project-card" href="pizzeria.html" target="_blank">
+    <div class="preview preview-pizza">
+      <div class="preview-pizza-tag" id="tag-pizza">Ravintola</div>
+      <div class="preview-pizza-title">VERA<span>CE</span><br>PIZZA</div>
+      <div class="preview-pizza-emoji">🍕</div>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <div class="card-industry" id="ind-pizza">Ravintola-ala</div>
+        <div class="card-arrow">↗</div>
+      </div>
+      <div class="card-title">Napoli Fuoco Pizzeria</div>
+      <div class="card-desc" id="desc-pizza">Tulinen, italialainen katutunnelma. Tumma värimaailma, dramaattiset typografiat ja liikkuva menubanneri.</div>
+      <div class="card-tags">
+        <span class="tag" id="ptag1">Tumma teema</span>
+        <span class="tag" id="ptag2">Animaatiot</span>
+        <span class="tag" id="ptag3">Menu</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="project-card" href="siivousfirma.html" target="_blank">
+    <div class="preview preview-clean">
+      <div class="preview-clean-bg-circle"></div>
+      <div class="preview-clean-logo"><div class="preview-clean-dot"></div>Kirkas</div>
+      <div class="preview-clean-chips">
+        <span class="chip" id="chip1">Kotisiivous</span>
+        <span class="chip" id="chip2">Toimistosiivous</span>
+        <span class="chip" id="chip3">Perussiivous</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <div class="card-industry" id="ind-clean">Palveluala</div>
+        <div class="card-arrow">↗</div>
+      </div>
+      <div class="card-title" id="title-clean">Kirkas Siivouspalvelut</div>
+      <div class="card-desc" id="desc-clean">Raikas skandinaavinen minimalismi. Vaalea ja luotettava ilme, joka vakuuttaa ensisilmäyksellä.</div>
+      <div class="card-tags">
+        <span class="tag" id="ctag1">Vaalea teema</span>
+        <span class="tag" id="ctag2">Minimalismi</span>
+        <span class="tag" id="ctag3">Palvelut</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="project-card" href="lakitoimisto.html" target="_blank">
+    <div class="preview preview-law">
+      <div class="preview-law-tag">Est. 1994</div>
+      <div class="preview-law-name">Kauppi &amp;<br>Mäkinen</div>
+      <div class="preview-law-rule"></div>
+      <div class="preview-law-sub" id="law-sub">Asianajotoimisto</div>
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <div class="card-industry" id="ind-law">Lakiala</div>
+        <div class="card-arrow">↗</div>
+      </div>
+      <div class="card-title">Kauppi &amp; Mäkinen</div>
+      <div class="card-desc" id="desc-law">Arvokas ja editorial — kultadetaljit mustalla pohjalla. Sivusto huokuu asiantuntijuutta ja luottamusta.</div>
+      <div class="card-tags">
+        <span class="tag" id="ltag1">Luxury</span>
+        <span class="tag" id="ltag2">Serif-typografia</span>
+        <span class="tag" id="ltag3">Prestiisi</span>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<div class="cta-section">
+  <div>
+    <div class="cta-label" id="cta-label">Seuraava projekti</div>
+    <div class="cta-title" id="cta-title">Haluatko <em>sinulle</em><br>sopivan sivuston?</div>
+  </div>
+  <div class="cta-right">
+    <p class="cta-sub" id="cta-sub">Jokaiselle yritykselle oma tyyli. Kerro tarpeistasi, niin tehdään juuri sinulle sopiva sivu.</p>
+    <a href="mailto:Kuusistot87@gmail.com" class="cta-btn" id="cta-btn">Lähetä sähköpostia →</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2025 Tuomas Kuusisto</span>
+  <span id="footer-right">Kotisivut yrityksille</span>
+</footer>
+
+<script>
+var translations = {
+  fi: {
+    heroLabel: 'Kotisivujen tekijä',
+    h1: 'Sivut, jotka<br><em style="font-style:italic;color:var(--accent)">erottuvat</em><br>joukosta',
+    heroDesc: 'Teen yrityksellesi kotisivut, jotka näyttävät hyvältä, toimivat erinomaisesti ja kertovat juuri sen, mitä asiakkaasi tarvitsee kuulla.',
+    statSmall: 'esimerkkityötä alla',
+    divider: 'Esimerkkityöt',
+    tagPizza: 'Ravintola', indPizza: 'Ravintola-ala',
+    descPizza: 'Tulinen, italialainen katutunnelma. Tumma värimaailma, dramaattiset typografiat ja liikkuva menubanneri.',
+    ptag1: 'Tumma teema', ptag2: 'Animaatiot', ptag3: 'Menu',
+    chip1: 'Kotisiivous', chip2: 'Toimistosiivous', chip3: 'Perussiivous',
+    indClean: 'Palveluala', titleClean: 'Kirkas Siivouspalvelut',
+    descClean: 'Raikas skandinaavinen minimalismi. Vaalea ja luotettava ilme, joka vakuuttaa ensisilmäyksellä.',
+    ctag1: 'Vaalea teema', ctag2: 'Minimalismi', ctag3: 'Palvelut',
+    lawSub: 'Asianajotoimisto', indLaw: 'Lakiala',
+    descLaw: 'Arvokas ja editorial — kultadetaljit mustalla pohjalla. Sivusto huokuu asiantuntijuutta ja luottamusta.',
+    ltag1: 'Luxury', ltag2: 'Serif-typografia', ltag3: 'Prestiisi',
+    ctaLabel: 'Seuraava projekti',
+    ctaTitle: 'Haluatko <em style="font-style:italic;color:var(--accent)">sinulle</em><br>sopivan sivuston?',
+    ctaSub: 'Jokaiselle yritykselle oma tyyli. Kerro tarpeistasi, niin tehdään juuri sinulle sopiva sivu.',
+    ctaBtn: 'Lähetä sähköpostia →',
+    footerRight: 'Kotisivut yrityksille'
+  },
+  en: {
+    heroLabel: 'Website designer',
+    h1: 'Websites that<br><em style="font-style:italic;color:var(--accent)">stand out</em><br>from the crowd',
+    heroDesc: 'I build websites for your business that look great, work flawlessly and tell exactly what your customers need to hear.',
+    statSmall: 'example projects below',
+    divider: 'Example work',
+    tagPizza: 'Restaurant', indPizza: 'Food & Beverage',
+    descPizza: 'Fiery Italian street atmosphere. Dark colour palette, dramatic typography and an animated menu banner.',
+    ptag1: 'Dark theme', ptag2: 'Animations', ptag3: 'Menu',
+    chip1: 'Home cleaning', chip2: 'Office cleaning', chip3: 'Deep cleaning',
+    indClean: 'Service industry', titleClean: 'Kirkas Cleaning Services',
+    descClean: 'Fresh Scandinavian minimalism. A bright, trustworthy look that convinces at first glance.',
+    ctag1: 'Light theme', ctag2: 'Minimalism', ctag3: 'Services',
+    lawSub: 'Law Firm', indLaw: 'Legal',
+    descLaw: 'Prestigious and editorial — gold details on black. The site radiates expertise and trust.',
+    ltag1: 'Luxury', ltag2: 'Serif typography', ltag3: 'Prestige',
+    ctaLabel: 'Next project',
+    ctaTitle: 'Want a website made<br>just for <em style="font-style:italic;color:var(--accent)">you</em>?',
+    ctaSub: 'Every business gets its own style. Tell me what you need and I will build the perfect site for you.',
+    ctaBtn: 'Send an email →',
+    footerRight: 'Websites for businesses'
+  }
+};
+
+function setLang(lang) {
+  var d = translations[lang];
+  document.getElementById('btn-fi').classList.toggle('active', lang === 'fi');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('hero-label').textContent = d.heroLabel;
+  document.getElementById('hero-h1').innerHTML = d.h1;
+  document.getElementById('hero-desc').textContent = d.heroDesc;
+  document.getElementById('stat-small').textContent = d.statSmall;
+  document.getElementById('divider-label').textContent = d.divider;
+  document.getElementById('tag-pizza').textContent = d.tagPizza;
+  document.getElementById('ind-pizza').textContent = d.indPizza;
+  document.getElementById('desc-pizza').textContent = d.descPizza;
+  document.getElementById('ptag1').textContent = d.ptag1;
+  document.getElementById('ptag2').textContent = d.ptag2;
+  document.getElementById('ptag3').textContent = d.ptag3;
+  document.getElementById('chip1').textContent = d.chip1;
+  document.getElementById('chip2').textContent = d.chip2;
+  document.getElementById('chip3').textContent = d.chip3;
+  document.getElementById('ind-clean').textContent = d.indClean;
+  document.getElementById('title-clean').textContent = d.titleClean;
+  document.getElementById('desc-clean').textContent = d.descClean;
+  document.getElementById('ctag1').textContent = d.ctag1;
+  document.getElementById('ctag2').textContent = d.ctag2;
+  document.getElementById('ctag3').textContent = d.ctag3;
+  document.getElementById('law-sub').textContent = d.lawSub;
+  document.getElementById('ind-law').textContent = d.indLaw;
+  document.getElementById('desc-law').textContent = d.descLaw;
+  document.getElementById('ltag1').textContent = d.ltag1;
+  document.getElementById('ltag2').textContent = d.ltag2;
+  document.getElementById('ltag3').textContent = d.ltag3;
+  document.getElementById('cta-label').textContent = d.ctaLabel;
+  document.getElementById('cta-title').innerHTML = d.ctaTitle;
+  document.getElementById('cta-sub').textContent = d.ctaSub;
+  document.getElementById('cta-btn').textContent = d.ctaBtn;
+  document.getElementById('footer-right').textContent = d.footerRight;
+}
+
+var cursor = document.getElementById('cursor');
+var ring = document.getElementById('cursorRing');
+var mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', function(e) {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+</script>
+</body>
+</html>

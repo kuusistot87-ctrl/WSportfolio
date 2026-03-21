@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kirkas — Siivouspalvelut</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--white:#FFFFFF;--off-white:#F7F9FC;--ice:#EBF2F8;--blue:#2A6BCC;--sky:#5B9BD5;--mist:#C8DCF0;--dark:#142232;--mid:#4A6073}
+  html{scroll-behavior:smooth}
+  body{background:var(--white);color:var(--dark);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 5%;background:var(--white);border-bottom:1px solid rgba(42,107,204,.1);position:sticky;top:0;z-index:100}
+  .logo{display:flex;align-items:center;gap:.6rem;font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:500;color:var(--blue)}
+  .logo-dot{width:8px;height:8px;background:var(--sky);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.7}}
+  nav ul{list-style:none;display:flex;gap:2.5rem}
+  nav a{color:var(--mid);text-decoration:none;font-size:.95rem;font-weight:400;transition:color .2s}
+  nav a:hover{color:var(--blue)}
+  .nav-right{display:flex;align-items:center;gap:1rem}
+  .nav-btn{background:var(--blue);color:white;border:none;padding:.65rem 1.5rem;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;cursor:pointer;transition:background .2s,transform .15s}
+  .nav-btn:hover{background:#1a57a8;transform:translateY(-1px)}
+  .lang-sw{display:flex;align-items:center;gap:0}
+  .lang-sw button{background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.08em;color:rgba(74,96,115,.45);padding:.2rem .45rem;transition:color .2s}
+  .lang-sw button.active{color:var(--blue)}
+  .lang-sw button:hover{color:var(--dark)}
+  .lang-sw .sep{color:rgba(74,96,115,.25);font-size:.7rem}
+  .hero{position:relative;height:92vh;display:flex;align-items:center;overflow:hidden}
+  .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.35) saturate(.8)}
+  .hero-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(20,34,50,.92) 0%,rgba(42,107,204,.25) 60%,transparent 100%)}
+  .hero-content{position:relative;z-index:10;padding:0 7%;max-width:680px}
+  .hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(200,220,240,.2);backdrop-filter:blur(8px);border:1px solid rgba(200,220,240,.35);color:#C8DCF0;padding:.4rem 1rem;border-radius:100px;font-size:.82rem;font-weight:500;letter-spacing:.05em;margin-bottom:2rem;width:fit-content;opacity:0;animation:fadein .6s .2s forwards}
+  h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,6vw,5.5rem);line-height:1.05;color:white;margin-bottom:1.5rem;opacity:0;animation:slideup .8s .4s forwards}
+  h1 em{font-style:italic;color:#7EC8E3}
+  .hero-sub{font-size:1.1rem;line-height:1.8;color:rgba(255,255,255,.65);font-weight:300;max-width:460px;margin-bottom:2.5rem;opacity:0;animation:fadein .6s .7s forwards}
+  .hero-btns{display:flex;gap:1rem;align-items:center;opacity:0;animation:fadein .6s .9s forwards}
+  .btn-main{background:var(--blue);color:white;border:none;padding:1rem 2rem;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:500;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(42,107,204,.4)}
+  .btn-main:hover{background:#1a57a8;transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.3);padding:1rem 2rem;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:1rem;cursor:pointer;transition:all .2s}
+  .btn-ghost:hover{border-color:var(--sky);color:var(--sky)}
+  .trust-bar{background:var(--dark);padding:2rem 5%;display:flex;justify-content:center;gap:5rem;flex-wrap:wrap}
+  .trust-item{text-align:center}
+  .trust-num{font-family:'Playfair Display',serif;font-size:2.2rem;color:white;font-weight:400}
+  .trust-lbl{font-size:.78rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:.2rem}
+  .services{padding:6rem 5%;background:var(--off-white)}
+  .section-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--blue);margin-bottom:.75rem}
+  h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);color:var(--dark);line-height:1.2;margin-bottom:3rem}
+  h2 em{font-style:italic;color:var(--blue)}
+  .service-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .svc-card{background:var(--white);border-radius:20px;overflow:hidden;border:1px solid rgba(42,107,204,.08);transition:transform .3s,box-shadow .3s}
+  .svc-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(42,107,204,.12)}
+  .svc-img-wrap{overflow:hidden;height:220px}
+  .svc-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+  .svc-card:hover .svc-img{transform:scale(1.06)}
+  .svc-body{padding:1.75rem}
+  .svc-icon{font-size:1.6rem;margin-bottom:.75rem;display:block}
+  .svc-title{font-size:1.15rem;font-weight:500;margin-bottom:.5rem;color:var(--dark)}
+  .svc-desc{font-size:.88rem;color:var(--mid);line-height:1.7;font-weight:300}
+  .how{display:grid;grid-template-columns:1fr 1fr;min-height:60vh}
+  .how-img-side{overflow:hidden}
+  .how-img{width:100%;height:100%;object-fit:cover;display:block}
+  .how-text-side{background:var(--blue);padding:5rem 5%;display:flex;flex-direction:column;justify-content:center}
+  .how-label{font-size:.7rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:1.5rem}
+  .how-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);color:white;line-height:1.2;margin-bottom:2rem}
+  .steps{display:flex;flex-direction:column;gap:1.5rem}
+  .step{display:flex;gap:1.25rem;align-items:flex-start}
+  .step-num{width:36px;height:36px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1rem;color:white;flex-shrink:0}
+  .step-content h4{font-size:1rem;font-weight:500;color:white;margin-bottom:.25rem}
+  .step-content p{font-size:.85rem;font-weight:300;color:rgba(255,255,255,.6);line-height:1.6}
+  .gallery-strip{display:grid;grid-template-columns:repeat(4,1fr);height:320px;gap:3px}
+  .gs-item{overflow:hidden}
+  .gs-item img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.88);transition:filter .4s,transform .5s}
+  .gs-item:hover img{filter:brightness(1);transform:scale(1.05)}
+  footer{background:var(--dark);color:rgba(255,255,255,.55);padding:3rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+  .footer-logo-text{font-family:'Playfair Display',serif;font-size:1.5rem;color:white}
+  .footer-contact{font-size:.88rem;line-height:1.9;text-align:right}
+  .credit{background:#0d1a26;text-align:center;padding:.75rem;font-family:'DM Sans',sans-serif;font-size:.85rem;color:rgba(42,107,204,.5);letter-spacing:.1em}
+  @keyframes fadein{from{opacity:0}to{opacity:1}}
+  @keyframes slideup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  @media(max-width:768px){nav ul{display:none}.service-cards{grid-template-columns:1fr}.how{grid-template-columns:1fr}.how-img-side{height:50vw}.gallery-strip{grid-template-columns:repeat(2,1fr);height:auto}.gs-item{height:180px}footer{flex-direction:column;align-items:flex-start}.footer-contact{text-align:left}.trust-bar{gap:2rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><div class="logo-dot"></div>Kirkas</div>
+  <ul>
+    <li><a href="#" id="nav1">Palvelut</a></li>
+    <li><a href="#" id="nav2">Hinnat</a></li>
+    <li><a href="#" id="nav3">Meistä</a></li>
+    <li><a href="#" id="nav4">Yhteys</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-sw">
+      <button id="btn-fi" class="active" onclick="setLang('fi')">FI</button>
+      <span class="sep">|</span>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="nav-btn" id="nav-cta">Pyydä tarjous</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1527515637462-cff94aca208b?w=1800&q=80" alt="Siisti koti">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag" id="hero-tag">✦ Luotettava siivouspalvelu</div>
+    <h1 id="hero-h1">Kodin <em>puhtaus</em><br>ilman vaivaa</h1>
+    <p class="hero-sub" id="hero-sub">Hoitaa siivouksen niin perusteellisesti ja hiljaisesti, että huomaat sen vasta kun kaikki kiiltää.</p>
+    <div class="hero-btns">
+      <button class="btn-main" id="btn-main">Pyydä ilmainen tarjous</button>
+      <button class="btn-ghost" id="btn-ghost">Lue lisää</button>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item"><div class="trust-num">98%</div><div class="trust-lbl" id="trust1">tyytyväisiä asiakkaita</div></div>
+  <div class="trust-item"><div class="trust-num">1 200+</div><div class="trust-lbl" id="trust2">palveltua kotia</div></div>
+  <div class="trust-item"><div class="trust-num">8 v.</div><div class="trust-lbl" id="trust3">kokemusta alalta</div></div>
+  <div class="trust-item"><div class="trust-num">100%</div><div class="trust-lbl" id="trust4">ympäristöystävällistä</div></div>
+</div>
+
+<section class="services">
+  <div class="section-eyebrow" id="svc-eyebrow">Palvelumme</div>
+  <h2 id="svc-h2">Kaikki siivous-<br>tarpeesi <em>katettuna</em></h2>
+  <div class="service-cards">
+    <div class="svc-card">
+      <div class="svc-img-wrap"><img class="svc-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Kotisiivous"></div>
+      <div class="svc-body"><span class="svc-icon">🏠</span><div class="svc-title" id="svc1-title">Kotisiivous</div><p class="svc-desc" id="svc1-desc">Säännöllinen tai kertaluonteinen siivous kodissasi. Sovitaan aikataulu ja laajuus yhdessä.</p></div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img-wrap"><img class="svc-img" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="Toimistosiivous"></div>
+      <div class="svc-body"><span class="svc-icon">🏢</span><div class="svc-title" id="svc2-title">Toimistosiivous</div><p class="svc-desc" id="svc2-desc">Pidä työtilat edustavina ja hygieenisinä. Sopimukset kausittaisista tai viikoittaisista käynneistä.</p></div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img-wrap"><img class="svc-img" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80" alt="Perussiivous"></div>
+      <div class="svc-body"><span class="svc-icon">✨</span><div class="svc-title" id="svc3-title">Perussiivous</div><p class="svc-desc" id="svc3-desc">Syvä puhdistus muuton yhteydessä tai kevään koittaessa. Jokainen nurkkaus huolella.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="how-img-side">
+    <img class="how-img" src="https://images.unsplash.com/photo-1563453392212-326f5e854473?w=900&q=80" alt="Ammattilainen siivoaa">
+  </div>
+  <div class="how-text-side">
+    <div class="how-label" id="how-label">Näin se toimii</div>
+    <div class="how-title" id="how-title">Helppo kuin<br>sunnuntaiaamu</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4 id="step1-h">Ota yhteyttä</h4><p id="step1-p">Kerro tarpeistasi — soitto, viesti tai lomake. Vastaamme aina saman päivän aikana.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4 id="step2-h">Sovitaan aika</h4><p id="step2-p">Valitaan sinulle sopiva hetki. Avain voi jäädä ovelle, tai olet itse paikalla.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4 id="step3-h">Nauti puhtaasta kodista</h4><p id="step3-p">Tiimimme hoitaa loput. Palaat kotiin, joka tuoksuu raikkaalle.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="gallery-strip">
+  <div class="gs-item"><img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=500&q=80" alt="Siisti keittiö"></div>
+  <div class="gs-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500&q=80" alt="Kylpyhuone"></div>
+  <div class="gs-item"><img src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=500&q=80" alt="Olohuone"></div>
+  <div class="gs-item"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&q=80" alt="Makuuhuone"></div>
+</div>
+
+<footer>
+  <div class="footer-logo-text">Kirkas</div>
+  <div class="footer-contact">Simonkatu 8, Helsinki · 040 777 1234<br>kirkas@siivous.fi · Ma–Pe 7–18</div>
+</footer>
+<div class="credit">© Tuomas Kuusisto</div>
+
+<script>
+var translations = {
+  fi: {
+    nav: ['Palvelut','Hinnat','Meistä','Yhteys'], navCta: 'Pyydä tarjous',
+    tag: '✦ Luotettava siivouspalvelu',
+    h1: 'Kodin <em style="font-style:italic;color:#7EC8E3">puhtaus</em><br>ilman vaivaa',
+    sub: 'Hoitaa siivouksen niin perusteellisesti ja hiljaisesti, että huomaat sen vasta kun kaikki kiiltää.',
+    btnMain: 'Pyydä ilmainen tarjous', btnGhost: 'Lue lisää',
+    trust1: 'tyytyväisiä asiakkaita', trust2: 'palveltua kotia', trust3: 'kokemusta alalta', trust4: 'ympäristöystävällistä',
+    svcEyebrow: 'Palvelumme',
+    svcH2: 'Kaikki siivous-<br>tarpeesi <em style="font-style:italic;color:#2A6BCC">katettuna</em>',
+    svc1t: 'Kotisiivous', svc1d: 'Säännöllinen tai kertaluonteinen siivous kodissasi. Sovitaan aikataulu ja laajuus yhdessä.',
+    svc2t: 'Toimistosiivous', svc2d: 'Pidä työtilat edustavina ja hygieenisinä. Sopimukset kausittaisista tai viikoittaisista käynneistä.',
+    svc3t: 'Perussiivous', svc3d: 'Syvä puhdistus muuton yhteydessä tai kevään koittaessa. Jokainen nurkkaus huolella.',
+    howLabel: 'Näin se toimii', howTitle: 'Helppo kuin<br>sunnuntaiaamu',
+    s1h: 'Ota yhteyttä', s1p: 'Kerro tarpeistasi — soitto, viesti tai lomake. Vastaamme aina saman päivän aikana.',
+    s2h: 'Sovitaan aika', s2p: 'Valitaan sinulle sopiva hetki. Avain voi jäädä ovelle, tai olet itse paikalla.',
+    s3h: 'Nauti puhtaasta kodista', s3p: 'Tiimimme hoitaa loput. Palaat kotiin, joka tuoksuu raikkaalle.'
+  },
+  en: {
+    nav: ['Services','Pricing','About','Contact'], navCta: 'Get a quote',
+    tag: '✦ Trusted cleaning service',
+    h1: 'A <em style="font-style:italic;color:#7EC8E3">spotless</em><br>home, effortlessly',
+    sub: 'We clean so thoroughly and quietly that you only notice when everything shines.',
+    btnMain: 'Request a free quote', btnGhost: 'Learn more',
+    trust1: 'satisfied customers', trust2: 'homes served', trust3: 'years of experience', trust4: 'eco-friendly',
+    svcEyebrow: 'Our services',
+    svcH2: 'All your cleaning<br>needs <em style="font-style:italic;color:#2A6BCC">covered</em>',
+    svc1t: 'Home Cleaning', svc1d: 'Regular or one-time cleaning at your home. We agree on a schedule and scope together.',
+    svc2t: 'Office Cleaning', svc2d: 'Keep your workspace presentable and hygienic. Seasonal or weekly agreements available.',
+    svc3t: 'Deep Cleaning', svc3d: 'Thorough deep clean when moving or at the start of spring. Every corner done with care.',
+    howLabel: 'How it works', howTitle: 'Easy as a<br>Sunday morning',
+    s1h: 'Get in touch', s1p: 'Tell us what you need — call, text or form. We always reply the same day.',
+    s2h: 'Pick a time', s2p: 'We find a time that works for you. Leave a key or be home — your choice.',
+    s3h: 'Enjoy your clean home', s3p: 'Our team handles the rest. Come back to a home that smells fresh.'
+  }
+};
+
+function setLang(lang) {
+  var d = translations[lang];
+  document.getElementById('btn-fi').classList.toggle('active', lang === 'fi');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('nav1').textContent = d.nav[0];
+  document.getElementById('nav2').textContent = d.nav[1];
+  document.getElementById('nav3').textContent = d.nav[2];
+  document.getElementById('nav4').textContent = d.nav[3];
+  document.getElementById('nav-cta').textContent = d.navCta;
+  document.getElementById('hero-tag').textContent = d.tag;
+  document.getElementById('hero-h1').innerHTML = d.h1;
+  document.getElementById('hero-sub').textContent = d.sub;
+  document.getElementById('btn-main').textContent = d.btnMain;
+  document.getElementById('btn-ghost').textContent = d.btnGhost;
+  document.getElementById('trust1').textContent = d.trust1;
+  document.getElementById('trust2').textContent = d.trust2;
+  document.getElementById('trust3').textContent = d.trust3;
+  document.getElementById('trust4').textContent = d.trust4;
+  document.getElementById('svc-eyebrow').textContent = d.svcEyebrow;
+  document.getElementById('svc-h2').innerHTML = d.svcH2;
+  document.getElementById('svc1-title').textContent = d.svc1t;
+  document.getElementById('svc1-desc').textContent = d.svc1d;
+  document.getElementById('svc2-title').textContent = d.svc2t;
+  document.getElementById('svc2-desc').textContent = d.svc2d;
+  document.getElementById('svc3-title').textContent = d.svc3t;
+  document.getElementById('svc3-desc').textContent = d.svc3d;
+  document.getElementById('how-label').textContent = d.howLabel;
+  document.getElementById('how-title').innerHTML = d.howTitle;
+  document.getElementById('step1-h').textContent = d.s1h;
+  document.getElementById('step1-p').textContent = d.s1p;
+  document.getElementById('step2-h').textContent = d.s2h;
+  document.getElementById('step2-p').textContent = d.s2p;
+  document.getElementById('step3-h').textContent = d.s3h;
+  document.getElementById('step3-p').textContent = d.s3p;
+}
+</script>
+</body>
+</html>

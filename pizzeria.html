@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Napoli Fuoco — Pizzeria</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,400;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--red:#D32F2F;--dark-red:#8B0000;--cream:#FDF6EC;--charcoal:#1A1209;--gold:#C9A84C}
+  html{scroll-behavior:smooth}
+  body{background:var(--charcoal);color:var(--cream);font-family:'Crimson Pro',serif;overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:.6}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 4rem;background:linear-gradient(to bottom,rgba(26,18,9,.92),transparent)}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.15em;color:var(--gold)}
+  nav ul{list-style:none;display:flex;gap:3rem}
+  nav a{color:var(--cream);text-decoration:none;font-style:italic;font-size:1.1rem;opacity:.75;transition:opacity .2s}
+  nav a:hover{opacity:1;color:var(--gold)}
+  .lang-sw{display:flex;align-items:center;gap:0}
+  .lang-sw button{background:none;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;color:rgba(253,246,236,.4);padding:.2rem .5rem;transition:color .2s}
+  .lang-sw button.active{color:var(--gold)}
+  .lang-sw button:hover{color:var(--cream)}
+  .lang-sw .sep{color:rgba(253,246,236,.2);font-size:.7rem}
+  .hero{position:relative;height:100vh;display:flex;align-items:flex-end;overflow:hidden}
+  .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.45)}
+  .hero-gradient{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,18,9,1) 0%,rgba(26,18,9,.55) 40%,rgba(26,18,9,.1) 100%)}
+  .hero-content{position:relative;z-index:10;padding:4rem;max-width:750px}
+  .eyebrow{font-style:italic;color:var(--gold);font-size:1.1rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:1rem;opacity:0;animation:fadein .8s .2s forwards}
+  h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,12vw,10rem);line-height:.9;color:var(--cream);opacity:0;animation:slideup .9s .4s forwards}
+  h1 span{color:var(--red)}
+  .hero-desc{font-size:1.25rem;line-height:1.6;font-style:italic;color:rgba(253,246,236,.75);max-width:480px;margin-top:1.5rem;opacity:0;animation:fadein .8s .7s forwards}
+  .hero-cta{margin-top:2.5rem;display:flex;gap:1.5rem;align-items:center;opacity:0;animation:fadein .8s .9s forwards}
+  .btn-primary{background:var(--red);color:var(--cream);border:none;padding:1rem 2.5rem;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.1em;cursor:pointer;transition:background .2s,transform .15s;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 100%,12px 100%)}
+  .btn-primary:hover{background:var(--dark-red);transform:scale(1.04)}
+  .open-badge{font-style:italic;color:var(--gold);font-size:1rem}
+  .open-badge::before{content:'● ';font-size:.7rem;color:#4caf50}
+  .stripe{background:var(--red);padding:1rem 0;display:flex;overflow:hidden}
+  .stripe-items{display:flex;gap:5rem;animation:marquee 18s linear infinite;white-space:nowrap}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .stripe span{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.2em;color:rgba(253,246,236,.85)}
+  .stripe span::before{content:'✦  ';color:rgba(253,246,236,.45)}
+  .story{display:grid;grid-template-columns:1fr 1fr;min-height:65vh}
+  .story-img-wrap{overflow:hidden}
+  .story-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+  .story-img-wrap:hover .story-img{transform:scale(1.04)}
+  .story-text{background:var(--charcoal);padding:5rem 4rem;display:flex;flex-direction:column;justify-content:center;border-left:1px solid rgba(201,168,76,.15)}
+  .story-label{font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem}
+  .story-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,4vw,4rem);line-height:1;color:var(--cream);margin-bottom:1.5rem}
+  .story-body{font-size:1.1rem;line-height:1.8;font-style:italic;color:rgba(253,246,236,.65);max-width:420px}
+  .story-stats{margin-top:2.5rem;display:flex;gap:2.5rem}
+  .stat-item{border-left:2px solid var(--gold);padding-left:1rem}
+  .stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--gold);line-height:1}
+  .stat-lbl{font-style:italic;font-size:.85rem;color:rgba(253,246,236,.5);margin-top:.2rem}
+  .menu{padding:6rem 4rem}
+  .section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,5rem);color:var(--cream)}
+  .section-title span{color:var(--red)}
+  .divider{width:80px;height:2px;background:var(--gold);margin:.75rem 0 3rem}
+  .menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
+  .menu-item{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);display:grid;grid-template-columns:150px 1fr;transition:background .2s,border-color .2s;cursor:pointer;overflow:hidden}
+  .menu-item:hover{background:rgba(211,47,47,.08);border-color:rgba(211,47,47,.3)}
+  .menu-img-wrap{overflow:hidden}
+  .menu-img{width:100%;height:100%;object-fit:cover;display:block;min-height:170px;transition:transform .5s}
+  .menu-item:hover .menu-img{transform:scale(1.08)}
+  .menu-info{padding:1.75rem}
+  .item-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.05em;color:var(--cream)}
+  .item-desc{font-style:italic;color:rgba(253,246,236,.5);font-size:.95rem;margin-top:.4rem;line-height:1.5}
+  .item-price{color:var(--gold);font-size:1.2rem;margin-top:.75rem;font-style:italic}
+  .gallery{display:grid;grid-template-columns:2fr 1fr 1fr;height:460px;gap:3px}
+  .gal-item{overflow:hidden;position:relative}
+  .gal-item img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.8);transition:filter .4s,transform .5s}
+  .gal-item:hover img{filter:brightness(1);transform:scale(1.04)}
+  .gal-label{position:absolute;bottom:1rem;left:1.2rem;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.18em;color:var(--gold);opacity:0;transition:opacity .3s}
+  .gal-item:hover .gal-label{opacity:1}
+  footer{border-top:1px solid rgba(201,168,76,.2);padding:3rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+  .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold)}
+  .footer-info{font-style:italic;color:rgba(253,246,236,.5);font-size:.95rem;line-height:1.8;text-align:right}
+  .credit{background:#0e0b06;text-align:center;padding:.75rem;font-family:'Crimson Pro',serif;font-style:italic;font-size:.85rem;color:rgba(201,168,76,.5);letter-spacing:.1em}
+  @keyframes fadein{from{opacity:0}to{opacity:1}}
+  @keyframes slideup{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+  @media(max-width:768px){nav{padding:1.5rem 2rem}nav ul{display:none}.hero-content{padding:2rem}.story{grid-template-columns:1fr}.story-img-wrap{height:55vw}.story-text{padding:3rem 2rem}.menu{padding:4rem 1.5rem}.menu-grid{grid-template-columns:1fr}.menu-item{grid-template-columns:1fr}.menu-img{min-height:200px}.gallery{grid-template-columns:1fr;height:auto}.gal-item{height:220px}footer{padding:2rem;flex-direction:column;align-items:flex-start}.footer-info{text-align:left}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">Napoli Fuoco</div>
+  <ul>
+    <li><a href="#" data-fi="Menu" data-en="Menu">Menu</a></li>
+    <li><a href="#" data-fi="Meistä" data-en="About">Meistä</a></li>
+    <li><a href="#" data-fi="Varaukset" data-en="Reservations">Varaukset</a></li>
+  </ul>
+  <div class="lang-sw">
+    <button id="btn-fi" class="active" onclick="setLang('fi')">FI</button>
+    <span class="sep">|</span>
+    <button id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <img class="hero-img" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1800&q=80" alt="Pizzerian tunnelma">
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="eyebrow" id="eyebrow">Napoli — Helsinki — 1987</div>
+    <h1 id="hero-h1">VERA<span>CE</span><br>PIZZA</h1>
+    <p class="hero-desc" id="hero-desc">Aito napolilainen pizza puulämmitteisestä uunista. Yksinkertaiset raaka-aineet, monimutkaiset maut.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" id="cta-btn">TILAA NYT</button>
+      <span class="open-badge" id="open-badge">Avoinna tänään 11–23</span>
+    </div>
+  </div>
+</section>
+
+<div class="stripe">
+  <div class="stripe-items">
+    <span>Margherita</span><span>Diavola</span><span>Quattro Stagioni</span><span>Bufala</span><span>Tartufo</span><span>Marinara</span>
+    <span>Margherita</span><span>Diavola</span><span>Quattro Stagioni</span><span>Bufala</span><span>Tartufo</span><span>Marinara</span>
+  </div>
+</div>
+
+<section class="story">
+  <div class="story-img-wrap">
+    <img class="story-img" src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=900&q=80" alt="Pizzataikinan valmistus">
+  </div>
+  <div class="story-text">
+    <div class="story-label" id="story-label">Tarinamme</div>
+    <div class="story-title" id="story-title">KÄSIN TEHTY,<br>SUURELLA SYDÄMELLÄ</div>
+    <p class="story-body" id="story-body">Jokainen pizza alkaa 72 tuntia fermentoituneesta taikinasta. Jauhoja Napolista, tomaatteja San Marzanon laaksoista, mozzarellaa Campaniasta. Ei oikoteitä.</p>
+    <div class="story-stats">
+      <div class="stat-item"><div class="stat-num">72h</div><div class="stat-lbl" id="stat1">Taikinan fermentointi</div></div>
+      <div class="stat-item"><div class="stat-num">485°</div><div class="stat-lbl" id="stat2">Uunin lämpötila</div></div>
+      <div class="stat-item"><div class="stat-num">90s</div><div class="stat-lbl" id="stat3">Paistoaika</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="menu">
+  <div class="section-title" id="menu-title">SUOSI<span>KIT</span></div>
+  <div class="divider"></div>
+  <div class="menu-grid">
+    <div class="menu-item">
+      <div class="menu-img-wrap"><img class="menu-img" src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400&q=80" alt="Margherita"></div>
+      <div class="menu-info"><div class="item-name">Margherita DOC</div><div class="item-desc" id="m1-desc">San Marzano-tomaatti, fior di latte, tuore basilika, EV-oliiviöljy</div><div class="item-price">14 €</div></div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-img-wrap"><img class="menu-img" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80" alt="Diavola"></div>
+      <div class="menu-info"><div class="item-name">Diavola</div><div class="item-desc" id="m2-desc">Spianata-salamia, nduja, chili, sulatettu mozzarella</div><div class="item-price">17 €</div></div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-img-wrap"><img class="menu-img" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&q=80" alt="Tartufo"></div>
+      <div class="menu-info"><div class="item-name">Tartufo e Funghi</div><div class="item-desc" id="m3-desc">Tryffeliöljy, portobello, fontina, rucola, parmesaani</div><div class="item-price">19 €</div></div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-img-wrap"><img class="menu-img" src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=400&q=80" alt="Quattro Carni"></div>
+      <div class="menu-info"><div class="item-name">Quattro Carni</div><div class="item-desc" id="m4-desc">Prosciutto, pancetta, salame piccante, mortadella</div><div class="item-price">18 €</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="gallery">
+  <div class="gal-item"><img src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=900&q=80" alt="Pizzauuni"><span class="gal-label" id="gal1">UUNI</span></div>
+  <div class="gal-item"><img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80" alt="Raaka-aineet"><span class="gal-label" id="gal2">RAAKA-AINEET</span></div>
+  <div class="gal-item"><img src="https://images.unsplash.com/photo-1458642849426-cfb724f15ef7?w=600&q=80" alt="Tunnelma"><span class="gal-label" id="gal3">TUNNELMA</span></div>
+</div>
+
+<footer>
+  <div class="footer-logo">NAPOLI FUOCO</div>
+  <div class="footer-info">Mannerheimintie 42, Helsinki<br>+358 9 123 4567 · info@napolifuoco.fi<br>Ma–Su 11:00–23:00</div>
+</footer>
+<div class="credit">© Tuomas Kuusisto</div>
+
+<script>
+var translations = {
+  fi: {
+    eyebrow: 'Napoli — Helsinki — 1987',
+    h1: 'VERA<span style="color:var(--red)">CE</span><br>PIZZA',
+    desc: 'Aito napolilainen pizza puulämmitteisestä uunista. Yksinkertaiset raaka-aineet, monimutkaiset maut.',
+    cta: 'TILAA NYT', open: 'Avoinna tänään 11–23',
+    nav: ['Menu','Meistä','Varaukset'],
+    storyLabel: 'Tarinamme', storyTitle: 'KÄSIN TEHTY,<br>SUURELLA SYDÄMELLÄ',
+    storyBody: 'Jokainen pizza alkaa 72 tuntia fermentoituneesta taikinasta. Jauhoja Napolista, tomaatteja San Marzanon laaksoista, mozzarellaa Campaniasta. Ei oikoteitä.',
+    stat1: 'Taikinan fermentointi', stat2: 'Uunin lämpötila', stat3: 'Paistoaika',
+    menuTitle: 'SUOSI<span style="color:var(--red)">KIT</span>',
+    m1: 'San Marzano-tomaatti, fior di latte, tuore basilika, EV-oliiviöljy',
+    m2: 'Spianata-salamia, nduja, chili, sulatettu mozzarella',
+    m3: 'Tryffeliöljy, portobello, fontina, rucola, parmesaani',
+    m4: 'Prosciutto, pancetta, salame piccante, mortadella',
+    gal1: 'UUNI', gal2: 'RAAKA-AINEET', gal3: 'TUNNELMA'
+  },
+  en: {
+    eyebrow: 'Naples — Helsinki — 1987',
+    h1: 'TRUE<span style="color:var(--red)">LY</span><br>PIZZA',
+    desc: 'Authentic Neapolitan pizza from a wood-fired oven. Simple ingredients, complex flavours.',
+    cta: 'ORDER NOW', open: 'Open today 11–23',
+    nav: ['Menu','About','Reservations'],
+    storyLabel: 'Our Story', storyTitle: 'HANDMADE,<br>WITH GREAT HEART',
+    storyBody: 'Every pizza starts with a 72-hour fermented dough. Flour from Naples, tomatoes from San Marzano, mozzarella from Campania. No shortcuts.',
+    stat1: 'Dough fermentation', stat2: 'Oven temperature', stat3: 'Baking time',
+    menuTitle: 'FAVOUR<span style="color:var(--red)">ITES</span>',
+    m1: 'San Marzano tomato, fior di latte, fresh basil, EV olive oil',
+    m2: 'Spianata salami, nduja, chili, melted mozzarella',
+    m3: 'Truffle oil, portobello, fontina, rocket, parmesan',
+    m4: 'Prosciutto, pancetta, spicy salami, mortadella',
+    gal1: 'THE OVEN', gal2: 'INGREDIENTS', gal3: 'ATMOSPHERE'
+  }
+};
+
+function setLang(lang) {
+  var d = translations[lang];
+  document.getElementById('btn-fi').classList.toggle('active', lang === 'fi');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('eyebrow').textContent = d.eyebrow;
+  document.getElementById('hero-h1').innerHTML = d.h1;
+  document.getElementById('hero-desc').textContent = d.desc;
+  document.getElementById('cta-btn').textContent = d.cta;
+  document.getElementById('open-badge').innerHTML = '● ' + d.open;
+  var links = document.querySelectorAll('nav ul a');
+  for (var i = 0; i < links.length; i++) { links[i].textContent = d.nav[i]; }
+  document.getElementById('story-label').textContent = d.storyLabel;
+  document.getElementById('story-title').innerHTML = d.storyTitle;
+  document.getElementById('story-body').textContent = d.storyBody;
+  document.getElementById('stat1').textContent = d.stat1;
+  document.getElementById('stat2').textContent = d.stat2;
+  document.getElementById('stat3').textContent = d.stat3;
+  document.getElementById('menu-title').innerHTML = d.menuTitle;
+  document.getElementById('m1-desc').textContent = d.m1;
+  document.getElementById('m2-desc').textContent = d.m2;
+  document.getElementById('m3-desc').textContent = d.m3;
+  document.getElementById('m4-desc').textContent = d.m4;
+  document.getElementById('gal1').textContent = d.gal1;
+  document.getElementById('gal2').textContent = d.gal2;
+  document.getElementById('gal3').textContent = d.gal3;
+}
+</script>
+</body>
+</html>
