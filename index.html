@@ -66,11 +66,12 @@
   .trust-item span{font-size:1rem}
   h1{font-family:'Instrument Serif',serif;font-size:clamp(3.5rem,9vw,8.5rem);font-weight:400;line-height:.95;color:var(--ink);max-width:900px;opacity:0;animation:up .8s .25s forwards}
   h1 em{font-style:italic;color:var(--accent)}
-  .hero-sub-row{margin-top:3rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;opacity:0;animation:up .7s .45s forwards}
-  .hero-desc{font-size:1.05rem;line-height:1.75;color:var(--mid);max-width:480px;font-weight:400}
-  .hero-stat{text-align:right}
-  .stat-big{font-family:'Instrument Serif',serif;font-size:4rem;font-weight:400;line-height:1;color:var(--ink)}
-  .stat-small{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-top:.2rem}
+  .hero{padding:7rem 5% 5rem;position:relative;overflow:hidden;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;column-gap:3rem}
+  .hero h1{grid-column:1;grid-row:1;align-self:start}
+  .hero-stat{grid-column:2;grid-row:1;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-start;padding-top:1.5rem;opacity:0;animation:up .7s .55s forwards}
+  .stat-big{font-family:'Instrument Serif',serif;font-size:5rem;font-weight:400;line-height:1;color:var(--ink)}
+  .stat-small{font-size:.85rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);text-align:right;margin-top:.3rem}
+  .hero-sub-row{grid-column:1 / -1;grid-row:2;margin-top:3rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;opacity:0;animation:up .7s .45s forwards}
   .section-divider{padding:0 5%;margin:3rem 0 4rem;display:flex;align-items:center;gap:1.5rem}
   .divider-line{flex:1;height:1px;background:var(--border)}
   .divider-label{font-size:.68rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--mid);white-space:nowrap}
@@ -145,7 +146,7 @@
   footer{border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:var(--mid)}
   @keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
   @media(max-width:900px){.projects{grid-template-columns:1fr}.cta-section{grid-template-columns:1fr}.cta-right{align-items:flex-start}.cta-sub{text-align:left}h1{font-size:clamp(3rem,10vw,5rem)}}
-  @media(max-width:600px){.nav-right{gap:.5rem}.nav-contact{font-size:.68rem;padding:.5rem .9rem;letter-spacing:.02em}.hero{padding:5rem 5% 3rem}.hero-sub-row{flex-direction:column;align-items:flex-start}.hero-stat{text-align:left}.projects{grid-template-columns:1fr}.cta-section{padding:3rem 5%}footer{flex-direction:column;gap:.5rem;text-align:center}}
+  @media(max-width:600px){.nav-right{gap:.5rem}.nav-contact{font-size:.68rem;padding:.5rem .9rem;letter-spacing:.02em}.hero{padding:5rem 5% 3rem;grid-template-columns:1fr;grid-template-rows:auto auto auto}.hero h1{grid-column:1}.hero-stat{grid-column:1;grid-row:2;align-items:flex-start;padding-top:1rem}.stat-small{text-align:left}.hero-sub-row{grid-column:1}.projects{grid-template-columns:1fr}.cta-section{padding:3rem 5%}footer{flex-direction:column;gap:.5rem;text-align:center}}
 </style>
 </head>
 <body>
@@ -166,10 +167,10 @@
   <h1 id="hero-h1">Sivut, jotka<br><em>erottuvat</em><br>joukosta</h1>
   <div class="hero-sub-row">
     <p class="hero-desc" id="hero-desc">Teen yrityksellesi kotisivut, jotka näyttävät hyvältä, toimivat erinomaisesti ja kertovat juuri sen, mitä asiakkaasi tarvitsee kuulla.</p>
-    <div class="hero-stat">
-      <div class="stat-big">6</div>
-      <div class="stat-small" id="stat-small">esimerkkityötä alla</div>
-    </div>
+  </div>
+  <div class="hero-stat">
+    <div class="stat-big">6</div>
+    <div class="stat-small" id="stat-small">esimerkkityötä alla</div>
   </div>
 </section>
 
