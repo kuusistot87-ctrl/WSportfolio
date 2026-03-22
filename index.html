@@ -159,7 +159,9 @@
   .pricing-card.featured .pricing-cta{background:var(--accent);color:white;border-color:var(--accent)}
   .pricing-cta:hover{background:var(--accent);color:white;border-color:var(--accent)}
   .pricing-note{text-align:center;margin-top:2rem;font-size:.78rem;color:var(--mid)}
-  @media(max-width:900px){.pricing-grid{grid-template-columns:1fr}}
+  .pricing-extra-title{font-size:.68rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--mid);margin-top:4rem;margin-bottom:1.5rem}
+  .pricing-extra-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+  @media(max-width:900px){.pricing-grid{grid-template-columns:1fr}.pricing-extra-grid{grid-template-columns:1fr}}
   .cta-section{margin:0 5% 8rem;background:#2A2720;border-radius:24px;padding:5rem 6%;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;overflow:hidden;position:relative}
   .cta-section::before{content:'?';position:absolute;font-family:'Instrument Serif',serif;font-size:28rem;color:rgba(255,255,255,.03);right:-2rem;top:-4rem;line-height:1;pointer-events:none}
   .cta-label{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:1rem}
@@ -412,6 +414,39 @@
 
   </div>
   <p class="pricing-note" id="pricing-note">Hintoihin lisätään ALV 25,5%. Hosting ja domain eivät sisälly hintaan.</p>
+
+  <div class="pricing-extra-title" id="pricing-extra-title">Lisäpalvelut</div>
+  <div class="pricing-extra-grid">
+
+    <div class="pricing-card">
+      <div class="pricing-name" id="p4-name">Ylläpito & muutostyöt</div>
+      <div class="pricing-price">50<span>€/h</span></div>
+      <div class="pricing-desc" id="p4-desc">Tarvitsetko päivityksiä tai pieniä muutoksia sivustoosi? Hoidan ne puolestasi nopeasti ja vaivattomasti.</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature" id="p4-f1">Tekstien & kuvien päivitys</div>
+        <div class="pricing-feature" id="p4-f2">Uudet osiot tai sivut</div>
+        <div class="pricing-feature" id="p4-f3">Tekniset korjaukset</div>
+        <div class="pricing-feature" id="p4-f4">Laskutetaan toteutuneen ajan mukaan</div>
+      </div>
+      <button class="pricing-cta" id="p4-cta" onclick="window.location.href='mai'+'lto:'+'Kuusistot87'+'@'+'gmail.com'">Ota yhteyttä</button>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-name" id="p5-name">Käyttöönotto & opastus</div>
+      <div class="pricing-price"><span style="font-size:1.1rem;font-family:'Syne',sans-serif;color:var(--accent);font-weight:700" id="p5-price">Sisältyy palveluun</span></div>
+      <div class="pricing-desc" id="p5-desc">Jokaisen projektin yhteydessä opastän sinut sivuston käyttöönottoon — domain, hosting ja kaikki kontrolli sinulle.</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature" id="p5-f1">Domain & hosting -opastus</div>
+        <div class="pricing-feature" id="p5-f2">Sivuston julkaisu yhdessä</div>
+        <div class="pricing-feature" id="p5-f3">Täysi omistajuus sinulle</div>
+        <div class="pricing-feature" id="p5-f4">Ei piilokuluja</div>
+      </div>
+      <button class="pricing-cta" id="p5-cta" onclick="window.location.href='mai'+'lto:'+'Kuusistot87'+'@'+'gmail.com'">Kysy lisää</button>
+    </div>
+
+  </div>
 </section>
 
 <div class="cta-section">
@@ -473,7 +508,12 @@ var translations = {
     p2F1:'4–7 sivua', p2F2:'Mobiiliystävällinen', p2F3:'Yhteydenottolomake', p2F4:'Kaksikielinen (FI/EN)', p2F5:'Toimitusaika n. 2 viikkoa', p2Cta:'Pyydä tarjous',
     p3Name:'Premium', p3From:'alkaen', p3Desc:'Yrityksille, jotka haluavat täysin yksilöllisen ja viimeistellyn verkkosivuston.',
     p3F1:'8+ sivua', p3F2:'Kaikki Pro-ominaisuudet', p3F3:'Animaatiot & erikoisefektit', p3F4:'SEO-optimointi', p3F5:'Toimitusaika sovitaan', p3Cta:'Pyydä tarjous',
-    pricingNote:'Hintoihin lisätään ALV 25,5%. Hosting ja domain eivät sisälly hintaan.'
+    pricingNote:'Hintoihin lisätään ALV 25,5%. Hosting ja domain eivät sisälly hintaan.',
+    pricingExtraTitle:'Lisäpalvelut',
+    p4Name:'Ylläpito & muutostyöt', p4Desc:'Tarvitsetko päivityksiä tai pieniä muutoksia sivustoosi? Hoidan ne puolestasi nopeasti ja vaivattomasti.',
+    p4F1:'Tekstien & kuvien päivitys', p4F2:'Uudet osiot tai sivut', p4F3:'Tekniset korjaukset', p4F4:'Laskutetaan toteutuneen ajan mukaan', p4Cta:'Ota yhteyttä',
+    p5Name:'Käyttöönotto & opastus', p5Price:'Sisältyy palveluun', p5Desc:'Jokaisen projektin yhteydessä opastän sinut sivuston käyttöönottoon — domain, hosting ja kaikki kontrolli sinulle.',
+    p5F1:'Domain & hosting -opastus', p5F2:'Sivuston julkaisu yhdessä', p5F3:'Täysi omistajuus sinulle', p5F4:'Ei piilokuluja', p5Cta:'Kysy lisää'
   },
   en: {
     heroLabel: 'Happy clients',
@@ -515,7 +555,12 @@ var translations = {
     p2F1:'4–7 pages', p2F2:'Mobile-friendly', p2F3:'Contact form', p2F4:'Bilingual (FI/EN)', p2F5:'Delivery ~2 weeks', p2Cta:'Request a quote',
     p3Name:'Premium', p3From:'from', p3Desc:'For businesses that want a fully custom and polished website.',
     p3F1:'8+ pages', p3F2:'All Pro features', p3F3:'Animations & special effects', p3F4:'SEO optimisation', p3F5:'Delivery by agreement', p3Cta:'Request a quote',
-    pricingNote:'VAT 25.5% will be added. Hosting and domain are not included in the price.'
+    pricingNote:'VAT 25.5% will be added. Hosting and domain are not included in the price.',
+    pricingExtraTitle:'Additional services',
+    p4Name:'Maintenance & updates', p4Desc:'Need updates or small changes to your site? I\'ll handle them quickly and effortlessly.',
+    p4F1:'Text & image updates', p4F2:'New sections or pages', p4F3:'Technical fixes', p4F4:'Billed by actual time spent', p4Cta:'Get in touch',
+    p5Name:'Setup & onboarding', p5Price:'Included in the service', p5Desc:'With every project I guide you through the setup — domain, hosting and full control handed over to you.',
+    p5F1:'Domain & hosting guidance', p5F2:'Website launch together', p5F3:'Full ownership for you', p5F4:'No hidden costs', p5Cta:'Ask more'
   }
 };
 
@@ -606,6 +651,22 @@ function setLang(lang) {
   document.getElementById('p3-f5').textContent = d.p3F5;
   document.getElementById('p3-cta').textContent = d.p3Cta;
   document.getElementById('pricing-note').textContent = d.pricingNote;
+  document.getElementById('pricing-extra-title').textContent = d.pricingExtraTitle;
+  document.getElementById('p4-name').textContent = d.p4Name;
+  document.getElementById('p4-desc').textContent = d.p4Desc;
+  document.getElementById('p4-f1').textContent = d.p4F1;
+  document.getElementById('p4-f2').textContent = d.p4F2;
+  document.getElementById('p4-f3').textContent = d.p4F3;
+  document.getElementById('p4-f4').textContent = d.p4F4;
+  document.getElementById('p4-cta').textContent = d.p4Cta;
+  document.getElementById('p5-name').textContent = d.p5Name;
+  document.getElementById('p5-price').textContent = d.p5Price;
+  document.getElementById('p5-desc').textContent = d.p5Desc;
+  document.getElementById('p5-f1').textContent = d.p5F1;
+  document.getElementById('p5-f2').textContent = d.p5F2;
+  document.getElementById('p5-f3').textContent = d.p5F3;
+  document.getElementById('p5-f4').textContent = d.p5F4;
+  document.getElementById('p5-cta').textContent = d.p5Cta;
 }
 
 // Inject email after page load to bypass Cloudflare
