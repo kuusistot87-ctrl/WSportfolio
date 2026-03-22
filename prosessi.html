@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Näin etenemme — Tuomas Kuusisto</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#1C1A14;--ink:#EDE9E0;--mid:#9A9282;--accent:#D4522A;--white:#252218;--border:rgba(237,233,224,0.1)}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Syne',sans-serif;overflow-x:hidden}
+
+  header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:1.25rem 5%;display:flex;justify-content:space-between;align-items:center}
+  .nav-name{font-size:.9rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+  .nav-label{font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--mid)}
+
+  .hero{padding:6rem 5% 4rem;border-bottom:1px solid var(--border)}
+  .hero-label{font-size:.68rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;display:flex;align-items:center;gap:.75rem}
+  .hero-label::before{content:'';display:block;width:24px;height:1.5px;background:var(--accent)}
+  h1{font-family:'Instrument Serif',serif;font-size:clamp(2.8rem,6vw,5.5rem);font-weight:400;line-height:1;color:var(--ink);max-width:800px}
+  h1 em{font-style:italic;color:var(--accent)}
+  .hero-desc{font-size:1.05rem;line-height:1.8;color:var(--mid);max-width:560px;margin-top:2rem;font-weight:400}
+
+  .steps{padding:0 5% 8rem}
+  .step{display:grid;grid-template-columns:80px 1fr;gap:0 3rem;padding:4rem 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+  .step.visible{opacity:1;transform:translateY(0)}
+  .step:last-child{border-bottom:none}
+  .step-num{font-family:'Instrument Serif',serif;font-size:4.5rem;font-weight:400;color:rgba(237,233,224,.08);line-height:1;padding-top:.25rem;text-align:right}
+  .step-content{}
+  .step-title{font-family:'Instrument Serif',serif;font-size:1.8rem;font-weight:400;color:var(--ink);margin-bottom:1rem;line-height:1.15}
+  .step-body{font-size:.93rem;line-height:1.85;color:var(--mid);font-weight:400;max-width:620px}
+  .step-body p{margin-bottom:.75rem}
+  .step-body a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(212,82,42,.3);transition:border-color .2s}
+  .step-body a:hover{border-color:var(--accent)}
+  .step-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:1rem 0}
+  .step-list li{display:flex;align-items:flex-start;gap:.75rem;font-size:.9rem;color:var(--mid);line-height:1.6}
+  .step-list li::before{content:'→';color:var(--accent);font-size:.8rem;flex-shrink:0;margin-top:.2rem}
+  .step-highlight{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--accent);padding:1.25rem 1.5rem;margin-top:1.25rem;font-size:.88rem;line-height:1.7;color:var(--ink)}
+  .step-highlight strong{color:var(--ink);font-weight:700}
+
+  .cta-block{margin:0 5% 6rem;background:var(--white);border:1px solid var(--border);border-radius:20px;padding:4rem;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap}
+  .cta-block-left h2{font-family:'Instrument Serif',serif;font-size:2rem;font-weight:400;color:var(--ink)}
+  .cta-block-left h2 em{font-style:italic;color:var(--accent)}
+  .cta-block-left p{font-size:.9rem;color:var(--mid);margin-top:.6rem;max-width:440px;line-height:1.7}
+  .cta-email{display:inline-flex;align-items:center;gap:.6rem;background:var(--accent);color:white;padding:1rem 2rem;border-radius:100px;font-size:.82rem;font-weight:700;letter-spacing:.05em;text-decoration:none;transition:background .2s,transform .15s;white-space:nowrap;cursor:pointer;border:none}
+  .cta-email:hover{background:#B83D1A;transform:scale(1.03)}
+
+  footer{border-top:1px solid var(--border);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:var(--mid)}
+
+  @media(max-width:700px){.step{grid-template-columns:1fr}.step-num{font-size:3rem;text-align:left;margin-bottom:.5rem}.cta-block{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-name">Tuomas Kuusisto</div>
+  <div class="nav-label">Näin etenemme</div>
+</header>
+
+<section class="hero">
+  <div class="hero-label">Prosessi</div>
+  <h1>Verkkosivuston toteutus:<br><em>Näin etenemme</em></h1>
+  <p class="hero-desc">Toteutan sivustot "avaimet käteen" -periaatteella. Huolehdin tekniikasta puolestasi, jotta sinä voit keskittyä yrityksesi pyörittämiseen. Tässä ovat askeleet unelmiesi sivustoon:</p>
+</section>
+
+<div class="steps">
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <div class="step-title">Esityöt ja materiaalit</div>
+      <div class="step-body">
+        <p>Projekti alkaa materiaalien keräämisellä. Tarvitsen sinulta:</p>
+        <ul class="step-list">
+          <li>Yrityksesi logon ja mahdolliset kuvat (autan tarvittaessa laadukkaiden kuvapankkikuvien etsimisessä).</li>
+          <li>Tekstiraakileet eli asiat, jotka haluat sivuilla sanoa.</li>
+          <li>2–3 referenssilinkkiä sivuista, joiden tyylistä tai toiminnoista pidät.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <div class="step-title">Sitoutuminen ja aloitus</div>
+      <div class="step-body">
+        <p>Kun materiaalit ovat kasassa, lähetän sinulle sähköpostitse 50&nbsp;% etumaksun laskun. Kun maksu on suoritettu, varaan kalenteristani ajan ja aloitan sivuston rakentamisen.</p>
+        <p>Tässä vaiheessa toimimme näin:</p>
+        <ul class="step-list">
+          <li>Käy osoitteessa <a href="https://www.hostingpalvelu.fi/" target="_blank">hostingpalvelu.fi</a> ja etsi yrityksellesi mieluinen verkko-osoite (domain), jos sellaista ei vielä ole.</li>
+          <li>Domainia ei tarvitse vielä varata – riittää, että varmistamme haluamasi osoitteen olevan vapaana. Minä hoidan teknisen varauksen puolestasi myöhemmin.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <div class="step-title">Kehitys ja ulkoasun hyväksyntä</div>
+      <div class="step-body">
+        <p>Rakennan sivuston toiveidesi pohjalta ja lähetän sinulle katselulinkin, josta pääset seuraamaan työn etenemistä livenä.</p>
+        <ul class="step-list">
+          <li>Käymme läpi ulkoasun ja teemme tarvittavat hienosäädöt.</li>
+          <li>Testaan, että kaikki toiminnot (kuten yhteydenottolomakkeet) ja mobiilinäkymä toimivat täydellisesti.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <div class="step-title">Domain ja webhotelli — sivuston koti</div>
+      <div class="step-body">
+        <p>Jotta sivusto saadaan julki ja saat käyttöösi yrityksen omat sähköpostit, autan sinua varaamaan sopivan palvelupaketin kotimaiselta <a href="https://www.hostingpalvelu.fi/" target="_blank">Hostingpalvelu.fi</a>-sivustolta.</p>
+        <ul class="step-list">
+          <li>Teen rekisteröinnin puolestasi sinun tiedoillasi, jotta omistajuus ja hallinta säilyvät 100&nbsp;% sinulla.</li>
+          <li>Suosittelen vähintään Mini-pakettia, jotta saat yrityssähköpostit ja tärkeät automaattiset varmuuskopiot. Voit <a href="https://www.hostingpalvelu.fi/webhotellit/webhotelli-vertailu/" target="_blank">vertailla paketteja täältä</a>.</li>
+          <li>Valittu paketti on helppo päivittää isompaan milloin tahansa yrityksesi kasvaessa.</li>
+        </ul>
+        <div class="step-highlight"><strong>Kustannukset:</strong> Domain ja webhotelli maksavat yhteensä noin 30–60&nbsp;€ vuodessa. Tämä on ainoa jatkuva ylläpitomaksu, joka sivustosta jää sinulle maksettavaksi.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-content">
+      <div class="step-title">Julkaisu ja "avainten luovutus"</div>
+      <div class="step-body">
+        <p>Kun sivusto on valmis ja loppumaksu suoritettu:</p>
+        <ul class="step-list">
+          <li>Siirrän sivuston lopulliseen osoitteeseen Hostingpalvelun palvelimelle.</li>
+          <li>Varmistan, että sivusto on suojattu (HTTPS/SSL) ja sähköpostit toimivat.</li>
+          <li>Toimitan sinulle kaikki hallintatunnukset ja selkeät ohjeet, joiden avulla voit vaihtaa salasanat ja hallinnoida sivujasi jatkossa täysin itsenäisesti.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="cta-block">
+  <div class="cta-block-left">
+    <h2>Valmis <em>aloittamaan</em>?</h2>
+    <p>Lähetä minulle viesti ja kohdassa 1 mainitut materiaalit — laitetaan yrityksesi digitaalinen näkyvyys kerralla kuntoon!</p>
+  </div>
+  <button class="cta-email" id="cta-btn">Lähetä viesti →</button>
+</div>
+
+<footer>
+  <span>© 2025 Tuomas Kuusisto</span>
+  <span id="footer-email">Kuusistot87(at)gmail.com</span>
+</footer>
+
+<script>
+// Scroll animations
+var steps = document.querySelectorAll('.step');
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, {threshold: 0.1});
+steps.forEach(function(s) { observer.observe(s); });
+// First step visible immediately
+if (steps[0]) steps[0].classList.add('visible');
+
+// Email inject
+window.addEventListener('DOMContentLoaded', function() {
+  var u = 'Kuusistot87';
+  var d = 'gmail.com';
+  var e = u + '@' + d;
+  var btn = document.getElementById('cta-btn');
+  btn.addEventListener('click', function() {
+    window.location.href = 'mailto:' + e;
+  });
+  document.getElementById('footer-email').textContent = e;
+});
+</script>
+</body>
+</html>

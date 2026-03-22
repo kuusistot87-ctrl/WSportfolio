@@ -74,7 +74,9 @@
   .stat-small{font-size:.85rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);text-align:right;margin-top:.3rem}
   .hero-sub-row{grid-column:1 / -1;grid-row:2;margin-top:3rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;opacity:0;animation:up .7s .45s forwards;position:relative;z-index:1}
   .hero-desc{font-size:1.05rem;line-height:1.75;color:var(--mid);max-width:480px;font-weight:400}
-  .section-divider{padding:0 5%;margin:3rem 0 4rem;display:flex;align-items:center;gap:1.5rem}
+  .tagline-section{padding:4rem 5%;display:flex;align-items:center;gap:2rem;border-bottom:1px solid var(--border)}
+  .tagline-line{width:40px;height:2px;background:var(--accent);flex-shrink:0}
+  .tagline-text{font-family:'Instrument Serif',serif;font-size:clamp(1.3rem,2.5vw,2rem);font-weight:400;font-style:italic;color:var(--ink);line-height:1.4}
   .divider-line{flex:1;height:1px;background:var(--border)}
   .divider-label{font-size:.68rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--mid);white-space:nowrap}
   .projects{padding:0 5% 8rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
@@ -209,6 +211,11 @@
   <div class="trust-item"><span>⭐</span> 5/5 asiakasarvio</div>
   <div class="trust-item"><span>⚡</span> Nopea toimitusaika</div>
   <div class="trust-item"><span>🇫🇮</span> Kotimainen tekijä</div>
+</div>
+
+<div class="tagline-section">
+  <div class="tagline-line"></div>
+  <div class="tagline-text" id="tagline-text">Toteutan sivustot "avaimet käteen" -periaatteella. Huolehdin tekniikasta puolestasi, jotta sinä voit keskittyä yrityksesi pyörittämiseen.</div>
 </div>
 
 <div class="section-divider">
@@ -474,6 +481,7 @@ var translations = {
     heroDesc: 'Teen yrityksellesi kotisivut, jotka näyttävät hyvältä, toimivat erinomaisesti ja kertovat juuri sen, mitä asiakkaasi tarvitsee kuulla.',
     statSmall: 'esimerkkityötä alla',
     divider: 'Esimerkkityöt',
+    tagline: 'Toteutan sivustot "avaimet käteen" -periaatteella. Huolehdin tekniikasta puolestasi, jotta sinä voit keskittyä yrityksesi pyörittämiseen.',
     tagPizza: 'Ravintola', indPizza: 'Ravintola-ala',
     descPizza: 'Tulinen, italialainen katutunnelma. Tumma värimaailma, dramaattiset typografiat ja liikkuva menubanneri.',
     ptag1: 'Tumma teema', ptag2: 'Animaatiot', ptag3: 'Menu',
@@ -521,6 +529,7 @@ var translations = {
     heroDesc: 'I build websites for your business that look great, work flawlessly and tell exactly what your customers need to hear.',
     statSmall: 'example projects below',
     divider: 'Example work',
+    tagline: 'I deliver websites on a turnkey basis. I take care of the technical side so you can focus on running your business.',
     tagPizza: 'Restaurant', indPizza: 'Food & Beverage',
     descPizza: 'Fiery Italian street atmosphere. Dark colour palette, dramatic typography and an animated menu banner.',
     ptag1: 'Dark theme', ptag2: 'Animations', ptag3: 'Menu',
@@ -572,6 +581,7 @@ function setLang(lang) {
   document.getElementById('hero-desc').textContent = d.heroDesc;
   document.getElementById('stat-small').textContent = d.statSmall;
   document.getElementById('divider-label').textContent = d.divider;
+  document.getElementById('tagline-text').textContent = d.tagline;
   document.getElementById('tag-pizza').textContent = d.tagPizza;
   document.getElementById('ind-pizza').textContent = d.indPizza;
   document.getElementById('desc-pizza').textContent = d.descPizza;
