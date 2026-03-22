@@ -30,13 +30,13 @@
   .step-num{font-family:'Instrument Serif',serif;font-size:4.5rem;font-weight:400;color:rgba(237,233,224,.08);line-height:1;padding-top:.25rem;text-align:right}
   .step-content{}
   .step-title{font-family:'Instrument Serif',serif;font-size:1.8rem;font-weight:400;color:var(--ink);margin-bottom:1rem;line-height:1.15}
-  .step-body{font-size:.93rem;line-height:1.85;color:var(--mid);font-weight:400;max-width:620px}
+  .step-body{font-size:.93rem;line-height:1.85;color:var(--mid);font-weight:400;max-width:620px;overflow-wrap:break-word}
   .step-body p{margin-bottom:.75rem}
-  .step-body a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(212,82,42,.3);transition:border-color .2s}
+  .step-body a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(212,82,42,.3);transition:border-color .2s;white-space:nowrap}
   .step-body a:hover{border-color:var(--accent)}
   .step-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:1rem 0}
-  .step-list li{display:flex;align-items:flex-start;gap:.75rem;font-size:.9rem;color:var(--mid);line-height:1.6}
-  .step-list li::before{content:'→';color:var(--accent);font-size:.8rem;flex-shrink:0;margin-top:.2rem}
+  .step-list li{display:block;padding-left:1.25rem;position:relative;font-size:.9rem;color:var(--mid);line-height:1.6;margin-bottom:.5rem}
+  .step-list li::before{content:'→';color:var(--accent);font-size:.8rem;position:absolute;left:0;top:.1rem}
   .step-highlight{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--accent);padding:1.25rem 1.5rem;margin-top:1.25rem;font-size:.88rem;line-height:1.7;color:var(--ink)}
   .step-highlight strong{color:var(--ink);font-weight:700}
 
@@ -90,8 +90,8 @@
         <p>Kun materiaalit ovat kasassa, lähetän sinulle sähköpostitse 50&nbsp;% etumaksun laskun. Kun maksu on suoritettu, varaan kalenteristani ajan ja aloitan sivuston rakentamisen.</p>
         <p>Tässä vaiheessa toimimme näin:</p>
         <ul class="step-list">
-          <li>Käy osoitteessa <a href="https://www.hostingpalvelu.fi/" target="_blank">hostingpalvelu.fi</a> ja etsi yrityksellesi mieluinen verkko-osoite (domain), jos sellaista ei vielä ole.</li>
-          <li>Domainia ei tarvitse vielä varata – riittää, että varmistamme haluamasi osoitteen olevan vapaana. Minä hoidan teknisen varauksen puolestasi myöhemmin.</li>
+          <li>Käy osoitteessa <a href="https://www.hostingpalvelu.fi/" target="_blank">Hostingpalvelu.fi</a> — etsi yrityksellesi mieluinen verkko-osoite (domain), jos sellaista ei vielä ole.</li>
+          <li>Älä osta vielä domainia – riittää, että varmistamme haluamasi osoitteen olevan vapaana. Minä hoidan teknisen varauksen puolestasi myöhemmin.</li>
         </ul>
       </div>
     </div>
@@ -119,7 +119,7 @@
         <p>Jotta sivusto saadaan julki ja saat käyttöösi yrityksen omat sähköpostit, autan sinua varaamaan sopivan palvelupaketin kotimaiselta <a href="https://www.hostingpalvelu.fi/" target="_blank">Hostingpalvelu.fi</a>-sivustolta.</p>
         <ul class="step-list">
           <li>Teen rekisteröinnin puolestasi sinun tiedoillasi, jotta omistajuus ja hallinta säilyvät 100&nbsp;% sinulla.</li>
-          <li>Suosittelen vähintään Mini-pakettia, jotta saat yrityssähköpostit ja tärkeät automaattiset varmuuskopiot. Voit <a href="https://www.hostingpalvelu.fi/webhotellit/webhotelli-vertailu/" target="_blank">vertailla paketteja täältä</a>.</li>
+          <li>Suosittelen vähintään Mini-pakettia — saat yrityssähköpostit ja automaattiset varmuuskopiot. <a href="https://www.hostingpalvelu.fi/webhotellit/webhotelli-vertailu/" target="_blank">Vertaile paketteja</a>.</li>
           <li>Valittu paketti on helppo päivittää isompaan milloin tahansa yrityksesi kasvaessa.</li>
         </ul>
         <div class="step-highlight"><strong>Kustannukset:</strong> Domain ja webhotelli maksavat yhteensä noin 30–60&nbsp;€ vuodessa. Tämä on ainoa jatkuva ylläpitomaksu, joka sivustosta jää sinulle maksettavaksi.</div>
