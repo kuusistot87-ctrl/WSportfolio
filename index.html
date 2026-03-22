@@ -136,6 +136,30 @@
   .card-desc{font-size:.83rem;color:var(--mid);line-height:1.65;font-weight:400}
   .card-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:1.25rem}
   .tag{background:var(--bg);border:1px solid var(--border);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .7rem;border-radius:100px;color:var(--mid)}
+  .pricing{padding:7rem 5%;background:var(--bg)}
+  .pricing-header{text-align:center;margin-bottom:4rem}
+  .pricing-label{font-size:.68rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+  .pricing-title{font-family:'Instrument Serif',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:400;color:var(--ink)}
+  .pricing-title em{font-style:italic}
+  .pricing-sub{font-size:.95rem;color:var(--mid);margin-top:.75rem}
+  .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .pricing-card{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:2.5rem;display:flex;flex-direction:column;position:relative;transition:transform .3s,box-shadow .3s}
+  .pricing-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.2)}
+  .pricing-card.featured{border-color:var(--accent);background:#2A1F1A}
+  .pricing-featured-tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--accent);color:white;font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.35rem 1rem;border-radius:100px;white-space:nowrap}
+  .pricing-name{font-size:.75rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem}
+  .pricing-price{font-family:'Instrument Serif',serif;font-size:3.5rem;font-weight:400;color:var(--ink);line-height:1}
+  .pricing-price span{font-size:1.2rem;font-family:'Syne',sans-serif;font-weight:400;color:var(--mid)}
+  .pricing-desc{font-size:.85rem;color:var(--mid);margin-top:.75rem;line-height:1.6}
+  .pricing-divider{height:1px;background:var(--border);margin:1.75rem 0}
+  .pricing-features{display:flex;flex-direction:column;gap:.7rem;flex:1}
+  .pricing-feature{display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;color:var(--mid);line-height:1.5}
+  .pricing-feature::before{content:'✓';color:var(--accent);font-weight:700;font-size:.85rem;flex-shrink:0;margin-top:.05rem}
+  .pricing-cta{margin-top:2rem;display:block;text-align:center;padding:.9rem;border:1px solid var(--border);font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);cursor:pointer;transition:background .2s,color .2s,border-color .2s;background:none}
+  .pricing-card.featured .pricing-cta{background:var(--accent);color:white;border-color:var(--accent)}
+  .pricing-cta:hover{background:var(--accent);color:white;border-color:var(--accent)}
+  .pricing-note{text-align:center;margin-top:2rem;font-size:.78rem;color:var(--mid)}
+  @media(max-width:900px){.pricing-grid{grid-template-columns:1fr}}
   .cta-section{margin:0 5% 8rem;background:#2A2720;border-radius:24px;padding:5rem 6%;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;overflow:hidden;position:relative}
   .cta-section::before{content:'?';position:absolute;font-family:'Instrument Serif',serif;font-size:28rem;color:rgba(255,255,255,.03);right:-2rem;top:-4rem;line-height:1;pointer-events:none}
   .cta-label{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:1rem}
@@ -333,6 +357,63 @@
 
 </div>
 
+<section class="pricing">
+  <div class="pricing-header">
+    <div class="pricing-label" id="pricing-label">Hinnasto</div>
+    <div class="pricing-title" id="pricing-title">Selkeä hinta, <em>ei yllätyksiä</em></div>
+    <p class="pricing-sub" id="pricing-sub">Hinnat ovat suuntaa-antavia. Pyydä tarjous niin räätälöidään juuri sinulle sopiva paketti.</p>
+  </div>
+  <div class="pricing-grid">
+
+    <div class="pricing-card">
+      <div class="pricing-name" id="p1-name">Perus</div>
+      <div class="pricing-price">399<span>€</span></div>
+      <div class="pricing-desc" id="p1-desc">Sopii aloittaville yrityksille, jotka tarvitsevat yksinkertaisen mutta ammattimaisen verkkosivun.</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature" id="p1-f1">1–3 sivua</div>
+        <div class="pricing-feature" id="p1-f2">Mobiiliystävällinen</div>
+        <div class="pricing-feature" id="p1-f3">Yhteydenottopainike</div>
+        <div class="pricing-feature" id="p1-f4">Toimitusaika n. 1 viikko</div>
+      </div>
+      <button class="pricing-cta" id="p1-cta" onclick="window.location.href='mai'+'lto:'+'Kuusistot87'+'@'+'gmail.com'">Pyydä tarjous</button>
+    </div>
+
+    <div class="pricing-card featured">
+      <div class="pricing-featured-tag" id="p2-tag">Suosituin</div>
+      <div class="pricing-name" id="p2-name">Pro</div>
+      <div class="pricing-price">799<span>€</span></div>
+      <div class="pricing-desc" id="p2-desc">Yrityksille, jotka tarvitsevat monipuolisemman sivuston palveluidensa esittelyyn.</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature" id="p2-f1">4–7 sivua</div>
+        <div class="pricing-feature" id="p2-f2">Mobiiliystävällinen</div>
+        <div class="pricing-feature" id="p2-f3">Yhteydenottolomake</div>
+        <div class="pricing-feature" id="p2-f4">Kaksikielinen (FI/EN)</div>
+        <div class="pricing-feature" id="p2-f5">Toimitusaika n. 2 viikkoa</div>
+      </div>
+      <button class="pricing-cta" id="p2-cta" onclick="window.location.href='mai'+'lto:'+'Kuusistot87'+'@'+'gmail.com'">Pyydä tarjous</button>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-name" id="p3-name">Premium</div>
+      <div class="pricing-price"><span style="font-size:.85rem;font-family:'Syne',sans-serif;color:var(--mid)" id="p3-from">alkaen</span> 1390<span>€</span></div>
+      <div class="pricing-desc" id="p3-desc">Yrityksille, jotka haluavat täysin yksilöllisen ja viimeistellyn verkkosivuston.</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-features">
+        <div class="pricing-feature" id="p3-f1">8+ sivua</div>
+        <div class="pricing-feature" id="p3-f2">Kaikki Pro-ominaisuudet</div>
+        <div class="pricing-feature" id="p3-f3">Animaatiot & erikoisefektit</div>
+        <div class="pricing-feature" id="p3-f4">SEO-optimointi</div>
+        <div class="pricing-feature" id="p3-f5">Toimitusaika sovitaan</div>
+      </div>
+      <button class="pricing-cta" id="p3-cta" onclick="window.location.href='mai'+'lto:'+'Kuusistot87'+'@'+'gmail.com'">Pyydä tarjous</button>
+    </div>
+
+  </div>
+  <p class="pricing-note" id="pricing-note">Hintoihin lisätään ALV 25,5%. Hosting ja domain eivät sisälly hintaan.</p>
+</section>
+
 <div class="cta-section">
   <div>
     <div class="cta-label" id="cta-label">Seuraava projekti</div>
@@ -384,7 +465,15 @@ var translations = {
     ctaTitle: 'Haluatko <em style="font-style:italic;color:var(--accent)">sinulle</em><br>sopivan sivuston?',
     ctaSub: 'Jokaiselle yritykselle oma tyyli. Kerro tarpeistasi, niin tehdään juuri sinulle sopiva sivu.',
     ctaBtn: 'Lähetä sähköpostia →',
-    footerRight: 'Kotisivut yrityksille'
+    footerRight: 'Kotisivut yrityksille',
+    pricingLabel:'Hinnasto', pricingTitle:'Selkeä hinta, <em>ei yllätyksiä</em>', pricingSub:'Hinnat ovat suuntaa-antavia. Pyydä tarjous niin räätälöidään juuri sinulle sopiva paketti.',
+    p1Name:'Perus', p1Desc:'Sopii aloittaville yrityksille, jotka tarvitsevat yksinkertaisen mutta ammattimaisen verkkosivun.',
+    p1F1:'1–3 sivua', p1F2:'Mobiiliystävällinen', p1F3:'Yhteydenottopainike', p1F4:'Toimitusaika n. 1 viikko', p1Cta:'Pyydä tarjous',
+    p2Tag:'Suosituin', p2Name:'Pro', p2Desc:'Yrityksille, jotka tarvitsevat monipuolisemman sivuston palveluidensa esittelyyn.',
+    p2F1:'4–7 sivua', p2F2:'Mobiiliystävällinen', p2F3:'Yhteydenottolomake', p2F4:'Kaksikielinen (FI/EN)', p2F5:'Toimitusaika n. 2 viikkoa', p2Cta:'Pyydä tarjous',
+    p3Name:'Premium', p3From:'alkaen', p3Desc:'Yrityksille, jotka haluavat täysin yksilöllisen ja viimeistellyn verkkosivuston.',
+    p3F1:'8+ sivua', p3F2:'Kaikki Pro-ominaisuudet', p3F3:'Animaatiot & erikoisefektit', p3F4:'SEO-optimointi', p3F5:'Toimitusaika sovitaan', p3Cta:'Pyydä tarjous',
+    pricingNote:'Hintoihin lisätään ALV 25,5%. Hosting ja domain eivät sisälly hintaan.'
   },
   en: {
     heroLabel: 'Happy clients',
@@ -418,7 +507,15 @@ var translations = {
     ctaTitle: 'Want a website made<br>just for <em style="font-style:italic;color:var(--accent)">you</em>?',
     ctaSub: 'Every business gets its own style. Tell me what you need and I will build the perfect site for you.',
     ctaBtn: 'Send an email →',
-    footerRight: 'Websites for businesses'
+    footerRight: 'Websites for businesses',
+    pricingLabel:'Pricing', pricingTitle:'Clear pricing, <em>no surprises</em>', pricingSub:'Prices are indicative. Request a quote and we\'ll tailor the perfect package for you.',
+    p1Name:'Basic', p1Desc:'Ideal for new businesses that need a simple but professional website.',
+    p1F1:'1–3 pages', p1F2:'Mobile-friendly', p1F3:'Contact button', p1F4:'Delivery ~1 week', p1Cta:'Request a quote',
+    p2Tag:'Most popular', p2Name:'Pro', p2Desc:'For businesses that need a more versatile website to showcase their services.',
+    p2F1:'4–7 pages', p2F2:'Mobile-friendly', p2F3:'Contact form', p2F4:'Bilingual (FI/EN)', p2F5:'Delivery ~2 weeks', p2Cta:'Request a quote',
+    p3Name:'Premium', p3From:'from', p3Desc:'For businesses that want a fully custom and polished website.',
+    p3F1:'8+ pages', p3F2:'All Pro features', p3F3:'Animations & special effects', p3F4:'SEO optimisation', p3F5:'Delivery by agreement', p3Cta:'Request a quote',
+    pricingNote:'VAT 25.5% will be added. Hosting and domain are not included in the price.'
   }
 };
 
@@ -480,6 +577,35 @@ function setLang(lang) {
   document.getElementById('cta-sub').textContent = d.ctaSub;
   document.getElementById('cta-btn').textContent = d.ctaBtn;
   document.getElementById('footer-right').textContent = d.footerRight;
+  document.getElementById('pricing-label').textContent = d.pricingLabel;
+  document.getElementById('pricing-title').innerHTML = d.pricingTitle;
+  document.getElementById('pricing-sub').textContent = d.pricingSub;
+  document.getElementById('p1-name').textContent = d.p1Name;
+  document.getElementById('p1-desc').textContent = d.p1Desc;
+  document.getElementById('p1-f1').textContent = d.p1F1;
+  document.getElementById('p1-f2').textContent = d.p1F2;
+  document.getElementById('p1-f3').textContent = d.p1F3;
+  document.getElementById('p1-f4').textContent = d.p1F4;
+  document.getElementById('p1-cta').textContent = d.p1Cta;
+  document.getElementById('p2-tag').textContent = d.p2Tag;
+  document.getElementById('p2-name').textContent = d.p2Name;
+  document.getElementById('p2-desc').textContent = d.p2Desc;
+  document.getElementById('p2-f1').textContent = d.p2F1;
+  document.getElementById('p2-f2').textContent = d.p2F2;
+  document.getElementById('p2-f3').textContent = d.p2F3;
+  document.getElementById('p2-f4').textContent = d.p2F4;
+  document.getElementById('p2-f5').textContent = d.p2F5;
+  document.getElementById('p2-cta').textContent = d.p2Cta;
+  document.getElementById('p3-name').textContent = d.p3Name;
+  document.getElementById('p3-from').textContent = d.p3From;
+  document.getElementById('p3-desc').textContent = d.p3Desc;
+  document.getElementById('p3-f1').textContent = d.p3F1;
+  document.getElementById('p3-f2').textContent = d.p3F2;
+  document.getElementById('p3-f3').textContent = d.p3F3;
+  document.getElementById('p3-f4').textContent = d.p3F4;
+  document.getElementById('p3-f5').textContent = d.p3F5;
+  document.getElementById('p3-cta').textContent = d.p3Cta;
+  document.getElementById('pricing-note').textContent = d.pricingNote;
 }
 
 // Inject email after page load to bypass Cloudflare
